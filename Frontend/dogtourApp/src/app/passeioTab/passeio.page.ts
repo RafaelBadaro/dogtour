@@ -7,6 +7,14 @@ import { Component } from '@angular/core';
 })
 export class PasseioPage {
 
-  constructor() {}
+  constructor() { }
+
+  public agendar() {
+
+  }
+
+  public pedirAgora() {
+
+  }
 
 }
