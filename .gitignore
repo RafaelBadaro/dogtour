@@ -59,3 +59,9 @@ typings/
 
 # next.js build output
 .next
+
+# virtual environment
+Backend/api_env/
+
+# pycache
+Backend/__pycache__/
