@@ -1,5 +1,6 @@
 import json
 from nameko.web.handlers import http
+from utils.db import db as _db
 
 class HttpService(object):
     name = "multiply_service"

@@ -60,8 +60,17 @@ typings/
 # next.js build output
 .next
 
-# virtual environment
+# api virtual environment
 Backend/api_env/
 
 # pycache
 Backend/__pycache__/
+
+# service virtual environment
+Backend/service_env/
+
+Backend/utils/db/service_key/dogtour-app-key\.json
+
+Backend/utils/db/config\.py
+
+Backend/utils/db/__pycache__/
