@@ -1,0 +1,21 @@
+.container {
+  height: 100%;
+  background-color: springgreen;
+  .container__login {
+    text-align: center;
+    top: 33%;
+    position: relative;
+
+    .form {
+      padding: 24px 40px;
+
+      .form__campo {
+        padding: 5px 0;
+      }
+
+      .form__btn {
+        padding-top: 20px;
+      }
+    }
+  }
+}
