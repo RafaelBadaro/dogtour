@@ -9,6 +9,6 @@ export class AuthService {
 
   // TODO - MUDAR PARA RECEBER A TOKEN
   isLoggedIn(): boolean {
-    return true;
+    return false;
   }
 }
