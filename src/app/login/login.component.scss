@@ -1,11 +1,17 @@
 .container {
   height: 100%;
-  background-color: springgreen;
+  background-color: #445E6B;
   .container__login {
     text-align: center;
     top: 33%;
     position: relative;
 
+    .container__header {
+      .container__header__title{
+        font-size: 20px;
+        color: #E9DDCD;
+      }
+    }
     .form {
       padding: 24px 40px;
 
@@ -16,6 +22,10 @@
       .form__btn {
         padding-top: 20px;
       }
+    }
+
+    .container__span{
+      color: #E9DDCD;
     }
   }
 }
