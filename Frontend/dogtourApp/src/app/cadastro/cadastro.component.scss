@@ -1,32 +1,41 @@
 .container {
-    height: 100%;
-    background-color: #445E6B;
+  height: 100%;
+  background-color: #445e6b;
 
-    .container__cadastro {
-      text-align: center;
-      top: 9%;
-      position: relative;
-  
-      .container__header {
-        .container__header__title{
-          font-size: 20px;
-          color: #E9DDCD;
-        }
+  .container__icon {
+    display: flex;
+    padding-top: 30px;
+
+    ion-icon {
+      color: white;
+    }
+    .container__icon__texto {
+      color: white;
+    }
+  }
+
+  .container__cadastro {
+    text-align: center;
+    top: 5%;
+    position: relative;
+
+    .container__header {
+      .container__header__title {
+        font-size: 20px;
+        color: #e9ddcd;
       }
-
-      .form {
-        padding: 24px 40px;
-  
-        .form__campo {
-          padding: 5px 0;
-        }
-  
-        .form__btn {
-          padding-top: 20px;
-        }
-      }
-
     }
 
+    .form {
+      padding: 24px 40px;
+
+      .form__campo {
+        padding: 5px 0;
+      }
+
+      .form__btn {
+        padding-top: 20px;
+      }
+    }
   }
-  
+}
