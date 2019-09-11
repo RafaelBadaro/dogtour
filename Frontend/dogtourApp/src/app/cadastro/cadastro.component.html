@@ -1,0 +1,31 @@
+<div class="container">
+  <div class="container__cadastro">
+    <div class="container__header">
+      <span class="container__header__title">Bem vindo ao Caudastro</span>
+    </div>
+
+    <form class="form" [formGroup]="formCadastro" (ngSubmit)="realizarCadastro()">
+      <ion-item class="form__campo">
+        <ion-input class="form__campo__input" placeholder="Nome" formControlName="nome"></ion-input>
+      </ion-item>
+      <ion-item class="form__campo">
+        <ion-input class="form__campo__input" placeholder="CPF" formControlName="cpf"></ion-input>
+      </ion-item>
+      <ion-item class="form__campo">
+        <ion-input class="form__campo__input" placeholder="Email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item class="form__campo">
+        <ion-input class="form__campo__input" placeholder="Senha" type="password" formControlName="senha">
+        </ion-input>
+      </ion-item>
+
+      <div class="form__btn">
+        <ion-button expand="full" type="submit" [disabled]="formCadastro.invalid">Cadastrar</ion-button>
+      </div>
+    </form>
+
+
+  </div>
+
+
+</div>
