@@ -1,8 +1,8 @@
 <div class="container">
   <div class="container__login">
-    <ion-header class="container__header">
-        <ion-title class="container__header__title">Faça seu login</ion-title>
-    </ion-header>
+    <header class="container__header">
+        <h1 class="container__header__title">Faça seu login</h1>
+    </header>
 
 
     <form class="form" [formGroup]="formLogin" (ngSubmit)="realizarLogin()">
@@ -20,6 +20,6 @@
       </div>
     </form>
 
-    <span class="container__span"> Não possui caudastro? <a (click)="redirecionarCadastro()"> Registre-se agora</a></span>
+    <span class="container__span"> Não possui caudastro? <a [routerLink]="['/cadastro']"> Registre-se agora</a></span>
   </div>
 </div>
