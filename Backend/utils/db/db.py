@@ -1,20 +1,13 @@
 # Arquivo de configuração do banco de dados Firebase
 
-import pyrebase
-import config
+from .config import API_KEY, PATH2KEY
 
 config = {
-  "apiKey": config.API_KEY,
-  "authDomain": "dogtour-app.firebaseapp.com",
-  "databaseURL": "https://dogtour-app.firebaseio.com/",
-  "projectId": "dogtour-app",
-  "storageBucket": "dogtour-app.appspot.com",
-  "serviceAccount": config.PATH + "service_key/dogtour-app-key.json",
-  "messagingSenderId": "23953050783"
+  "apiKey": API_KEY,
+  "authDomain": "dog7our.firebaseapp.com",
+  "databaseURL": "https://dog7our.firebaseio.com",
+  "projectId": "dog7our",
+  "storageBucket": "dog7our.appspot.com",
+  "serviceAccount": PATH2KEY,
+  "messagingSenderId": "567221391737"
 }
-
-firebase = pyrebase.initialize_app(config)
-db = firebase.database()
-
-# Testando a conexção com o banco de dados
-db.child().update({"Nome": "Testonildo"})

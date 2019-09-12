@@ -74,3 +74,9 @@ Backend/utils/db/service_key/dogtour-app-key\.json
 Backend/utils/db/config\.py
 
 Backend/utils/db/__pycache__/
+
+Backend/services/__pycache__/
+
+Backend/config/__pycache__/
+
+Backend/utils/__pycache__/
