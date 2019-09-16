@@ -72,6 +72,27 @@ class APIGateway(object):
 
         return json.dumps({'name': name, 'idToken': idToken, 'error': errorMsg})
 
+    
+    @http('POST', '/user/dogs')
+    def create_dog(self, request):
+        """
+        Cadastro de cães
+
+        Exemplo de request:
+
+        {
+            
+        }
+
+        Exemplos de response:
+
+        {
+            
+        }
+        """
+        
+        return 0
+
 
     def requestIsValid(self, request):
         valid = False
