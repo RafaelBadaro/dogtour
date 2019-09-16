@@ -38,7 +38,7 @@ class APIGateway(object):
         }
 
         {
-            error = "Nao foi possivel criar o seu usuario, tente novamente!"
+            error = "Nao foi possivel criar o seu usuario, tente novamente."
         }
         """
 
@@ -81,17 +81,31 @@ class APIGateway(object):
         Exemplo de request:
 
         {
-            
+            ownerEmail =  "lucas@teste.com"
+            name = "Rex"
+            sex = "male"
+            size = "grande"
+            temper = "agressivo"
         }
 
         Exemplos de response:
 
         {
-            
+            errorMsg = "Nao foi possivel cadastrar o seu cao, tente novamente." 
+            ou
+            errorMsg = ""
         }
         """
+
+        ownerEmail = request.form['ownerEmail']
+        name = request.form['name']
+        sex = request.form['sex']
+        size = request.form['size']
+        temper = request.form['temper']
+
+        errorMsg = self.dogs_rpc.create(ownerEmail, name, sex, size, temper)
         
-        return 0
+        return json.dumps({'error': errorMsg})
 
 
     def requestIsValid(self, request):

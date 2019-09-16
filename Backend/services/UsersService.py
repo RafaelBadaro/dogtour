@@ -1,12 +1,9 @@
-import pyrebase
 from nameko.rpc import rpc
-from utils.db.db import config
 from nameko.web.handlers import http
+from .aux.DatabaseConnection import DatabaseConnection
 
-firebase = pyrebase.initialize_app(config)
-
-auth = firebase.auth()
-db = firebase.database()
+db = DatabaseConnection().db
+auth = DatabaseConnection().auth
 
 class UsersService:
     name = "users"
