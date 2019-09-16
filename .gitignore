@@ -80,3 +80,7 @@ Backend/services/__pycache__/
 Backend/config/__pycache__/
 
 Backend/utils/__pycache__/
+
+Backend/api/__pycache__/
+
+Backend/utils/db/service_key/

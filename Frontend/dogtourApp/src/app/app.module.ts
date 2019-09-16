@@ -8,16 +8,22 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
+import { CadastroComponent } from './cadastro/cadastro.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, LoginComponent, CadastroComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule { }
