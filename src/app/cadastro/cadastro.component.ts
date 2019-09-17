@@ -8,16 +8,18 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 })
 export class CadastroComponent implements OnInit {
 
-  
+
   formCadastro: FormGroup;
 
-  nome = new FormControl('',Validators.required);
+  nome = new FormControl('', Validators.required);
 
-  cpf = new FormControl('',Validators.required);
-  
-  email = new FormControl('',Validators.required);
+  cpf = new FormControl('', Validators.required);
 
-  senha = new FormControl('',Validators.required);
+  email = new FormControl('', Validators.required);
+
+  senha = new FormControl('', Validators.required);
+
+  role = new FormControl('', Validators.required);
 
   constructor(private formBuilder: FormBuilder) { }
 
@@ -28,11 +30,12 @@ export class CadastroComponent implements OnInit {
       cpf: this.cpf,
       email: this.email,
       senha: this.senha,
+      role: this.role,
     });
   }
 
-  realizarCadastro(){
-
+  realizarCadastro() {
+    console.log(this.formCadastro.value)
   }
 
 }
