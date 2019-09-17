@@ -14,13 +14,12 @@
     }
   }
 
-  .form__campo__cadastro__dog{
-    .form__campo__cadastro__dog__span{
+  .form__campo__span__wrapper{
+    display: flex;
+    padding-top: 15px;
 
-
-    }
-    .form__campo__cadastro__dog__btn{
-      
+    .form__campo__span{
+      color: white;
     }
   }
 
