@@ -5,6 +5,7 @@ from .aux.DatabaseConnection import DatabaseConnection
 db = DatabaseConnection().db
 auth = DatabaseConnection().auth
 
+
 class UsersService:
     name = "users"
 
@@ -27,7 +28,7 @@ class UsersService:
 
             errorMsg = ""
             return (idToken, errorMsg)
-        
+
         errorMsg = "Usuario ja cadastrado!"
         idToken = ""
 
@@ -47,12 +48,9 @@ class UsersService:
 
             errorMsg = ""
             return (name, idToken, errorMsg)
-        
-        
+
         name = ""
         idToken = ""
         errorMsg = "Usuario nao cadastrado!"
 
         return (name, idToken, errorMsg)
-
-    

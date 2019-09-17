@@ -4,6 +4,7 @@ from .aux.DatabaseConnection import DatabaseConnection
 
 db = DatabaseConnection().db
 
+
 class DogsService:
     name = "dogs"
 
@@ -12,19 +13,36 @@ class DogsService:
 
         fOwnerEmail = ownerEmail.replace(".", ",")
 
-        dogData = {
-            "name": name,
-            "sex": sex,
-            "size": size,
-            "temper": temper
-        }
+        if db.child(
+                'users'
+            ).child(
+                fOwnerEmail
+        ).child(
+                'dogs'
+        ).child(
+                name
+        ).get().val() is None:
 
-        ownerData = {}
-        ownerData[name] = True
+            dogData = {
+                "name": name,
+                "sex": sex,
+                "size": size,
+                "temper": temper
+            }
 
-        db.child("dogs").push(dogData)
-        db.child("users").child(fOwnerEmail).child("dogs").update(ownerData)
-        
-        return ""
+            ownerData = {}
+            ownerData[name] = True
 
-    
+            db.child("dogs").push(dogData)
+
+            db.child(
+                "users"
+            ).child(
+                fOwnerEmail
+            ).child(
+                "dogs"
+            ).update(ownerData)
+
+            return ""
+
+        return "Usuario ja possui um cao com este nome!"

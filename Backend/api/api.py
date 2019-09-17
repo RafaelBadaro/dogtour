@@ -2,13 +2,13 @@ import json
 from nameko.rpc import RpcProxy
 from nameko.web.handlers import http
 
+
 class APIGateway(object):
     name = 'api_gateway'
 
     users_rpc = RpcProxy('users')
     dogs_rpc = RpcProxy('dogs')
 
-    
     @http('POST', '/user')
     def create_user(self, request):
         """
@@ -47,11 +47,11 @@ class APIGateway(object):
         if not valid:
             return json.dumps({'error': "Nao foi possivel criar o seu usuario, tente novamente!"})
         else:
-            (idToken, errorMsg)  = self.users_rpc.create(name, email, password, role)
+            (idToken, errorMsg) = self.users_rpc.create(
+                name, email, password, role)
 
         return json.dumps({'name': name, 'idToken': idToken, 'error': errorMsg})
 
-    
     @http('POST', '/user/login')
     def login_user(self, request):
         """
@@ -68,11 +68,10 @@ class APIGateway(object):
         email = request.form['email']
         password = request.form['password']
 
-        (name, idToken, errorMsg)  = self.users_rpc.login(email, password)
+        (name, idToken, errorMsg) = self.users_rpc.login(email, password)
 
         return json.dumps({'name': name, 'idToken': idToken, 'error': errorMsg})
 
-    
     @http('POST', '/user/dogs')
     def create_dog(self, request):
         """
@@ -83,7 +82,7 @@ class APIGateway(object):
         {
             ownerEmail =  "lucas@teste.com"
             name = "Rex"
-            sex = "male"
+            sex = "macho"
             size = "grande"
             temper = "agressivo"
         }
@@ -104,13 +103,12 @@ class APIGateway(object):
         temper = request.form['temper']
 
         errorMsg = self.dogs_rpc.create(ownerEmail, name, sex, size, temper)
-        
-        return json.dumps({'error': errorMsg})
 
+        return json.dumps({'error': errorMsg})
 
     def requestIsValid(self, request):
         valid = False
-        
+
         name = request.form['name']
         email = request.form['email']
         password = request.form['password']
