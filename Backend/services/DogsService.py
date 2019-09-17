@@ -1,6 +1,6 @@
 from nameko.rpc import rpc
 from nameko.web.handlers import http
-from .aux.DatabaseConnection import DatabaseConnection
+from .auxiliar.DatabaseConnection import DatabaseConnection
 
 db = DatabaseConnection().db
 
