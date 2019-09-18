@@ -10,19 +10,15 @@
 
     <form class="form" [formGroup]="formCadastro" (ngSubmit)="realizarCadastro()">
       <ion-item color='secondary' class="form__campo">
-        <ion-input class="form__campo__input" placeholder="Nome" formControlName="nome"></ion-input>
-      </ion-item>
-      <ion-item color='secondary' class="form__campo">
-        <ion-input class="form__campo__input" placeholder="CPF" formControlName="cpf"></ion-input>
+        <ion-input class="form__campo__input" placeholder="Nome" formControlName="name"></ion-input>
       </ion-item>
       <ion-item color='secondary' class="form__campo">
         <ion-input class="form__campo__input" placeholder="Email" formControlName="email"></ion-input>
       </ion-item>
       <ion-item color='secondary' class="form__campo">
-        <ion-input class="form__campo__input" placeholder="Senha" type="password" formControlName="senha">
+        <ion-input class="form__campo__input" placeholder="Senha" type="password" formControlName="password">
         </ion-input>
       </ion-item>
-
 
       <div color='secondary' class="form__campo">
         <div class="form__campo__span__wrapper">
