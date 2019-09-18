@@ -13,11 +13,13 @@ import { AuthService } from './services/auth.service';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, CadastroComponent],
   entryComponents: [],
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, BrowserModule,
+    HttpClientModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
     StatusBar,
     SplashScreen,
