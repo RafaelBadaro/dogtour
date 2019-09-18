@@ -8,24 +8,15 @@
       <span class="container__header__title">Bem vindo ao DogTour</span>
     </div>
 
-    <form class="form" [formGroup]="formCadastroCachorro" (ngSubmit)="realizarCadastro()">
+    <form class="form" [formGroup]="formCadastro" (ngSubmit)="realizarCadastro()">
       <ion-item color="secondary" class="form__campo">
         <ion-input class="form__campo__input" placeholder="Nome" formControlName="name"></ion-input>
       </ion-item>
       <ion-item color="secondary" class="form__campo">
-        <ion-input
-          class="form__campo__input"
-          placeholder="Email"
-          formControlName="email"
-        ></ion-input>
+        <ion-input class="form__campo__input" placeholder="Email" formControlName="email"></ion-input>
       </ion-item>
       <ion-item color="secondary" class="form__campo">
-        <ion-input
-          class="form__campo__input"
-          placeholder="Senha"
-          type="password"
-          formControlName="password"
-        >
+        <ion-input class="form__campo__input" placeholder="Senha" type="password" formControlName="password">
         </ion-input>
       </ion-item>
 
@@ -47,9 +38,7 @@
       </div>
 
       <div class="form__btn">
-        <ion-button expand="full" type="submit" [disabled]="formCadastro.invalid"
-          >Cadastrar</ion-button
-        >
+        <ion-button expand="full" type="submit" [disabled]="formCadastro.invalid">Cadastrar</ion-button>
       </div>
     </form>
   </div>
