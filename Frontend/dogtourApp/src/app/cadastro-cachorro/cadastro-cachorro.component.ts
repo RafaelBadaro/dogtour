@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./cadastro-cachorro.component.scss']
 })
 export class CadastroCachorroComponent implements OnInit {
-  formCadastro: FormGroup;
+  formCadastroCachorro: FormGroup;
 
   name = new FormControl('', Validators.required);
 
@@ -21,7 +21,7 @@ export class CadastroCachorroComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
   ngOnInit() {
-    this.formCadastro = this.formBuilder.group({
+    this.formCadastroCachorro = this.formBuilder.group({
       name: this.name,
       size: this.size,
       temper: this.temper,
@@ -29,8 +29,8 @@ export class CadastroCachorroComponent implements OnInit {
     });
   }
 
-  realizarCadastro() {
-    this.http.post('localhost:8000/user', this.formCadastro.value).subscribe(
+  realizarCadastroCachorro() {
+    this.http.post('localhost:8000/user', this.formCadastroCachorro.value).subscribe(
       res => {
         console.log(res);
       },
