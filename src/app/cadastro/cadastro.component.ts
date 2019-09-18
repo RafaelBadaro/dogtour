@@ -12,13 +12,11 @@ export class CadastroComponent implements OnInit {
 
   formCadastro: FormGroup;
 
-  nome = new FormControl('', Validators.required);
-
-  cpf = new FormControl('', Validators.required);
+  name = new FormControl('', Validators.required);
 
   email = new FormControl('', Validators.required);
 
-  senha = new FormControl('', Validators.required);
+  password = new FormControl('', Validators.required);
 
   role = new FormControl('', Validators.required);
 
@@ -27,26 +25,25 @@ export class CadastroComponent implements OnInit {
   ngOnInit() {
 
     this.formCadastro = this.formBuilder.group({
-      nome: this.nome,
-      cpf: this.cpf,
+      name: this.name,
       email: this.email,
-      senha: this.senha,
+      password: this.password,
       role: this.role,
     });
   }
 
   realizarCadastro() {
-    this.http.post('localhost:8000/user', this.formCadastro).subscribe(
+    this.http.post('localhost:8000/user', this.formCadastro.value).subscribe(
       (res) => {
         console.log(res);
       },
       (err) => {
         console.log(err);
       },
-      ()=>{
+      () => {
         console.log('finalizei');
       }
-    )
+    );
   }
 
 }

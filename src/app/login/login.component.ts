@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   senha = new FormControl('',Validators.required);
 
-  constructor(private formBuilder: FormBuilder, private router: Router) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
 
@@ -27,7 +28,18 @@ export class LoginComponent implements OnInit {
    }
 
   realizarLogin() {
-    console.log("cliquei")
+    this.http.post('localhost:8000/user/login', this.formLogin).subscribe(
+      (res) => {
+        console.log(res);
+        this.router.navigate(['/tabs/passeioTab']);
+      },
+      (err) => {
+        console.log(err);
+      },
+      ()=>{
+        console.log('finalizei');
+      }
+    );
   }
 
 
