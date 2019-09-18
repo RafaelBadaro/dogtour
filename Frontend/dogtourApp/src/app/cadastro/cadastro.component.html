@@ -8,44 +8,49 @@
       <span class="container__header__title">Bem vindo ao DogTour</span>
     </div>
 
-    <form class="form" [formGroup]="formCadastro" (ngSubmit)="realizarCadastro()">
-      <ion-item color='secondary' class="form__campo">
+    <form class="form" [formGroup]="formCadastroCachorro" (ngSubmit)="realizarCadastro()">
+      <ion-item color="secondary" class="form__campo">
         <ion-input class="form__campo__input" placeholder="Nome" formControlName="name"></ion-input>
       </ion-item>
-      <ion-item color='secondary' class="form__campo">
-        <ion-input class="form__campo__input" placeholder="Email" formControlName="email"></ion-input>
+      <ion-item color="secondary" class="form__campo">
+        <ion-input
+          class="form__campo__input"
+          placeholder="Email"
+          formControlName="email"
+        ></ion-input>
       </ion-item>
-      <ion-item color='secondary' class="form__campo">
-        <ion-input class="form__campo__input" placeholder="Senha" type="password" formControlName="password">
+      <ion-item color="secondary" class="form__campo">
+        <ion-input
+          class="form__campo__input"
+          placeholder="Senha"
+          type="password"
+          formControlName="password"
+        >
         </ion-input>
       </ion-item>
 
-      <div color='secondary' class="form__campo">
+      <div color="secondary" class="form__campo">
         <div class="form__campo__span__wrapper">
           <span class="form__campo__span">Você é?</span>
         </div>
-        <ion-radio-group formControlName="role" color='secondary'>
-          <ion-item color='secondary'>
+        <ion-radio-group formControlName="role" color="secondary">
+          <ion-item color="secondary">
             <ion-label>Dono</ion-label>
             <ion-radio value="dono" checked></ion-radio>
           </ion-item>
 
-          <ion-item color='secondary'>
+          <ion-item color="secondary">
             <ion-label>Passeador</ion-label>
             <ion-radio value="passeador"></ion-radio>
           </ion-item>
-
         </ion-radio-group>
       </div>
 
-
       <div class="form__btn">
-        <ion-button expand="full" type="submit" [disabled]="formCadastro.invalid">Cadastrar</ion-button>
+        <ion-button expand="full" type="submit" [disabled]="formCadastro.invalid"
+          >Cadastrar</ion-button
+        >
       </div>
     </form>
-
-
   </div>
-
-
 </div>
