@@ -1,5 +1,11 @@
 {
   "name": "dogtourApp",
   "integrations": {},
-  "type": "angular"
+  "type": "angular",
+  "proxies": [
+    {
+      "path": "/user/login",
+      "proxyUrl": "localhost:8000/user/login"
+    }
+  ]
 }
