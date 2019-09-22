@@ -11,19 +11,30 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { CadastroComponent } from './cadastro/cadastro.component';
+import { CadastroCachorroComponent } from './cadastro-cachorro/cadastro-cachorro.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CadastroComponent],
+  declarations: [AppComponent, LoginComponent, CadastroComponent, CadastroCachorroComponent],
   entryComponents: [],
-  imports: [IonicModule, CommonModule, FormsModule, ReactiveFormsModule, BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [
+    IonicModule,
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    BrowserModule,
+    HttpClientModule,
+    IonicModule.forRoot(),
+    AppRoutingModule
+  ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AuthService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
