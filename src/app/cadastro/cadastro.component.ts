@@ -33,7 +33,7 @@ export class CadastroComponent implements OnInit {
   }
 
   realizarCadastro() {
-    this.http.post('localhost:8000/user', this.formCadastro.value).subscribe(
+    this.http.post('/api/user', this.formCadastro.value).subscribe(
       (res) => {
         console.log(res);
       },
