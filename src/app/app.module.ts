@@ -15,6 +15,7 @@ import { CadastroCachorroComponent } from './cadastro-cachorro/cadastro-cachorro
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { SettingsProvider } from './settings-provider';
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, CadastroComponent, CadastroCachorroComponent],
@@ -30,6 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     AppRoutingModule
   ],
   providers: [
+    SettingsProvider,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
