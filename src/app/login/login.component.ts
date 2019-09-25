@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   
   email = new FormControl('',Validators.required);
 
-  senha = new FormControl('',Validators.required);
+  password = new FormControl('',Validators.required);
 
   constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient) { }
 
@@ -23,12 +23,13 @@ export class LoginComponent implements OnInit {
 
     this.formLogin = this.formBuilder.group({
       email: this.email,
-      senha: this.senha,
+      password: this.password,
     });
    }
 
   realizarLogin() {
-    this.http.post('/api/user/login', this.formLogin).subscribe(
+
+    this.http.post('/api/user/login', this.formLogin.value).subscribe(
       (res) => {
         console.log(res);
         this.router.navigate(['/tabs/passeioTab']);
