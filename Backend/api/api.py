@@ -52,7 +52,7 @@ class APIGateway(object):
 
         return json.dumps({'name': name, 'idToken': idToken, 'error': errorMsg})
 
-    @http('POST', '/user/login')
+    @http('POST', '/api/user/login')
     def login_user(self, request):
         """
         Faz login de um usuário
@@ -65,8 +65,10 @@ class APIGateway(object):
         }
         """
 
-        email = request.form['email']
-        password = request.form['password']
+        reqData = json.loads(request.get_data(as_text=True))
+
+        email = reqData['email']
+        password = reqData['password']
 
         (name, idToken, errorMsg) = self.users_rpc.login(email, password)
 
