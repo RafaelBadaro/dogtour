@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
    }
 
   realizarLogin() {
-    this.http.post('localhost:8000/user/login', this.formLogin).subscribe(
+    this.http.post('/api/user/login', this.formLogin).subscribe(
       (res) => {
         console.log(res);
         this.router.navigate(['/tabs/passeioTab']);
