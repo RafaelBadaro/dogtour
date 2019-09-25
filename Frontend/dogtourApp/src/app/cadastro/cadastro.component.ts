@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-cadastro',
@@ -8,31 +9,41 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 })
 export class CadastroComponent implements OnInit {
 
-  
+
   formCadastro: FormGroup;
 
-  nome = new FormControl('',Validators.required);
+  name = new FormControl('', Validators.required);
 
-  cpf = new FormControl('',Validators.required);
-  
-  email = new FormControl('',Validators.required);
+  email = new FormControl('', Validators.required);
 
-  senha = new FormControl('',Validators.required);
+  password = new FormControl('', Validators.required);
 
-  constructor(private formBuilder: FormBuilder) { }
+  role = new FormControl('', Validators.required);
+
+  constructor(private formBuilder: FormBuilder, private http: HttpClient) { }
 
   ngOnInit() {
 
     this.formCadastro = this.formBuilder.group({
-      nome: this.nome,
-      cpf: this.cpf,
+      name: this.name,
       email: this.email,
-      senha: this.senha,
+      password: this.password,
+      role: this.role,
     });
   }
 
-  realizarCadastro(){
-
+  realizarCadastro() {
+    this.http.post('/api/user', this.formCadastro.value).subscribe(
+      (res) => {
+        console.log(res);
+      },
+      (err) => {
+        console.log(err);
+      },
+      () => {
+        console.log('finalizei');
+      }
+    );
   }
 
 }

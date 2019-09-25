@@ -3,16 +3,20 @@ import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CadastroComponent } from './cadastro/cadastro.component';
+import { CadastroCachorroComponent } from './cadastro-cachorro/cadastro-cachorro.component';
 
 const routes: Routes = [
-
   {
     path: '' || 'login',
-    component: LoginComponent,
+    component: LoginComponent
   },
   {
     path: 'cadastro',
     component: CadastroComponent
+  },
+  {
+    path: 'cadastro-cachorro',
+    component: CadastroCachorroComponent
   },
   {
     path: '',
@@ -21,13 +25,11 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: '/login',
+    redirectTo: '/login'
   }
 ];
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
+  imports: [RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

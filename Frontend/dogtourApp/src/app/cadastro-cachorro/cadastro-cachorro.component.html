@@ -1,0 +1,55 @@
+<div class="container">
+  <div [routerLink]="['/tabs/passeioTab']" class="container__icon">
+    <ion-icon name="arrow-back"></ion-icon>
+    <span class="container__icon__texto">Voltar para a home</span>
+  </div>
+  <div class="container__cadastro">
+    <div class="container__header">
+      <span class="container__header__title">Cadastro de Cachorro </span>
+    </div>
+
+    <form class="form" [formGroup]="formCadastroCachorro" (ngSubmit)="realizarCadastroCachorro()">
+      <ion-item color="secondary" class="form__campo">
+        <ion-input class="form__campo__input" placeholder="Nome" formControlName="name"></ion-input>
+      </ion-item>
+
+      <div color="secondary" class="form__campo">
+        <div class="form__campo__span__wrapper">
+          <span class="form__campo__span">Seu cachorro é:</span>
+        </div>
+        <ion-list color="secondary">
+          <ion-item color="secondary">
+            <ion-label>Gênero</ion-label>
+            <ion-select value="f" formControlName="gener">
+              <ion-select-option value="f">Fêmea</ion-select-option>
+              <ion-select-option value="m">Macho</ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <ion-item color="secondary">
+            <ion-label>Tamanho</ion-label>
+            <ion-select value="p" formControlName="size">
+              <ion-select-option value="p">Pequeno</ion-select-option>
+              <ion-select-option value="m">Médio</ion-select-option>
+              <ion-select-option value="g">Grande</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item color="secondary">
+            <ion-label>Temperamento</ion-label>
+            <ion-select value="e" formControlName="temper">
+              <ion-select-option value="e">Estável</ion-select-option>
+              <ion-select-option value="c">Confiante</ion-select-option>
+              <ion-select-option value="a">Agressivo</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-list>
+      </div>
+
+      <div class="form__btn">
+        <ion-button expand="full" type="submit" [disabled]="formCadastroCachorro.invalid"
+          >Cadastrar</ion-button
+        >
+      </div>
+    </form>
+  </div>
+</div>

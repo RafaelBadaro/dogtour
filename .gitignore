@@ -86,3 +86,5 @@ Backend/api/__pycache__/
 Backend/utils/db/service_key/
 
 Backend/services/aux/__pycache__/
+
+Backend/services/auxiliar/__pycache__/
