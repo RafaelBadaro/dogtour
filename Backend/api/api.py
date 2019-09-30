@@ -1,6 +1,8 @@
 import json
+from . import validations
 from nameko.rpc import RpcProxy
 from nameko.web.handlers import http
+from werkzeug.wrappers import Response
 
 
 class APIGateway(object):
@@ -11,114 +13,68 @@ class APIGateway(object):
 
     @http('POST', '/api/user')
     def create_user(self, request):
-        """
-        Cria um novo usuário
-
-        Exemplo de request:
-
-        {
-            name = "Joao Jorge Fernando"
-            email = "jjfernando@email.com"
-            password = "124558s"
-            role "dono"
-        }
-
-        Exemplos de response:
-
-        {
-            name = "Joao Jorge Fernando"
-            idToken = "i818as1c8ekasdienifneinalsidneifnei"
-            error = ""
-        }
-
-        {
-            name = "Joao Jorge Fernando"
-            idToken = ""
-            error = "Usuario ja cadastrado!"
-        }
-
-        {
-            error = "Nao foi possivel criar o seu usuario, tente novamente."
-        }
-        """
 
         reqData = json.loads(request.get_data(as_text=True))
 
-        (valid, name, email, password, role) = self.requestIsValid(reqData)
+        (valid, name, email, password, role) = validations.createUserRequestIsValid(reqData)
 
         if not valid:
-            return json.dumps({'error': "Nao foi possivel criar o seu usuario, tente novamente!"})
+            return Response(
+                json.dumps({'name': '', 'idToken': '', 'error': 'Nao foi possivel completar a operacao, tente novamente!'}),
+                status=400,
+                mimetype='application/json'
+            )
         else:
-            (idToken, errorMsg) = self.users_rpc.create(
-                name, email, password, role)
+            (idToken, status, errorMsg) = self.users_rpc.create(name, email, password, role)
 
-        return json.dumps({'name': name, 'idToken': idToken, 'error': errorMsg})
+        return Response(
+            json.dumps({'name': name, 'idToken': idToken, 'error': errorMsg}),
+            status=status,
+            mimetype='application/json'
+        )
 
     @http('POST', '/api/user/login')
     def login_user(self, request):
-        """
-        Faz login de um usuário
-
-        Exemplo de request:
-
-        {
-            email = "jjfernando@email.com"
-            password = "124558s"
-        }
-        """
 
         reqData = json.loads(request.get_data(as_text=True))
 
         email = reqData['email']
         password = reqData['password']
 
-        (name, idToken, errorMsg) = self.users_rpc.login(email, password)
+        (name, idToken, status, errorMsg) = self.users_rpc.login(email, password)
 
-        return json.dumps({'name': name, 'idToken': idToken, 'error': errorMsg})
+        return Response(
+            json.dumps({'name': name, 'idToken': idToken, 'error': errorMsg}),
+            status=status,
+            mimetype='application/json'
+        )
 
-    @http('POST', '/user/dogs')
+    @http('POST', '/api/user/dogs')
     def create_dog(self, request):
-        """
-        Cadastro de cães
 
-        Exemplo de request:
+        reqData = json.loads(request.get_data(as_text=True))
 
-        {
-            ownerEmail =  "lucas@teste.com"
-            name = "Rex"
-            sex = "macho"
-            size = "grande"
-            temper = "agressivo"
-        }
+        ownerEmail = reqData['ownerEmail']
+        name = reqData['name']
+        sex = reqData['sex']
+        size = reqData['size']
+        temper = reqData['temper']
 
-        Exemplos de response:
+        (status, errorMsg) = self.dogs_rpc.create(ownerEmail, name, sex, size, temper)
 
-        {
-            errorMsg = "Nao foi possivel cadastrar o seu cao, tente novamente." 
-            ou
-            errorMsg = ""
-        }
-        """
+        return Response(
+            json.dumps({'error': errorMsg}),
+            status=status,
+            mimetype='application/json'
+        )
 
-        ownerEmail = request.form['ownerEmail']
-        name = request.form['name']
-        sex = request.form['sex']
-        size = request.form['size']
-        temper = request.form['temper']
+    @http('GET', '/api/user/<string:user_email>')
+    def get_user(self, request, user_email):
 
-        errorMsg = self.dogs_rpc.create(ownerEmail, name, sex, size, temper)
+        (user, status, errorMsg) = self.users_rpc.get(user_email)
 
-        return json.dumps({'error': errorMsg})
-
-    def requestIsValid(self, request):
-        valid = False
-
-        name = request['name']
-        email = request['email']
-        password = request['password']
-        role = request['role']
-
-        if not (name == "" or email == "" or password == "" or role == ""):
-            valid = True
-
-        return (valid, name, email, password, role)
+        return Response(
+            json.dumps({'user': user, 'errorMsg': errorMsg}),
+            status=status,
+            mimetype='application/json'
+        )
