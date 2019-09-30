@@ -5,7 +5,6 @@ from .auxiliar.DatabaseConnection import DatabaseConnection
 db = DatabaseConnection().db
 auth = DatabaseConnection().auth
 
-
 class UsersService:
     name = "users"
 
@@ -13,6 +12,10 @@ class UsersService:
     def create(self, name, email, password, role):
 
         fEmail = email.replace(".", ",")
+
+        status = 409
+        errorMsg = "Usuario ja cadastrado!"
+        idToken = ""
 
         if db.child("users").child(fEmail).get().val() is None:
 
@@ -26,18 +29,20 @@ class UsersService:
 
             db.child("users").child(fEmail).set(data, idToken)
 
+            status = 200
             errorMsg = ""
-            return (idToken, errorMsg)
 
-        errorMsg = "Usuario ja cadastrado!"
-        idToken = ""
-
-        return (idToken, errorMsg)
+        return (idToken, status, errorMsg)
 
     @rpc
     def login(self, email, password):
 
         fEmail = email.replace(".", ",")
+
+        name = ""
+        idToken = ""
+        status = 409
+        errorMsg = "Usuario nao cadastrado!"
 
         if db.child("users").child(fEmail).get().val() is not None:
 
@@ -46,11 +51,23 @@ class UsersService:
 
             name = db.child("users").child(fEmail).child("name").get().val()
 
+            status = 200
             errorMsg = ""
-            return (name, idToken, errorMsg)
 
-        name = ""
-        idToken = ""
+        return (name, idToken, status, errorMsg)
+
+    @rpc
+    def get(self, email):
+
+        fEmail = email.replace(".", ",")
+
+        status = 409
         errorMsg = "Usuario nao cadastrado!"
 
-        return (name, idToken, errorMsg)
+        user = db.child("users").child(fEmail).get().val()
+
+        if user is not None:
+            status = 200
+            errorMsg = ""     
+
+        return (user, status, errorMsg)

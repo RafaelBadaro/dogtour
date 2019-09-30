@@ -4,7 +4,6 @@ from .auxiliar.DatabaseConnection import DatabaseConnection
 
 db = DatabaseConnection().db
 
-
 class DogsService:
     name = "dogs"
 
@@ -13,36 +12,21 @@ class DogsService:
 
         fOwnerEmail = ownerEmail.replace(".", ",")
 
-        if db.child(
-                'users'
-            ).child(
-                fOwnerEmail
-        ).child(
-                'dogs'
-        ).child(
-                name
-        ).get().val() is None:
+        status = 409
+        errorMsg = "Usuario ja possui um cao com este nome!"
+
+        if db.child('users').child(fOwnerEmail).child('dogs').child(name).get().val() is None:
 
             dogData = {
-                "name": name,
                 "sex": sex,
                 "size": size,
                 "temper": temper
             }
 
-            ownerData = {}
-            ownerData[name] = True
+            db.child("users").child(fOwnerEmail).child("dogs").child(name).set(dogData)
+            
+            status = 200
+            errorMsg = ""
 
-            db.child("dogs").push(dogData)
-
-            db.child(
-                "users"
-            ).child(
-                fOwnerEmail
-            ).child(
-                "dogs"
-            ).update(ownerData)
-
-            return ""
-
-        return "Usuario ja possui um cao com este nome!"
+            
+        return (status, errorMsg)
