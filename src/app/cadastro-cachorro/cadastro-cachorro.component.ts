@@ -30,6 +30,7 @@ export class CadastroCachorroComponent implements OnInit {
   }
 
   realizarCadastroCachorro() {
+    //TODO mudar essa rota
     this.http.post('localhost:8000/user', this.formCadastroCachorro.value).subscribe(
       res => {
         console.log(res);
