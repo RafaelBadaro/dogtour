@@ -1,1 +1,28 @@
+.container {
+  height: 33%;
 
+  &__topo {
+    .campos__usuario {
+      padding-top: 34%;
+      padding-left: 15px;
+      .campos__usuario__texto {
+        padding: 0 40px;
+        font-size: 22px;
+      }
+    }
+  }
+  &__meio {
+    .titulo__cachorros-cadastrados {
+      font-size: 24px;
+    }
+  }
+
+  &__footer {
+    .campos__senha {
+      display: flex;
+    }
+    .btn__salvar-dados {
+      margin-top: 40px;
+    }
+  }
+}
