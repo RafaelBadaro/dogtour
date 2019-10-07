@@ -13,13 +13,13 @@ export class LoginComponent implements OnInit {
 
 
   formLogin: FormGroup;
-  
-  email = new FormControl('',Validators.required);
 
-  password = new FormControl('',Validators.required);
+  email = new FormControl('', Validators.required);
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, 
-    private authService: AuthService) { }
+  password = new FormControl('', Validators.required);
+
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient,
+              private authService: AuthService) { }
 
   ngOnInit() {
 
@@ -32,11 +32,11 @@ export class LoginComponent implements OnInit {
   realizarLogin() {
 
     this.http.post('/api/user/login', this.formLogin.value).subscribe(
-      (res : any) => {
+      (res: any) => {
         this.authService.usuarioAuth.email = this.email.value;
         this.authService.usuarioAuth.name = res.name;
-        
-        this.email.setValue(undefined)
+
+        this.email.setValue(undefined);
         this.password.setValue(undefined);
 
         sessionStorage.setItem('token', res.idToken);
@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       },
       (err) => {
       },
-      ()=>{}
+      () => {}
     );
   }
 

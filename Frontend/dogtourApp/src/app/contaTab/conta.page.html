@@ -8,27 +8,39 @@
 
 <ion-content>
 
-  <div class="container container__topo">
-    <div class="campos__usuario">
-      <span class="campos__usuario__texto">{{usuario.name}}</span>
-      <span class="campos__usuario__texto">{{usuario.email}}</span>
+  <form class="form--conta" [formGroup]="formConta" (ngSubmit)="atualizarDados()">
+
+    <div class="container container__topo">
+      <div class="campos__usuario">
+        <h1 class="campos__usuario__titulo">Dados do usuário</h1>
+        <ion-input class="campos__usuario__texto" value={{usuario.name}} formControlName="name"></ion-input>
+        <ion-input class="campos__usuario__texto" value={{usuario.email}} formControlName="email"></ion-input>
+      </div>
     </div>
-  </div>
 
-  <div class="container container__meio">
-    <span class="titulo__cachorros-cadastrados">Cachorros cadastrados</span>
-    <ion-list>
-      <ion-item *ngFor="let cachorro of cachorrosUsuario"></ion-item>
+    <div class="container container__meio">
+      <ion-card class="card--conta">
+        <ion-card-header>
+          <ion-card-title>Cachorros cadastrados</ion-card-title>
+        </ion-card-header>
 
-    </ion-list>
-  </div>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let cachorro of cachorrosUsuario"></ion-item>
 
-  <div class="container container__footer">
-    <div class="campos__senha">
-      <ion-input class="campos__senha-input" placeholder="Senha Nova"></ion-input>
-      <ion-button>Alterar Senha</ion-button>
+          </ion-list>
+        </ion-card-content>
+
+      </ion-card>
     </div>
-    <ion-button class="btn__salvar-dados" expand="full">Salvar dados</ion-button>
-  </div>
+
+    <div class="container container__footer">
+      <div class="campos__senha">
+        <ion-input class="campos__senha-input" type="password" placeholder="Senha Nova" formControlName="password"></ion-input>
+      </div>
+      <ion-button type="submit" class="btn__salvar-dados" expand="full">Salvar dados</ion-button>
+    </div>
+
+  </form>
 
 </ion-content>
