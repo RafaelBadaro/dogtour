@@ -1,25 +1,39 @@
 .container {
   height: 33%;
+  background-color: #1c9b9b;
 
   &__topo {
     .campos__usuario {
-      padding-top: 34%;
+      padding-top: 1%;
       padding-left: 15px;
+      padding-right: 15px;
+      text-align: center;
+      .campos__usuario__titulo {
+        font-size: 24px;
+      }
       .campos__usuario__texto {
-        padding: 0 40px;
         font-size: 22px;
+        border: 1px solid;
+        border-radius: 12px;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        color: #e9ddcd;
       }
     }
   }
   &__meio {
-    .titulo__cachorros-cadastrados {
-      font-size: 24px;
-    }
+    padding: 1px 0;
   }
 
   &__footer {
+    padding: 0 16px 16px;
+
     .campos__senha {
       display: flex;
+      &-input {
+        color: #e9ddcd;
+        border-bottom: 1px solid;
+      }
     }
     .btn__salvar-dados {
       margin-top: 40px;

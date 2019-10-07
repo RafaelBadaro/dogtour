@@ -29,6 +29,12 @@ ion-item {
   --padding-start: 0;
 }
 
+ion-card-title {
+  font-size: 21px;
+  color: #E9DDCD;
+}
+
+
 .form {
   padding: 24px 40px;
 
@@ -39,4 +45,13 @@ ion-item {
   .form__btn {
     padding-top: 20px;
   }
+
+  &--conta {
+    padding: 0;
+    background-color: #1c9b9b;
+  }
+}
+
+h1{
+  color: #E9DDCD;
 }
