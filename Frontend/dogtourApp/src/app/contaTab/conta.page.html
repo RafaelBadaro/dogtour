@@ -8,39 +8,53 @@
 
 <ion-content>
 
-  <form class="form--conta" [formGroup]="formConta" (ngSubmit)="atualizarDados()">
+  <div class="content">
+    <form class="form__conta" [formGroup]="formConta" (ngSubmit)="atualizarDados()">
 
-    <div class="container container__topo">
-      <div class="campos__usuario">
-        <h1 class="campos__usuario__titulo">Dados do usuário</h1>
-        <ion-input class="campos__usuario__texto" value={{usuario.name}} formControlName="name"></ion-input>
-        <ion-input class="campos__usuario__texto" value={{usuario.email}} formControlName="email"></ion-input>
+      <div class="container container__topo">
+        <div class="campos__usuario">
+          <h1 class="campos__usuario__titulo">Dados do usuário</h1>
+          <ion-input class="campos__usuario__texto" value={{usuario.name}} formControlName="name"></ion-input>
+          <ion-input class="campos__usuario__texto" value={{usuario.email}} formControlName="email"></ion-input>
+        </div>
       </div>
-    </div>
 
-    <div class="container container__meio">
-      <ion-card class="card--conta">
-        <ion-card-header>
-          <ion-card-title>Cachorros cadastrados</ion-card-title>
-        </ion-card-header>
+      <div class="container container__meio">
+        <ion-card class="card__conta">
+          <ion-card-header>
+            <ion-card-title>Cachorros cadastrados</ion-card-title>
+          </ion-card-header>
 
-        <ion-card-content>
-          <ion-list>
-            <ion-item *ngFor="let cachorro of cachorrosUsuario"></ion-item>
+          <ion-card-content class="card__lista-cachorros">
+            <ion-list>
+              <!-- <ion-item *ngFor="let cachorro of cachorrosUsuario"></ion-item> -->
+              <div class="card__conta__cachorro-item">
+                <ion-item>
+                  <ion-input class="card__conta__cachorro-item__input" Placeholder="Nome"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input class="card__conta__cachorro-item__input" Placeholder="Nome"></ion-input>
+                </ion-item>
+                <ion-item>
+                  <ion-input class="card__conta__cachorro-item__input" Placeholder="Nome"></ion-input>
+                </ion-item>
+              </div>
 
-          </ion-list>
-        </ion-card-content>
+            </ion-list>
+          </ion-card-content>
 
-      </ion-card>
-    </div>
-
-    <div class="container container__footer">
-      <div class="campos__senha">
-        <ion-input class="campos__senha-input" type="password" placeholder="Senha Nova" formControlName="password"></ion-input>
+        </ion-card>
       </div>
-      <ion-button type="submit" class="btn__salvar-dados" expand="full">Salvar dados</ion-button>
-    </div>
 
-  </form>
+      <div class="container container__footer">
+        <div class="campos__senha">
+          <ion-input class="campos__senha-input" type="password" placeholder="Senha Nova" formControlName="password">
+          </ion-input>
+        </div>
+        <ion-button type="submit" class="btn__salvar-dados" expand="full">Salvar dados</ion-button>
+      </div>
+
+    </form>
+  </div>
 
 </ion-content>
