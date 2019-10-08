@@ -16,23 +16,26 @@ export class ContaPage implements OnInit {
   email = new FormControl('');
   password = new FormControl('');
 
-  usuario: Usuario;
   cachorrosUsuario: Cachorro[];
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
-    this.usuario = this.authService.usuarioAuth;
-
     this.formConta = this.formBuilder.group({
       name: this.name,
       email: this.email,
       password: this.password,
     });
+
+    this.name.setValue(this.authService.usuarioAuth.name);
+    this.email.setValue(this.authService.usuarioAuth.email);
+    // this.cachorrosUsuario = this.authService.usuarioAuth.cachorros - falta receber os cachorros do back
   }
 
   atualizarDados() {
     console.log(this.formConta.value);
+  }
+  atualizarListaCachorros(dog: Cachorro) {
   }
 
 }

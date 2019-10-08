@@ -14,8 +14,8 @@
       <div class="container container__topo">
         <div class="campos__usuario">
           <h1 class="campos__usuario__titulo">Dados do usuário</h1>
-          <ion-input class="campos__usuario__texto" value={{usuario.name}} formControlName="name"></ion-input>
-          <ion-input class="campos__usuario__texto" value={{usuario.email}} formControlName="email"></ion-input>
+          <ion-input class="campos__usuario__texto" formControlName="name"></ion-input>
+          <ion-input class="campos__usuario__texto" formControlName="email"></ion-input>
         </div>
       </div>
 
@@ -25,13 +25,22 @@
             <ion-card-title>Cachorros cadastrados</ion-card-title>
           </ion-card-header>
 
-          <ion-card-content class="card__lista-cachorros">
-            <ion-list  class="card__lista-cachorros-lista">
-              <app-conta-cachorro class="card__conta__cachorro-item">
-              </app-conta-cachorro>
-            </ion-list>
-          </ion-card-content>
-
+          <!--<div *ngIf="perfilUsuarioPasseador"></div>-->
+          <div class="card__sem-cadastro-cachorros"
+            *ngIf="cachorrosUsuario === undefined || cachorrosUsuario.length === 0">
+            <span class="card__sem-cadastro-cachorros__span">Ei cara <a
+                [routerLink]="['/cadastro-cachorro']">cadastre</a> uns cachorrinhos</span>
+          </div>
+          <div *ngIf="cachorrosUsuario !== undefined && cachorrosUsuario.length > 0">
+            <ion-card-content class="card__lista-cachorros">
+              <ion-list class="card__lista-cachorros-lista">
+                <app-conta-cachorro *ngFor="let cachorro of cachorrosUsuario" [dog]="cachorro"
+                (dogAtualizadoEmitter)="atualizarListaCachorros($event)"
+                  class="card__conta__cachorro-item">
+                </app-conta-cachorro>
+              </ion-list>
+            </ion-card-content>
+          </div>
         </ion-card>
       </div>
 
