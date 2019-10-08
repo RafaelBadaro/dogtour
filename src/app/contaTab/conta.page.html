@@ -26,20 +26,9 @@
           </ion-card-header>
 
           <ion-card-content class="card__lista-cachorros">
-            <ion-list>
-              <!-- <ion-item *ngFor="let cachorro of cachorrosUsuario"></ion-item> -->
-              <div class="card__conta__cachorro-item">
-                <ion-item>
-                  <ion-input class="card__conta__cachorro-item__input" Placeholder="Nome"></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-input class="card__conta__cachorro-item__input" Placeholder="Nome"></ion-input>
-                </ion-item>
-                <ion-item>
-                  <ion-input class="card__conta__cachorro-item__input" Placeholder="Nome"></ion-input>
-                </ion-item>
-              </div>
-
+            <ion-list  class="card__lista-cachorros-lista">
+              <app-conta-cachorro class="card__conta__cachorro-item">
+              </app-conta-cachorro>
             </ion-list>
           </ion-card-content>
 
