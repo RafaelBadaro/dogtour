@@ -1,5 +1,5 @@
 .content {
-  background-color:  #1c9b9b;
+  background-color: #1c9b9b;
   height: 100%;
 
   .container {
@@ -31,10 +31,11 @@
         max-height: 230px;
         overflow: auto;
         .card__lista-cachorros {
+          .card__lista-cachorros-lista {
+            background-color: #1c9b9b;
+          }
           .card__conta__cachorro-item {
-            .card__conta__cachorro-item__input {
-              padding-right: 10px; 
-            }
+            background-color: #1c9b9b;
           }
         }
       }

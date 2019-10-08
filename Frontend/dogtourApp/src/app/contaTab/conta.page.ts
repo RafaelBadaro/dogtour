@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Usuario } from '../models/usuario.model';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Cachorro } from '../models/cachorro.model';
 
 @Component({
   selector: 'app-conta',
@@ -16,7 +17,7 @@ export class ContaPage implements OnInit {
   password = new FormControl('');
 
   usuario: Usuario;
-  cachorrosUsuario: any[];
+  cachorrosUsuario: Cachorro[];
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder) { }
 
