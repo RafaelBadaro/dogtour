@@ -1,5 +1,28 @@
-<ion-input class="card__conta__cachorro-item__input" Placeholder="Nome"></ion-input>
-
-<ion-input class="card__conta__cachorro-item__input" Placeholder="Nome"></ion-input>
-
-<ion-input class="card__conta__cachorro-item__input" Placeholder="Nome"></ion-input>
+<form [formGroup]="formDog" (change)="enviarAlteracoes()">
+    <ion-input class="card__conta__cachorro-item__input" formControlName="dogName"></ion-input>
+    <div class="card__selects">
+        <div class="card__select__item">
+            <span class="card__select__item-label">Gênero:</span>
+            <ion-select class="card__select__item-options" formControlName="gender">
+                <ion-select-option value="f">Fêmea</ion-select-option>
+                <ion-select-option value="m">Macho</ion-select-option>
+            </ion-select>
+        </div>
+        <div class="card__select__item">
+            <span class="card__select__item-label">Tamanho:</span>
+            <ion-select class="card__select__item-options" formControlName="size">
+                <ion-select-option value="p">Pequeno</ion-select-option>
+                <ion-select-option value="m">Médio</ion-select-option>
+                <ion-select-option value="g">Grande</ion-select-option>
+            </ion-select>
+        </div>
+        <div class="card__select__item">
+            <span class="card__select__item-label">Temperamento:</span>
+            <ion-select class="card__select__item-options" formControlName="temper">
+                <ion-select-option value="e">Estável</ion-select-option>
+                <ion-select-option value="c">Confiante</ion-select-option>
+                <ion-select-option value="a">Agressivo</ion-select-option>
+            </ion-select>
+        </div>
+    </div>
+</form>

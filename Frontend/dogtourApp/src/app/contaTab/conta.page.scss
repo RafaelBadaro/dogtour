@@ -19,7 +19,6 @@
           font-size: 22px;
           border: 1px solid;
           border-radius: 12px;
-          padding-bottom: 5px;
           margin-bottom: 15px;
           color: #e9ddcd;
         }
@@ -30,7 +29,16 @@
       .card__conta {
         max-height: 230px;
         overflow: auto;
+        .card__sem-cadastro-cachorros {
+          text-align: center;
+          padding-bottom: 10px;
+          .card__sem-cadastro-cachorros__span {
+            color: #e9ddcd;
+          }
+        }
+
         .card__lista-cachorros {
+          text-align: center;
           .card__lista-cachorros-lista {
             background-color: #1c9b9b;
           }

@@ -1,5 +1,9 @@
 export class Cachorro {
     name: string;
 
-    race: string;
+    gender: string;
+
+    size: string;
+
+    temper: string;
 }
