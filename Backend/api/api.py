@@ -41,10 +41,10 @@ class APIGateway(object):
         email = reqData['email']
         password = reqData['password']
 
-        (name, idToken, status, errorMsg) = self.users_rpc.login(email, password)
+        (user, idToken, status, errorMsg) = self.users_rpc.login(email, password)
 
         return Response(
-            json.dumps({'name': name, 'idToken': idToken, 'error': errorMsg}),
+            json.dumps({'user': user, 'idToken': idToken, 'error': errorMsg}),
             status=status,
             mimetype='application/json'
         )
