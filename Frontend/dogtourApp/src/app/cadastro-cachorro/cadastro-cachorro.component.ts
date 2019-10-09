@@ -16,7 +16,7 @@ export class CadastroCachorroComponent implements OnInit {
 
   temper = new FormControl('', Validators.required);
 
-  gener = new FormControl('', Validators.required);
+  sex = new FormControl('', Validators.required);
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
 
@@ -25,7 +25,7 @@ export class CadastroCachorroComponent implements OnInit {
       name: this.name,
       size: this.size,
       temper: this.temper,
-      gener: this.gener
+      sex: this.sex
     });
   }
 

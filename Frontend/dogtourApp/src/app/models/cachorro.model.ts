@@ -1,7 +1,7 @@
 export class Cachorro {
     name: string;
 
-    gender: string;
+    sex: string;
 
     size: string;
 

@@ -16,7 +16,7 @@ export class ContaPage implements OnInit {
   email = new FormControl('');
   password = new FormControl('');
 
-  cachorrosUsuario: Cachorro[];
+  cachorrosUsuario: Cachorro[] = [];
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder) { }
 
@@ -29,7 +29,14 @@ export class ContaPage implements OnInit {
 
     this.name.setValue(this.authService.usuarioAuth.name);
     this.email.setValue(this.authService.usuarioAuth.email);
-    // this.cachorrosUsuario = this.authService.usuarioAuth.cachorros - falta receber os cachorros do back
+    var c = new Cachorro();
+    if(this.authService.usuarioAuth.dogs !== undefined ){
+    c.name = this.authService.usuarioAuth.dogs['Biju'].name;
+    c.sex = this.authService.usuarioAuth.dogs['Biju'].sex;
+    c.size = this.authService.usuarioAuth.dogs['Biju'].size;
+    c.temper = this.authService.usuarioAuth.dogs['Biju'].temper;
+    this.cachorrosUsuario.push(c);
+    }
   }
 
   atualizarDados() {

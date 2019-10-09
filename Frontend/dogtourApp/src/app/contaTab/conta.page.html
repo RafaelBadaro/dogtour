@@ -25,22 +25,24 @@
             <ion-card-title>Cachorros cadastrados</ion-card-title>
           </ion-card-header>
 
-          <!--<div *ngIf="perfilUsuarioPasseador"></div>-->
+        <div *ngIf="this.authService.usuarioAuth.role === 'passeador'"></div>
+        <div *ngIf="this.authService.usuarioAuth.role === 'dono'">
           <div class="card__sem-cadastro-cachorros"
             *ngIf="cachorrosUsuario === undefined || cachorrosUsuario.length === 0">
             <span class="card__sem-cadastro-cachorros__span">Ei cara <a
                 [routerLink]="['/cadastro-cachorro']">cadastre</a> uns cachorrinhos</span>
-          </div>
-          <div *ngIf="cachorrosUsuario !== undefined && cachorrosUsuario.length > 0">
+          </div> 
+          <div >
             <ion-card-content class="card__lista-cachorros">
-              <ion-list class="card__lista-cachorros-lista">
-                <app-conta-cachorro *ngFor="let cachorro of cachorrosUsuario" [dog]="cachorro"
+              <ion-list class="card__lista-cachorros-lista" *ngFor="let cachorro of cachorrosUsuario">
+                <app-conta-cachorro  [dog]="cachorro"
                 (dogAtualizadoEmitter)="atualizarListaCachorros($event)"
                   class="card__conta__cachorro-item">
                 </app-conta-cachorro>
               </ion-list>
             </ion-card-content>
           </div>
+        </div>
         </ion-card>
       </div>
 

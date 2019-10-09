@@ -34,7 +34,9 @@ export class LoginComponent implements OnInit {
     this.http.post('/api/user/login', this.formLogin.value).subscribe(
       (res: any) => {
         this.authService.usuarioAuth.email = this.email.value;
-        this.authService.usuarioAuth.name = res.name;
+        this.authService.usuarioAuth.name = res.user.name;
+        this.authService.usuarioAuth.role = res.user.role;
+        this.authService.usuarioAuth.dogs = res.user.dogs;
 
         this.email.setValue(undefined);
         this.password.setValue(undefined);

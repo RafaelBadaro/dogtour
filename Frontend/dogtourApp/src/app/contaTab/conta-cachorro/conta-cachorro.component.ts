@@ -16,7 +16,7 @@ export class ContaCachorroComponent implements OnInit {
 
   dogName = new FormControl('');
 
-  gender = new FormControl('');
+  sex = new FormControl('');
 
   size = new FormControl('');
 
@@ -28,12 +28,12 @@ export class ContaCachorroComponent implements OnInit {
   ngOnInit() {
     this.formDog = this.formBuilder.group({
       dogName: this.dogName,
-      gender: this.gender,
+      sex: this.sex,
       size: this.size,
       temper: this.temper
     });
     this.dogName.setValue(this.dog.name);
-    this.gender.setValue(this.dog.gender);
+    this.sex.setValue(this.dog.sex);
     this.size.setValue(this.dog.size);
     this.temper.setValue(this.dog.temper);
   }
