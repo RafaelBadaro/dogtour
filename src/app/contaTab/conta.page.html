@@ -25,8 +25,7 @@
             <ion-card-title>Cachorros cadastrados</ion-card-title>
           </ion-card-header>
 
-        <div *ngIf="this.authService.usuarioAuth.role === 'passeador'"></div>
-        <div *ngIf="this.authService.usuarioAuth.role === 'dono'">
+        <div *ngIf="authService.usuarioAuth.role === 'dono'">
           <div class="card__sem-cadastro-cachorros"
             *ngIf="cachorrosUsuario === undefined || cachorrosUsuario.length === 0">
             <span class="card__sem-cadastro-cachorros__span">Ei cara <a

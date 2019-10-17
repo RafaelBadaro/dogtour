@@ -18,7 +18,7 @@ export class ContaPage implements OnInit {
 
   cachorrosUsuario: Cachorro[] = [];
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder) { }
+  constructor(public authService: AuthService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.formConta = this.formBuilder.group({
@@ -40,7 +40,7 @@ export class ContaPage implements OnInit {
   }
 
   atualizarDados() {
-    console.log(this.formConta.value);
+   
   }
   atualizarListaCachorros(dog: Cachorro) {
   }
