@@ -38,8 +38,7 @@ class UsersService:
     def login(self, email, password):
 
         fEmail = email.replace(".", ",")
-
-        name = ""
+        
         idToken = ""
         status = 409
         errorMsg = "Usuario nao cadastrado!"
@@ -49,12 +48,9 @@ class UsersService:
             user = auth.sign_in_with_email_and_password(email, password)
             idToken = user['idToken']
 
-            name = db.child("users").child(fEmail).child("name").get().val()
+            (user, status, errorMsg) = self.get(fEmail)
 
-            status = 200
-            errorMsg = ""
-
-        return (name, idToken, status, errorMsg)
+        return (user, idToken, status, errorMsg)
 
     @rpc
     def get(self, email):
