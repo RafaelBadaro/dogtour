@@ -16,9 +16,11 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { SettingsProvider } from './settings-provider';
+import { LoadingComponent } from './services/loading/loading.component';
+import { LoadingService } from './services/loading.service';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CadastroComponent, CadastroCachorroComponent],
+  declarations: [AppComponent, LoginComponent, CadastroComponent, CadastroCachorroComponent, LoadingComponent],
   entryComponents: [],
   imports: [
     IonicModule,
@@ -35,7 +37,8 @@ import { SettingsProvider } from './settings-provider';
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    AuthService
+    AuthService,
+    LoadingService
   ],
   bootstrap: [AppComponent]
 })

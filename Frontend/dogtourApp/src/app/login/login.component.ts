@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
   password = new FormControl('', Validators.required);
 
   constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient,
-              private authService: AuthService) { }
+              private authService: AuthService, private loadingService: LoadingService) { }
 
   ngOnInit() {
 
@@ -30,7 +31,7 @@ export class LoginComponent implements OnInit {
    }
 
   realizarLogin() {
-
+    this.loadingService.mostrarLoading();
     this.http.post('/api/user/login', this.formLogin.value).subscribe(
       (res: any) => {
         this.authService.usuarioAuth.email = this.email.value;
@@ -44,9 +45,12 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('token', res.idToken);
         this.router.navigate(['/tabs/passeioTab']);
       },
-      (err) => {
+      () => {
+        this.loadingService.fecharLoading();
       },
-      () => {}
+      () => {
+        this.loadingService.fecharLoading();
+      }
     );
   }
 
