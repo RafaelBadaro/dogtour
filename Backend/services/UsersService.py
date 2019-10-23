@@ -71,10 +71,15 @@ class UsersService:
     @rpc
     def get(self, idToken):
 
-        status = 409
+        status = 400
         errorMsg = "Usuario nao cadastrado!"
 
-        user = auth.get_account_info(idToken)
+        user_info = auth.get_account_info(idToken)
+        email = user_info['users'][0]['email']
+
+        fEmail = email.replace(".", ",")
+
+        user = db.child("users").child(fEmail).get().val()
         
         if user is not None:
             status = 200

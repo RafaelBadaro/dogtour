@@ -4,6 +4,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { VirtualTimeScheduler } from 'rxjs';
 import { LoadingService } from '../services/loading.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro',
@@ -22,7 +23,8 @@ export class CadastroCachorroComponent implements OnInit {
   sex = new FormControl('', Validators.required);
 
   constructor(private authService: AuthService, private loadingService: LoadingService,
-              private formBuilder: FormBuilder, private http: HttpClient) {}
+              private formBuilder: FormBuilder, private http: HttpClient,
+              private router: Router) {}
 
   ngOnInit() {
     this.formCadastroCachorro = this.formBuilder.group({
@@ -46,9 +48,11 @@ export class CadastroCachorroComponent implements OnInit {
     this.http.post('/api/user/dogs', obj).subscribe(
       res => {
         this.loadingService.fecharLoading();
+        this.router.navigate(['/tabs/passeioTab']);
       },
       err => {
         this.loadingService.fecharLoading();
+        this.router.navigate(['/login']);
       },
       () => {
         this.loadingService.fecharLoading();
