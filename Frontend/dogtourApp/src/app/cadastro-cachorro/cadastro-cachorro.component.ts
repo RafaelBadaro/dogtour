@@ -1,6 +1,9 @@
+import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { VirtualTimeScheduler } from 'rxjs';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -18,7 +21,8 @@ export class CadastroCachorroComponent implements OnInit {
 
   sex = new FormControl('', Validators.required);
 
-  constructor(private formBuilder: FormBuilder, private http: HttpClient) {}
+  constructor(private authService: AuthService, private loadingService: LoadingService,
+              private formBuilder: FormBuilder, private http: HttpClient) {}
 
   ngOnInit() {
     this.formCadastroCachorro = this.formBuilder.group({
@@ -30,16 +34,24 @@ export class CadastroCachorroComponent implements OnInit {
   }
 
   realizarCadastroCachorro() {
-    //TODO mudar essa rota
-    this.http.post('localhost:8000/user', this.formCadastroCachorro.value).subscribe(
+    this.loadingService.mostrarLoading();
+    const obj = {
+      ownerEmail: this.authService.usuarioAuth.email,
+      name: this.name.value,
+      size: this.size.value,
+      temper: this.temper.value,
+      sex: this.sex.value
+    }
+
+    this.http.post('/api/user/dogs', obj).subscribe(
       res => {
-        console.log(res);
+        this.loadingService.fecharLoading();
       },
       err => {
-        console.log(err);
+        this.loadingService.fecharLoading();
       },
       () => {
-        console.log('finalizei');
+        this.loadingService.fecharLoading();
       }
     );
   }

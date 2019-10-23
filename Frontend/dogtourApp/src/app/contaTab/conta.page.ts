@@ -29,14 +29,7 @@ export class ContaPage implements OnInit {
 
     this.name.setValue(this.authService.usuarioAuth.name);
     this.email.setValue(this.authService.usuarioAuth.email);
-    var c = new Cachorro();
-    if(this.authService.usuarioAuth.dogs !== undefined ){
-    c.name = this.authService.usuarioAuth.dogs['Biju'].name;
-    c.sex = this.authService.usuarioAuth.dogs['Biju'].sex;
-    c.size = this.authService.usuarioAuth.dogs['Biju'].size;
-    c.temper = this.authService.usuarioAuth.dogs['Biju'].temper;
-    this.cachorrosUsuario.push(c);
-    }
+    this.cachorrosUsuario = this.authService.usuarioAuth.dogs;
   }
 
   atualizarDados() {

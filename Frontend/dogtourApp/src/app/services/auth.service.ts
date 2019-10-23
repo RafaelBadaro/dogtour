@@ -16,22 +16,22 @@ export class AuthService {
   private config = this.settingsProvider.getConfiguration;
 
   isLoggedIn(): boolean {
-    // const token = sessionStorage.getItem('token');
-    // if(token !== null && token.length > 0){
-    //   const decoded = this.getDecodedToken(token);
-    //   if(decoded !== null){
-    //     if(decoded.iss === this.config.iss){
-    //       return true;
-    //     }else{
-    //       return false;
-    //     }
-    //   }else{
-    //     return false;
-    //   }
-    // }else {
-    //   return false;
-    // }
-    return true;
+    const token = sessionStorage.getItem('token');
+    if(token !== null && token.length > 0){
+      const decoded = this.getDecodedToken(token);
+      if(decoded !== null){
+        if(decoded.iss === this.config.iss){
+          return true;
+        }else{
+          return false;
+        }
+      }else{
+        return false;
+      }
+    }else {
+      return false;
+    }
+    //eturn true;
   }
 
   private getDecodedToken(token: string){

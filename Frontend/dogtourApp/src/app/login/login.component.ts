@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { LoadingService } from '../services/loading.service';
+import { Cachorro } from '../models/cachorro.model';
 
 @Component({
   selector: 'app-login',
@@ -37,7 +38,12 @@ export class LoginComponent implements OnInit {
         this.authService.usuarioAuth.email = this.email.value;
         this.authService.usuarioAuth.name = res.user.name;
         this.authService.usuarioAuth.role = res.user.role;
-        this.authService.usuarioAuth.dogs = res.user.dogs;
+        this.authService.usuarioAuth.dogs = [];
+        for(let dog in res.user.dogs){
+          let c:Cachorro = res.user.dogs[dog]
+          this.authService.usuarioAuth.dogs.push(c);
+        }
+        
 
         this.email.setValue(undefined);
         this.password.setValue(undefined);
