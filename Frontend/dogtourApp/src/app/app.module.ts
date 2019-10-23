@@ -12,13 +12,20 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { CadastroCachorroComponent } from './cadastro-cachorro/cadastro-cachorro.component';
+import { AvaliacaoDonoComponent } from './avaliacao-dono/avaliacao-dono.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { SettingsProvider } from './settings-provider';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CadastroComponent, CadastroCachorroComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    CadastroComponent,
+    CadastroCachorroComponent,
+    AvaliacaoDonoComponent
+  ],
   entryComponents: [],
   imports: [
     IonicModule,
