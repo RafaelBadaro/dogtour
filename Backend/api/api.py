@@ -10,6 +10,7 @@ class APIGateway(object):
 
     users_rpc = RpcProxy('users')
     dogs_rpc = RpcProxy('dogs')
+    tours_rpc = RpcProxy('tours')
 
     @http('POST', '/api/user')
     def create_user(self, request):
@@ -49,7 +50,24 @@ class APIGateway(object):
             mimetype='application/json'
         )
 
-    @http('POST', '/api/user/dogs')
+    @http('POST', '/api/tour')
+    def create_tour(self, request):
+	
+        reqData = json.loads(request.get_data(as_text=True))
+        dog = reqData['dog']
+        dono = reqData['dono']
+        passeador = reqData['passeador']
+        starting_addres = reqData['starting_addres']
+        
+        (status, errorMsg) = self.tours_rpc.create(dog, dono, passeador, starting_addres)
+
+        return Response(
+            json.dumps({'error': errorMsg}),
+            status=status,
+            mimetype='application/json'
+        )
+
+    @http('POST', '/api/user/dog')
     def create_dog(self, request):
 
         reqData = json.loads(request.get_data(as_text=True))
