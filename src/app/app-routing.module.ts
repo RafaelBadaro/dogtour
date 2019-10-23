@@ -4,11 +4,17 @@ import { LoginComponent } from './login/login.component';
 import { AuthGuard } from './guards/auth.guard';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { CadastroCachorroComponent } from './cadastro-cachorro/cadastro-cachorro.component';
+import { AvaliacaoDonoComponent } from './avaliacao-dono/avaliacao-dono.component';
 
 const routes: Routes = [
   {
     path: '' || 'login',
     component: LoginComponent
+  },
+
+  {
+    path: 'avaliacao-dono',
+    component: AvaliacaoDonoComponent
   },
   {
     path: 'cadastro',
