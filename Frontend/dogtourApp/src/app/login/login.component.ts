@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { LoadingService } from '../services/loading.service';
+import { Cachorro } from '../models/cachorro.model';
 
 @Component({
   selector: 'app-login',
@@ -13,13 +15,13 @@ export class LoginComponent implements OnInit {
 
 
   formLogin: FormGroup;
-  
-  email = new FormControl('',Validators.required);
 
-  password = new FormControl('',Validators.required);
+  email = new FormControl('', Validators.required);
 
-  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient, 
-    private authService: AuthService) { }
+  password = new FormControl('', Validators.required);
+
+  constructor(private formBuilder: FormBuilder, private router: Router,
+     private http: HttpClient, private loadingService: LoadingService) { }
 
   ngOnInit() {
 
@@ -30,22 +32,22 @@ export class LoginComponent implements OnInit {
    }
 
   realizarLogin() {
-
+    this.loadingService.mostrarLoading();
     this.http.post('/api/user/login', this.formLogin.value).subscribe(
-      (res : any) => {
-        this.authService.usuarioAuth.email = this.email.value;
-        this.authService.usuarioAuth.name = res.name;
-        
-        this.email.setValue(undefined)
+      (res: any) => {
+        this.email.setValue(undefined);
         this.password.setValue(undefined);
 
         sessionStorage.setItem('token', res.idToken);
+        this.loadingService.fecharLoading();
         this.router.navigate(['/tabs/passeioTab']);
       },
-      (err) => {
-        console.log(err);
+      () => {
+        this.loadingService.fecharLoading();
       },
-      ()=>{}
+      () => {
+        this.loadingService.fecharLoading();
+      }
     );
   }
 
