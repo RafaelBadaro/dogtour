@@ -41,10 +41,10 @@ class APIGateway(object):
         email = reqData['email']
         password = reqData['password']
 
-        (idToken, status, errorMsg) = self.users_rpc.login(email, password)
+        (user, idToken, status, errorMsg) = self.users_rpc.login(email, password)
 
         return Response(
-            json.dumps({'idToken': idToken, 'error': errorMsg}),
+            json.dumps({'user': user, 'idToken': idToken, 'error': errorMsg}),
             status=status,
             mimetype='application/json'
         )
@@ -75,41 +75,6 @@ class APIGateway(object):
 
         return Response(
             json.dumps({'user': user, 'errorMsg': errorMsg}),
-            status=status,
-            mimetype='application/json'
-        )
-
-    @http('GET', '/api/user/<string:id_token>')
-    def get_user(self, request, id_token):
-
-        (user, status, errorMsg) = self.users_rpc.get(id_token)
-
-        return Response(
-            json.dumps({'user': user, 'errorMsg': errorMsg}),
-            status=status,
-            mimetype='application/json'
-        )
-
-    @http('POST', '/api/user/rate')
-    def rate_user(self, request):
-
-        """
-
-        Request:{
-            "email": "",
-            "rating": ""
-        }
-
-        """
-        reqData = json.loads(request.get_data(as_text=True))
-
-        email = reqData['email']
-        rating = reqData['rating']
-
-        (status, errorMsg) = self.users_rpc.rate(email, rating)
-
-        return Response(
-            json.dumps({'error': errorMsg}),
             status=status,
             mimetype='application/json'
         )

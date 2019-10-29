@@ -1,8 +1,5 @@
-.content {
-  background-color: #1c9b9b;
-  height: 100%;
 
-  .container {
+ .container {
     height: 33%;
     background-color: #1c9b9b;
 
@@ -20,7 +17,7 @@
           border: 1px solid;
           border-radius: 12px;
           margin-bottom: 15px;
-          color: #e9ddcd;
+          color: lavender;
         }
       }
     }
@@ -33,7 +30,7 @@
           text-align: center;
           padding-bottom: 10px;
           .card__sem-cadastro-cachorros__span {
-            color: #e9ddcd;
+            color: lavender;
           }
         }
 
@@ -55,7 +52,7 @@
       .campos__senha {
         display: flex;
         &-input {
-          color: #e9ddcd;
+          color: lavender;
           border-bottom: 1px solid;
         }
       }
@@ -64,4 +61,4 @@
       }
     }
   }
-}
+

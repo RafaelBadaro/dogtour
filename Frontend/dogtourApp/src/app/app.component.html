@@ -1,3 +1,6 @@
 <ion-app>
   <ion-router-outlet></ion-router-outlet>
+  <div *ngIf="loadingService.loadingAberto" class="spinner">
+    <app-loading></app-loading>
+  </div>
 </ion-app>
