@@ -1,0 +1,24 @@
+.card__conta__cachorro-item__input {
+  background-color: #1c9b9b;
+  border: 1px solid;
+  margin-bottom: 10px;
+  border-radius: 12px;
+  color: #e9ddcd;
+}
+.card__selects {
+  .card__select__item {
+    display: flex;
+    .card__select__item-label {
+      padding-top: 10px;
+    }
+    .card__select__item-options {
+      width: 100%;
+    }
+  }
+}
+.card__select__item-label {
+  color: #e9ddcd;
+}
+.card__select__item-options {
+  color: #e9ddcd;
+}

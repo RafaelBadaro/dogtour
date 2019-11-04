@@ -1,0 +1,40 @@
+.container {
+  height: 100%;
+  background-color: #445e6b;
+
+  .container__icon {
+    display: flex;
+    padding-top: 30px;
+
+    ion-icon {
+      color: white;
+    }
+    .container__icon__texto {
+      color: white;
+    }
+  }
+
+  .form__campo__span__wrapper{
+    display: flex;
+    padding-top: 15px;
+
+    .form__campo__span{
+      color: white;
+    }
+  }
+
+  .container__cadastro {
+    text-align: center;
+    top: 5%;
+    position: relative;
+
+    .container__header {
+      .container__header__title {
+        font-size: 20px;
+        color: #e9ddcd;
+      }
+    }
+
+
+  }
+}

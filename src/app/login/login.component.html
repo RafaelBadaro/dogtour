@@ -1,0 +1,25 @@
+<div class="container">
+  <div class="container__login">
+    <header class="container__header">
+        <h1 class="container__header__title">Faça seu login</h1>
+    </header>
+
+
+    <form class="form" [formGroup]="formLogin" (ngSubmit)="realizarLogin()">
+
+      <ion-item color='secondary' class="form__campo">
+        <ion-input class="form__campo__input" placeholder="Email" formControlName="email"></ion-input>
+      </ion-item>
+      <ion-item color='secondary' class="form__campo">
+        <ion-input class="form__campo__input" placeholder="Senha" type="password" formControlName="password">
+        </ion-input>
+      </ion-item>
+
+      <div class="form__btn">
+        <ion-button expand="full" type="submit" [disabled]="formLogin.invalid">Entrar</ion-button>
+      </div>
+    </form>
+
+    <span class="container__span"> Não possui caudastro? <a [routerLink]="['/cadastro']"> Registre-se agora</a></span>
+  </div>
+</div>
