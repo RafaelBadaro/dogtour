@@ -25,15 +25,26 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 
+.content {
+  background-color: #1c9b9b;
+  height: 100vh;
+}
+
 ion-item {
   --padding-start: 0;
 }
 
 ion-card-title {
   font-size: 21px;
-  color: #E9DDCD;
+  color: aliceblue;
+}
+ion-card-content {
+  color: aliceblue;
 }
 
+ion-spinner{
+  transform: scale(4);
+}
 
 .form {
   padding: 24px 40px;
@@ -52,6 +63,6 @@ ion-card-title {
   }
 }
 
-h1{
-  color: #E9DDCD;
+h1 {
+  color: aliceblue;
 }

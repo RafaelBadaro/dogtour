@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoadingService } from '../services/loading.service';
 
 @Component({
   selector: 'app-passeio',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class PasseioPage {
 
-  constructor() { }
+  constructor(private loadingService: LoadingService) { }
 
   public agendar() {
 

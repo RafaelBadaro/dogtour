@@ -22,6 +22,7 @@ const routes: Routes = [
   },
   {
     path: 'cadastro-cachorro',
+    canActivate: [AuthGuard],
     component: CadastroCachorroComponent
   },
   {
