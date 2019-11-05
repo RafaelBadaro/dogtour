@@ -1,6 +1,6 @@
 import { Cachorro } from 'src/app/models/cachorro.model';
-export class Usuario{
-    
+export class Usuario {
+
     email: string;
 
     name: string;

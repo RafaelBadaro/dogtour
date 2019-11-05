@@ -1,6 +1,9 @@
 export const constantes = {
 
     textos: {
-        MSG_1: '',
+        passeio: {
+            PASSEIO_AGENDADO_COM_SUCESSO: 'Seu passeio foi agendado!',
+        }
+
     }
 };
