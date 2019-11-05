@@ -20,28 +20,27 @@
       </div>
 
       <div class="container container__meio">
-        <ion-card class="card__conta">
+        <ion-card class="card card__conta">
           <ion-card-header>
             <ion-card-title>Cachorros cadastrados</ion-card-title>
           </ion-card-header>
 
-        <div *ngIf="authService.usuarioAuth.role === 'dono'">
-          <div class="card__sem-cadastro-cachorros"
-            *ngIf="cachorrosUsuario === undefined || cachorrosUsuario.length === 0">
-            <span class="card__sem-cadastro-cachorros__span">Ei cara <a
-                [routerLink]="['/cadastro-cachorro']">cadastre</a> uns cachorrinhos</span>
-          </div> 
-          <div >
-            <ion-card-content class="card__lista-cachorros">
-              <ion-list class="card__lista-cachorros-lista" *ngFor="let cachorro of cachorrosUsuario">
-                <app-conta-cachorro  [dog]="cachorro"
-                (dogAtualizadoEmitter)="atualizarListaCachorros($event)"
-                  class="card__conta__cachorro-item">
-                </app-conta-cachorro>
-              </ion-list>
-            </ion-card-content>
+          <div *ngIf="authService.usuarioAuth.role === 'dono'">
+            <div class="card__sem-cadastro-cachorros"
+              *ngIf="cachorrosUsuario === undefined || cachorrosUsuario.length === 0">
+              <span class="card__sem-cadastro-cachorros__span">Ei cara <a
+                  [routerLink]="['/cadastro-cachorro']">cadastre</a> uns cachorrinhos</span>
+            </div>
+            <div>
+              <ion-card-content class="card__lista-cachorros">
+                <ion-list class="card__lista-cachorros-lista" *ngFor="let cachorro of cachorrosUsuario">
+                  <app-conta-cachorro [dog]="cachorro" (dogAtualizadoEmitter)="atualizarListaCachorros($event)"
+                    class="card__conta__cachorro-item">
+                  </app-conta-cachorro>
+                </ion-list>
+              </ion-card-content>
+            </div>
           </div>
-        </div>
         </ion-card>
       </div>
 
@@ -50,7 +49,7 @@
           <ion-input class="campos__senha-input" type="password" placeholder="Senha Nova" formControlName="password">
           </ion-input>
         </div>
-        <ion-button type="submit" class="btn__salvar-dados" expand="full">Salvar dados</ion-button>
+        <ion-button type="submit" class="btn__salvar-dados" expand="full">Salvar senha</ion-button>
       </div>
 
     </form>

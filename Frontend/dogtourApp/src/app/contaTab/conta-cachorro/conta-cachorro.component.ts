@@ -14,13 +14,13 @@ export class ContaCachorroComponent implements OnInit {
 
   formDog: FormGroup;
 
-  dogName = new FormControl('');
+  dogName = new FormControl({value: '', disabled: true});
 
-  sex = new FormControl('');
+  sex = new FormControl({value: '', disabled: true});
 
-  size = new FormControl('');
+  size = new FormControl({value: '', disabled: true});
 
-  temper = new FormControl('');
+  temper = new FormControl({value: '', disabled: true});
 
 
   constructor(private formBuilder: FormBuilder) { }

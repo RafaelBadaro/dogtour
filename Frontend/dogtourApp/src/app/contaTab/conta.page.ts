@@ -12,8 +12,8 @@ import { Cachorro } from '../models/cachorro.model';
 export class ContaPage implements OnInit {
 
   formConta: FormGroup;
-  name = new FormControl('');
-  email = new FormControl('');
+  name = new FormControl({value: '', disabled: true});
+  email = new FormControl({value: '', disabled: true});
   password = new FormControl('');
 
   cachorrosUsuario: Cachorro[] = [];
@@ -33,7 +33,7 @@ export class ContaPage implements OnInit {
   }
 
   atualizarDados() {
-   
+
   }
   atualizarListaCachorros(dog: Cachorro) {
   }
