@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { CadastroCachorroComponent } from './cadastro-cachorro/cadastro-cachorro.component';
+import { AvaliacaoDonoComponent } from './avaliacao-dono/avaliacao-dono.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
@@ -20,7 +21,14 @@ import { LoadingComponent } from './services/loading/loading.component';
 import { LoadingService } from './services/loading.service';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, CadastroComponent, CadastroCachorroComponent, LoadingComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    CadastroComponent,
+    CadastroCachorroComponent,
+    LoadingComponent,
+    AvaliacaoDonoComponent
+  ],
   entryComponents: [],
   imports: [
     IonicModule,
