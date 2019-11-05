@@ -32,6 +32,7 @@ export class PasseioPage {
     u.role = 'a';
     u.email = 'email';
     u.dogs = [];
+    u.horarios = ['Data e hora 1', 'Data e hora 2'];
 
     this.passeadores.push(u);
 
@@ -40,13 +41,14 @@ export class PasseioPage {
     u2.role = 'a';
     u2.email = 'email';
     u2.dogs = [];
+    u2.horarios = ['Data e hora 3', 'Data e hora 4'];
 
     this.passeadores.push(u2);
   }
 
   public agendar() {
     this.alertService.abrirAlert(constantes.textos.passeio.PASSEIO_AGENDADO_COM_SUCESSO,
-       'Horario:' + this.horario.value + ' Passeador:' + this.passeador.value);
+       'Horario: ' + this.horario.value + ' - Passeador: ' + this.passeador.value.name);
   }
 
   public pedirAgora() {

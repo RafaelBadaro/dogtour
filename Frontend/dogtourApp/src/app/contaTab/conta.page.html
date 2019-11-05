@@ -49,7 +49,7 @@
           <ion-input class="campos__senha-input" type="password" placeholder="Senha Nova" formControlName="password">
           </ion-input>
         </div>
-        <ion-button type="submit" class="btn__salvar-dados" expand="full">Salvar senha</ion-button>
+        <ion-button type="submit" class="btn__salvar-dados" expand="full" [disabled]="formConta.invalid">Salvar senha</ion-button>
       </div>
 
     </form>

@@ -8,4 +8,6 @@ export class Usuario {
     role: string;
 
     dogs: Cachorro[];
+
+    horarios?: string[];
 }

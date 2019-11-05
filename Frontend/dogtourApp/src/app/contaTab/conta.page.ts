@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Usuario } from '../models/usuario.model';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Cachorro } from '../models/cachorro.model';
 
 @Component({
@@ -14,7 +14,7 @@ export class ContaPage implements OnInit {
   formConta: FormGroup;
   name = new FormControl({value: '', disabled: true});
   email = new FormControl({value: '', disabled: true});
-  password = new FormControl('');
+  password = new FormControl('', Validators.required);
 
   cachorrosUsuario: Cachorro[] = [];
 
