@@ -1,0 +1,13 @@
+.content--encontrado {
+  background-color: red;
+  .content__mapa {
+    height: 60%;
+  }
+  .content__info {
+    height: 40%;
+    &__card{
+        height: 100%;
+        padding: 20px;
+    }
+  }
+}

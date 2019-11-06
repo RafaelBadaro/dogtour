@@ -4,6 +4,7 @@ import { AlertService } from '../services/alert.service';
 import { constantes } from '../constantes';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from '../models/usuario.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-passeio',
@@ -21,7 +22,7 @@ export class PasseioPage {
   passeadores: Usuario[] = [];
 
   constructor(private formBuilder: FormBuilder, private loadingService: LoadingService,
-              private alertService: AlertService) {
+              private alertService: AlertService, private router: Router) {
 
     this.formAgendamento = this.formBuilder.group({
       passeador: this.passeador,
@@ -52,7 +53,7 @@ export class PasseioPage {
   }
 
   public pedirAgora() {
-
+    this.router.navigate(['/tabs/passeioTab/passeio-encontrado']);
   }
 
 }
