@@ -11,4 +11,8 @@ export class PasseioEncontradoComponent implements OnInit {
 
   ngOnInit() {}
 
+
+  public cancelar() {
+
+  }
 }

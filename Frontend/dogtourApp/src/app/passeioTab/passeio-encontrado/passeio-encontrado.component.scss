@@ -1,13 +1,32 @@
 .content--encontrado {
-  background-color: red;
   .content__mapa {
     height: 60%;
   }
   .content__info {
     height: 40%;
-    &__card{
-        height: 100%;
-        padding: 20px;
+    &__card {
+      height: 100%;
+      padding: 20px;
+      background-color: white;
+      opacity: 0.9;
+      color: lightslategrey;
+
+      &__header {
+        font-size: 18px;
+      }
+
+      &__dados {
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+
+        &__span {
+          padding: 5px 0;
+          &--contato {
+            padding: 10px;
+          }
+        }
+      }
     }
   }
 }
