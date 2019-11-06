@@ -21,15 +21,17 @@ export class PasseioPage {
 
   passeadores: Usuario[] = [];
 
+  passeioAgendado = false;
+
   constructor(private formBuilder: FormBuilder, private loadingService: LoadingService,
-              private alertService: AlertService, private router: Router) {
+    private alertService: AlertService, private router: Router) {
 
     this.formAgendamento = this.formBuilder.group({
       passeador: this.passeador,
       horario: this.horario
     });
     const u = new Usuario();
-    u.name = 'NOME';
+    u.name = 'Maca';
     u.role = 'a';
     u.email = 'email';
     u.dogs = [];
@@ -48,12 +50,17 @@ export class PasseioPage {
   }
 
   public agendar() {
-    this.alertService.abrirAlert(constantes.textos.passeio.PASSEIO_AGENDADO_COM_SUCESSO,
-       'Horario: ' + this.horario.value + ' - Passeador: ' + this.passeador.value.name);
+    this.passeioAgendado = true;
   }
 
   public pedirAgora() {
     this.router.navigate(['/tabs/passeioTab/passeio-encontrado']);
+  }
+
+  public cancelar() {
+    this.passeioAgendado = false;
+    this.passeador.setValue('');
+    this.horario.setValue('');
   }
 
 }

@@ -1,3 +1,27 @@
 .content {
   overflow: auto;
+
+  .card__passeio-agendado {
+    padding: 18px;
+    &__header {
+      color: aliceblue;
+      font-size: 21px;
+    }
+
+    &__conteudo {
+      &__textos{
+        color: aliceblue;
+        display: flex;
+        flex-direction: column;
+        margin: 13px 0;
+        &__span{
+          margin: 5px 0;
+          font-display: bold;
+          &--bold{
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
 }

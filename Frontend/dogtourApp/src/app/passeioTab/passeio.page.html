@@ -10,7 +10,7 @@
 
 
   <ion-card class="card">
-    <form class="form--passeio" [formGroup]="formAgendamento" (ngSubmit)="agendar()">
+    <form *ngIf="!passeioAgendado" class="form--passeio" [formGroup]="formAgendamento" (ngSubmit)="agendar()">
       <ion-card-header>
         <ion-card-title>Agendar passeio</ion-card-title>
       </ion-card-header>
@@ -38,11 +38,32 @@
       </ion-card-content>
 
       <ion-card-content class="card__btn">
-        <!--[disabled]="formAgendamento.invalid"-->
-        <ion-button (click)="agendar()" class="btn" expand="full" >Realizar
+        <ion-button (click)="agendar()" class="btn" expand="full" [disabled]="formAgendamento.invalid">Realizar
           Augendamento</ion-button>
       </ion-card-content>
     </form>
+    <div *ngIf="passeioAgendado" class="card__passeio-agendado">
+
+      <div class="card__passeio-agendado__header">
+        Seu passeio foi Agendado!
+      </div>
+      <div class="card__passeio-agendado__conteudo">
+        <div class="card__passeio-agendado__conteudo__textos">
+          <span class="card__passeio-agendado__conteudo__textos__span">Passeador:
+            <span class="card__passeio-agendado__conteudo__textos__span--bold">
+              {{passeador.value.name}}
+            </span>
+          </span>
+          <span class="card__passeio-agendado__conteudo__textos__span">Horário:
+            <span class="card__passeio-agendado__conteudo__textos__span--bold">
+              {{horario.value}}
+            </span>
+          </span>
+        </div>
+        <ion-button (click)="cancelar()" color="danger" class="btn" expand="full">Cancelar passeio</ion-button>
+      </div>
+    </div>
+
   </ion-card>
 
 
