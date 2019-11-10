@@ -19,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { SettingsProvider } from './settings-provider';
 import { LoadingComponent } from './services/loading/loading.component';
 import { LoadingService } from './services/loading.service';
+import { AlertService } from './services/alert.service';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { LoadingService } from './services/loading.service';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthService,
-    LoadingService
+    LoadingService,
+    AlertService
   ],
   bootstrap: [AppComponent]
 })

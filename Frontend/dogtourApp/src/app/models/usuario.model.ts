@@ -1,6 +1,8 @@
 import { Cachorro } from 'src/app/models/cachorro.model';
-export class Usuario{
-    
+export class Usuario {
+
+    idUser:string
+
     email: string;
 
     name: string;
@@ -8,4 +10,6 @@ export class Usuario{
     role: string;
 
     dogs: Cachorro[];
+
+    horarios?: string[];
 }

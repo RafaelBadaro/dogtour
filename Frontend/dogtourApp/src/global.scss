@@ -35,7 +35,7 @@ ion-item {
 }
 
 ion-card-title {
-  font-size: 21px;
+  font-size: 19px;
   color: aliceblue;
 }
 ion-card-content {
@@ -61,8 +61,15 @@ ion-spinner{
     padding: 0;
     background-color: #1c9b9b;
   }
+  &--passeio{
+    padding: 0;
+  }
 }
 
 h1 {
   color: aliceblue;
+}
+
+.card{
+      background-color: darkseagreen;
 }

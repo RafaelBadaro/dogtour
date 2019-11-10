@@ -1,18 +1,20 @@
+.container {
+  height: 33%;
+  background-color: #1c9b9b;
 
- .container {
-    height: 33%;
-    background-color: #1c9b9b;
-
-    &__topo {
-      .campos__usuario {
-        padding-top: 1%;
-        padding-left: 15px;
-        padding-right: 15px;
-        text-align: center;
-        .campos__usuario__titulo {
-          font-size: 24px;
-        }
-        .campos__usuario__texto {
+  &__topo {
+    .campos__usuario {
+      padding-top: 1%;
+      padding-left: 15px;
+      padding-right: 15px;
+      text-align: center;
+      .campos__usuario__titulo {
+        font-size: 24px;
+      }
+      .campos__usuario__textos {
+        display: flex;
+        flex-direction: column;
+        .campos__usuario__textos__texto {
           font-size: 22px;
           border: 1px solid;
           border-radius: 12px;
@@ -21,44 +23,46 @@
         }
       }
     }
-    &__meio {
-      padding: 1px 0;
-      .card__conta {
-        max-height: 230px;
-        overflow: auto;
-        .card__sem-cadastro-cachorros {
-          text-align: center;
-          padding-bottom: 10px;
-          .card__sem-cadastro-cachorros__span {
-            color: lavender;
-          }
-        }
+  }
+  &__meio {
+    padding: 1px 0;
+    .card__conta {
+      max-height: 230px;
+      overflow: auto;
 
-        .card__lista-cachorros {
-          text-align: center;
-          .card__lista-cachorros-lista {
-            background-color: #1c9b9b;
-          }
-          .card__conta__cachorro-item {
-            background-color: #1c9b9b;
-          }
-        }
-      }
-    }
-
-    &__footer {
-      padding: 0 16px 16px;
-
-      .campos__senha {
-        display: flex;
-        &-input {
+      .card__sem-cadastro-cachorros {
+        text-align: center;
+        padding-bottom: 10px;
+        .card__sem-cadastro-cachorros__span {
           color: lavender;
-          border-bottom: 1px solid;
         }
       }
-      .btn__salvar-dados {
-        margin-top: 40px;
+
+      .card__lista-cachorros {
+        text-align: center;
+        padding-top: 0;
+        .card__lista-cachorros-lista {
+          background-color: darkseagreen;
+        }
+        .card__conta__cachorro-item {
+          background-color: #1c9b9b;
+        }
       }
     }
   }
 
+  &__footer {
+    padding: 0 16px 16px;
+
+    .campos__senha {
+      display: flex;
+      &-input {
+        color: lavender;
+        border-bottom: 1px solid;
+      }
+    }
+    .btn__salvar-dados {
+      margin-top: 40px;
+    }
+  }
+}
