@@ -6,6 +6,7 @@ import { VirtualTimeScheduler } from 'rxjs';
 import { LoadingService } from '../services/loading.service';
 import { Router } from '@angular/router';
 import { constantes } from '../constantes';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -25,7 +26,8 @@ export class CadastroCachorroComponent implements OnInit {
 
   constructor(private authService: AuthService, private loadingService: LoadingService,
     private formBuilder: FormBuilder, private http: HttpClient,
-    private router: Router) { }
+    private router: Router,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     this.formCadastroCachorro = this.formBuilder.group({
@@ -47,15 +49,16 @@ export class CadastroCachorroComponent implements OnInit {
       temper: this.temper.value,
     }
 
-    this.http.post(constantes.textos.urlApi + '/api/dog', obj, 
+    this.http.post(constantes.textos.URL_API + '/api/dog', obj, 
     { headers: { 'Content-Type': 'text/plain' }}).subscribe(
       res => {
         this.loadingService.fecharLoading();
+        this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, constantes.textos.sucesso.CADASTRO);
         this.router.navigate(['/tabs/passeioTab']);
       },
       err => {
         this.loadingService.fecharLoading();
-        this.router.navigate(['/login']);
+        this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, constantes.textos.erros.CADASTRO);
       },
       () => {
         this.loadingService.fecharLoading();

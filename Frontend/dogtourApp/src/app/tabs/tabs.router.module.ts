@@ -30,7 +30,6 @@ const routes: Routes = [
       },
       {
         path: 'contaTab',
-        canActivate: [AuthGuard],
         children: [
           {
             path: '',

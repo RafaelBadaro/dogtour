@@ -23,8 +23,7 @@ export class PasseioPage {
 
   passeioAgendado = false;
 
-  constructor(private formBuilder: FormBuilder, private loadingService: LoadingService,
-    private alertService: AlertService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private loadingService: LoadingService, private router: Router) {
 
     this.formAgendamento = this.formBuilder.group({
       passeador: this.passeador,

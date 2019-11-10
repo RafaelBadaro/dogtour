@@ -6,6 +6,7 @@ import { Cachorro } from '../models/cachorro.model';
 import { constantes } from '../constantes';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AlertService } from './alert.service';
 
 
 @Injectable({
@@ -15,7 +16,7 @@ export class AuthService {
 
   public usuarioAuth: Usuario;
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router,  private alertService: AlertService) {
     this.usuarioAuth = new Usuario();
   }
 
@@ -33,7 +34,7 @@ export class AuthService {
 
   private setUsuarioAuth(): void {
     const token = sessionStorage.getItem('token');
-    this.http.get(constantes.textos.urlApi + '/api/user/' + token).subscribe(
+    this.http.get(constantes.textos.URL_API + '/api/user/' + token).subscribe(
       (res: any) => {
         this.usuarioAuth.idUser = res.user.user_id;
         this.usuarioAuth.email = res.user.email;
@@ -42,9 +43,9 @@ export class AuthService {
         this.usuarioAuth.dogs = [];
       },
       () => {
-        console.log('Erro ao trazer usuário');
+        this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao trazer usuário');
       });
-    this.http.get(constantes.textos.urlApi + '/api/user/' + token + '/dogs').subscribe(
+    this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/dogs').subscribe(
       (res2: any) => {
         if (res2.dogs !== undefined) {
           for (let dog in res2.dogs) {
@@ -56,7 +57,7 @@ export class AuthService {
         
       },
       () => {
-        console.log('Erro ao trazer cachorros do usuário');
+        this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao trazer cachorros do usuário');
       }
     )
 

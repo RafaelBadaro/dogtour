@@ -5,6 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { LoadingService } from '../services/loading.service';
 import { constantes } from '../constantes';
 import { AuthService } from '../services/auth.service';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private router: Router,
     private http: HttpClient, private loadingService: LoadingService, 
-    private authService: AuthService) { }
+     private alertService: AlertService) { }
 
   ngOnInit() {
 
@@ -32,16 +33,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
-
   realizarLogin() {
-
-    const loginObj = {
-      "email": this.email.value,
-      "password": this.password.value
-    }
+    
     this.loadingService.mostrarLoading();
-    this.http.post(constantes.textos.urlApi + '/api/login', this.formLogin.value, {
+    this.http.post(constantes.textos.URL_API + '/api/login', this.formLogin.value, {
       headers: { 'Content-Type': 'text/plain' }
     }).subscribe(
       (res: any) => {
@@ -54,6 +49,7 @@ export class LoginComponent implements OnInit {
       },
       () => {
         this.loadingService.fecharLoading();
+        this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao tentar logar! Confira o email e a senha por favorzinho');
       },
       () => {
         this.loadingService.fecharLoading();
