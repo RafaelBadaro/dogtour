@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<div class="content">
 
   <ion-card class="card">
     <ion-card-header>
@@ -14,21 +14,9 @@
     </ion-card-header>
 
     <ion-card-content class="card__texto">
-      <ion-list>
-        <ion-item>
-          Avalie o passeio: 
-          <ion-list class="card__avaliacoes">
-              <ion-item>1</ion-item>
-              <ion-item>2</ion-item>
-              <ion-item>3</ion-item>
-              <ion-item>4</ion-item>
-              <ion-item>5</ion-item>
-          </ion-list>
-        </ion-item>
-      </ion-list>
+      <ion-button (click)="irTelaAvaliacao()" class="btn" expand="full"> Avalie o passeio </ion-button>
     </ion-card-content>
 
 
   </ion-card>
-
-</ion-content>
+</div>

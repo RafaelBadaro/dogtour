@@ -5,6 +5,8 @@ import { HttpClient } from '@angular/common/http';
 import { VirtualTimeScheduler } from 'rxjs';
 import { LoadingService } from '../services/loading.service';
 import { Router } from '@angular/router';
+import { constantes } from '../constantes';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -23,8 +25,9 @@ export class CadastroCachorroComponent implements OnInit {
   sex = new FormControl('', Validators.required);
 
   constructor(private authService: AuthService, private loadingService: LoadingService,
-              private formBuilder: FormBuilder, private http: HttpClient,
-              private router: Router) {}
+    private formBuilder: FormBuilder, private http: HttpClient,
+    private router: Router,
+    private alertService: AlertService) { }
 
   ngOnInit() {
     this.formCadastroCachorro = this.formBuilder.group({
@@ -37,22 +40,25 @@ export class CadastroCachorroComponent implements OnInit {
 
   realizarCadastroCachorro() {
     this.loadingService.mostrarLoading();
+
     const obj = {
-      ownerEmail: this.authService.usuarioAuth.email,
+      user_id: this.authService.usuarioAuth.idUser,
       name: this.name.value,
+      sex: this.sex.value,
       size: this.size.value,
       temper: this.temper.value,
-      sex: this.sex.value
     }
 
-    this.http.post('/api/user/dogs', obj).subscribe(
+    this.http.post(constantes.textos.URL_API + '/api/dog', obj, 
+    { headers: { 'Content-Type': 'text/plain' }}).subscribe(
       res => {
         this.loadingService.fecharLoading();
+        this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, constantes.textos.sucesso.CADASTRO);
         this.router.navigate(['/tabs/passeioTab']);
       },
       err => {
         this.loadingService.fecharLoading();
-        this.router.navigate(['/login']);
+        this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, constantes.textos.erros.CADASTRO);
       },
       () => {
         this.loadingService.fecharLoading();

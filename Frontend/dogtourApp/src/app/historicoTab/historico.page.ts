@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-historico',
@@ -7,6 +8,15 @@ import { Component } from '@angular/core';
 })
 export class HistoricoPage {
 
-  constructor() {}
+  constructor(private router: Router) {}
+
+  public irTelaAvaliacao(){
+    // if(perfil == dono){
+    //  this.router.navigate(['/avaliacao-passeador']);
+    // }else{
+    //  this.router.navigate(['/avaliacao-dono']);
+    // }
+    this.router.navigate(['/avaliacao-dono']);
+  }
 
 }
