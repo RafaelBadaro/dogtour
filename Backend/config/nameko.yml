@@ -1,6 +1,0 @@
-AMQP_URI: 'amqp://localhost'
-
-LOGSTASH:
-    HOST: localhost
-    PORT: 5959
-    LOG_LEVEL: INFO
