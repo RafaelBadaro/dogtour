@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { constantes } from '../constantes';
 
 @Component({
   selector: 'app-cadastro',
@@ -21,7 +22,7 @@ export class CadastroComponent implements OnInit {
 
   role = new FormControl('', Validators.required);
 
-  constructor(private formBuilder: FormBuilder, private router: Router , private http: HttpClient) { }
+  constructor(private formBuilder: FormBuilder, private router: Router, private http: HttpClient) { }
 
   ngOnInit() {
 
@@ -34,11 +35,14 @@ export class CadastroComponent implements OnInit {
   }
 
   realizarCadastro() {
-    this.http.post('/api/user', this.formCadastro.value).subscribe(
+    this.http.post(constantes.textos.urlApi + '/api/user', this.formCadastro.value, {
+      headers: { 'Content-Type': 'text/plain' }
+    }).subscribe(
       (res) => {
         this.router.navigate(['/login']);
       },
       (err) => {
+        console.log('Erro no cadastro de pessoas')
       },
       () => {
       }

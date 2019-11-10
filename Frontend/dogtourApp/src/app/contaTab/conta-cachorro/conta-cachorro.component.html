@@ -1,28 +1,15 @@
-<form [formGroup]="formDog" (change)="enviarAlteracoes()">
-    <ion-input class="card__conta__cachorro-item__input" formControlName="dogName"></ion-input>
-    <div class="card__selects">
-        <div class="card__select__item">
-            <span class="card__select__item-label">Gênero:</span>
-            <ion-select class="card__select__item-options" formControlName="sex">
-                <ion-select-option value="femea">Fêmea</ion-select-option>
-                <ion-select-option value="macho">Macho</ion-select-option>
-            </ion-select>
+<div class="card__conta__cachorro">
+
+        <div class="card__conta__cachorro__item">
+            <span class="card__conta__cachorro__item-label">Nome: {{dog.name}}</span>
         </div>
-        <div class="card__select__item">
-            <span class="card__select__item-label">Tamanho:</span>
-            <ion-select class="card__select__item-options" formControlName="size">
-                <ion-select-option value="pequeno">Pequeno</ion-select-option>
-                <ion-select-option value="medio">Médio</ion-select-option>
-                <ion-select-option value="grande">Grande</ion-select-option>
-            </ion-select>
+        <div class="card__conta__cachorro__item">
+            <span class="card__conta__cachorro__item-label">Gênero: {{dog.sex}}</span>
         </div>
-        <div class="card__select__item">
-            <span class="card__select__item-label">Temperamento:</span>
-            <ion-select class="card__select__item-options" formControlName="temper">
-                <ion-select-option value="estavel">Estável</ion-select-option>
-                <ion-select-option value="confiante">Confiante</ion-select-option>
-                <ion-select-option value="agressivo">Agressivo</ion-select-option>
-            </ion-select>
+        <div class="card__conta__cachorro__item">
+            <span class="card__conta__cachorro__item-label">Tamanho: {{dog.size}}</span>
         </div>
-    </div>
-</form>
+        <div class="card__conta__cachorro__item">
+            <span class="card__conta__cachorro__item-label">Temperamento: {{dog.temper}}</span>
+        </div>
+</div>

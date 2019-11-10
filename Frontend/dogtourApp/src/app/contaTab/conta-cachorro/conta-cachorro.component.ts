@@ -10,36 +10,14 @@ import { Cachorro } from 'src/app/models/cachorro.model';
 export class ContaCachorroComponent implements OnInit {
 
   @Input() dog: Cachorro;
-  @Output() dogAtualizadoEmitter = new EventEmitter();
-
-  formDog: FormGroup;
-
-  dogName = new FormControl({value: '', disabled: true});
-
-  sex = new FormControl({value: '', disabled: true});
-
-  size = new FormControl({value: '', disabled: true});
-
-  temper = new FormControl({value: '', disabled: true});
 
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor() { }
 
   ngOnInit() {
-    this.formDog = this.formBuilder.group({
-      dogName: this.dogName,
-      sex: this.sex,
-      size: this.size,
-      temper: this.temper
-    });
-    this.dogName.setValue(this.dog.name);
-    this.sex.setValue(this.dog.sex);
-    this.size.setValue(this.dog.size);
-    this.temper.setValue(this.dog.temper);
   }
 
   enviarAlteracoes() {
-    this.dogAtualizadoEmitter.emit(this.formDog.value);
   }
 
 }

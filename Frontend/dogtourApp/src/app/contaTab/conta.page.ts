@@ -12,30 +12,19 @@ import { Cachorro } from '../models/cachorro.model';
 export class ContaPage implements OnInit {
 
   formConta: FormGroup;
-  name = new FormControl({value: '', disabled: true});
-  email = new FormControl({value: '', disabled: true});
-  password = new FormControl('', Validators.required);
 
-  cachorrosUsuario: Cachorro[] = [];
+  password = new FormControl('', Validators.required);
 
   constructor(public authService: AuthService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.formConta = this.formBuilder.group({
-      name: this.name,
-      email: this.email,
-      password: this.password,
+      password: this.password
     });
-
-    this.name.setValue(this.authService.usuarioAuth.name);
-    this.email.setValue(this.authService.usuarioAuth.email);
-    this.cachorrosUsuario = this.authService.usuarioAuth.dogs;
   }
 
-  atualizarDados() {
-
-  }
-  atualizarListaCachorros(dog: Cachorro) {
+  public logout(){
+    this.authService.logOut();
   }
 
 }
