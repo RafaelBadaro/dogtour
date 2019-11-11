@@ -9,17 +9,33 @@
     }
 
     &__conteudo {
-      &__textos{
+      &__textos {
         color: aliceblue;
         display: flex;
         flex-direction: column;
         margin: 13px 0;
-        &__span{
+        &__span {
           margin: 5px 0;
           font-display: bold;
-          &--bold{
+          &--bold {
             font-weight: bold;
           }
+        }
+      }
+    }
+  }
+
+  .card__btn--passeador {
+    display: flex;
+    &__span {
+      margin-left: 7px;
+      &--procurando {
+        display: flex;
+        padding-top: 7px;
+        &__spinner {
+          color: white;
+          transform: scale(1);
+          margin-left: 10px;
         }
       }
     }

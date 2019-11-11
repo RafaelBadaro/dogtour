@@ -1,0 +1,19 @@
+.agendamento {
+  border: 2px solid white;
+  border-radius: 12px;
+  padding: 7px;
+  display: flex;
+  .agendamento__data {
+    width: 50%;
+    font-size: 21px;
+    padding-top: 7px;
+  }
+  .agendamento__infos {
+    width: 50%;
+    text-align: right;
+    .agendamento__info__btn-cancelar {
+      padding: 7px 0;
+      margin: 0;
+    }
+  }
+}
