@@ -5,6 +5,7 @@ import { constantes } from '../constantes';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from '../models/usuario.model';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-passeio',
@@ -19,25 +20,41 @@ export class PasseioPage  implements OnInit {
 
   horario = new FormControl('', Validators.required);
 
+  cachorro = new FormControl('', Validators.required);
+
   passeadores: Usuario[] = [];
 
   passeioAgendado = false;
 
-  constructor(private formBuilder: FormBuilder, private loadingService: LoadingService, private router: Router) {
+  procuraPasseio = false;
+
+  constructor(private formBuilder: FormBuilder, private loadingService: LoadingService,
+              private router: Router, public authService: AuthService) {
 
     this.formAgendamento = this.formBuilder.group({
       passeador: this.passeador,
-      horario: this.horario
+      horario: this.horario,
+      cachorro: this.cachorro
     });
+    const u = new Usuario();
+    u.name = 'Jorge';
+    u.role = 'passeador';
+    u.email = 'email';
+    u.dogs = [];
+    u.horarios = ['Data e hora 1', 'Data e hora 2'];
+
+    this.passeadores.push(u);
+
   }
 
   ngOnInit(): void {
-    
+
   }
- 
+
 
   public agendar() {
     this.passeioAgendado = true;
+    this.formAgendamento.value;
   }
 
   public pedirAgora() {
@@ -48,6 +65,7 @@ export class PasseioPage  implements OnInit {
     this.passeioAgendado = false;
     this.passeador.setValue('');
     this.horario.setValue('');
+    this.cachorro.setValue('');
   }
 
 }
