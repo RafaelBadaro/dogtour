@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PasseioPage } from './passeio.page';
 import { PasseioEncontradoComponent } from './passeio-encontrado/passeio-encontrado.component';
+import { PasseioAgendaComponent } from './passeio-agenda/passeio-agenda.component';
 
 @NgModule({
   imports: [
@@ -16,6 +17,6 @@ import { PasseioEncontradoComponent } from './passeio-encontrado/passeio-encontr
       [{ path: '', component: PasseioPage },
       { path: 'passeio-encontrado', component: PasseioEncontradoComponent }])
   ],
-  declarations: [PasseioPage, PasseioEncontradoComponent]
+  declarations: [PasseioPage, PasseioEncontradoComponent, PasseioAgendaComponent]
 })
 export class PasseioPageModule { }

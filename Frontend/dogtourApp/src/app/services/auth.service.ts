@@ -20,7 +20,7 @@ export class AuthService {
     this.usuarioAuth = new Usuario();
   }
 
- 
+
   isLoggedIn(): boolean {
     const token = sessionStorage.getItem('token');
     if (token !== null && token.length > 0) {
@@ -49,17 +49,17 @@ export class AuthService {
       (res2: any) => {
         if (res2.dogs !== undefined) {
           for (let dog in res2.dogs) {
-            let c: Cachorro = res2.dogs[dog];
+            const c: Cachorro = res2.dogs[dog];
             c.idDog = dog;
             this.usuarioAuth.dogs.push(c);
           }
         }
-        
+
       },
       () => {
         this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao trazer cachorros do usuário');
       }
-    )
+    );
 
 
   }

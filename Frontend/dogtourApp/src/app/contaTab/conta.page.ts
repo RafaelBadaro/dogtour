@@ -27,4 +27,8 @@ export class ContaPage implements OnInit {
     this.authService.logOut();
   }
 
+  public atualizarSenha(){
+    
+  }
+
 }
