@@ -9,7 +9,7 @@
 <ion-content>
 
   <div class="content">
-    <form class="form__conta" [formGroup]="formConta" (ngSubmit)="atualizarDados()">
+    <form class="form__conta" [formGroup]="formConta" (ngSubmit)="atualizarSenha()">
 
       <div class="container container__topo">
         <div class="campos__usuario">
@@ -42,8 +42,7 @@
             </div>
             <ion-card-content class="card__lista-cachorros">
               <ion-list class="card__lista-cachorros-lista" *ngFor="let cachorro of authService.usuarioAuth.dogs">
-                <app-conta-cachorro [dog]="cachorro" (dogAtualizadoEmitter)="atualizarListaCachorros($event)"
-                  class="card__conta__cachorro-item">
+                <app-conta-cachorro [dog]="cachorro" class="card__conta__cachorro-item">
                 </app-conta-cachorro>
               </ion-list>
             </ion-card-content>
