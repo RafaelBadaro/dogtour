@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { AuthService } from "../services/auth.service";
 
 @Component({
-  selector: 'app-avaliacao-dono',
-  templateUrl: './avaliacao-dono.component.html',
-  styleUrls: ['./avaliacao-dono.component.scss']
+  selector: "app-avaliacao-dono",
+  templateUrl: "./avaliacao-dono.component.html",
+  styleUrls: ["./avaliacao-dono.component.scss"]
 })
 export class AvaliacaoDonoComponent implements OnInit {
-  constructor() {}
+  constructor(public authService: AuthService) {}
 
   notaCachorro = 0;
   notaDono = 0;
@@ -75,7 +76,7 @@ export class AvaliacaoDonoComponent implements OnInit {
     if (this.zipped8 == true) {
       this.zipped8 = !this.zipped8;
       this.zipped6 = this.zipped8;
-      this.zipped5 = this.zipped8;
+      this.zipped7 = this.zipped8;
     }
     this.zipped9 = true;
     this.zipped10 = true;
@@ -118,8 +119,8 @@ export class AvaliacaoDonoComponent implements OnInit {
     this.notaDono = 5;
   }
   teste(): void {
-    console.log('nota do cachorro: ' + this.notaCachorro);
-    console.log('nota do dono: ' + this.notaDono);
+    console.log("nota do cachorro: " + this.notaCachorro);
+    console.log("nota do dono: " + this.notaDono);
   }
   ngOnInit() {}
 }
