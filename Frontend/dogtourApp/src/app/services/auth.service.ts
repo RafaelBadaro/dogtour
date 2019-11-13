@@ -16,19 +16,19 @@ export class AuthService {
 
   public usuarioAuth: Usuario;
 
-  public get usuarioDono() : boolean{
+  public get usuarioDono(): boolean {
     return this.usuarioAuth.role === 'dono';
   }
 
-  public get usuarioPasseador(): boolean{
+  public get usuarioPasseador(): boolean {
     return this.usuarioAuth.role === 'passeador';
   }
 
-  public get usuarioTemCachorros(): boolean{
+  public get usuarioTemCachorros(): boolean {
     return this.usuarioDono && (this.usuarioAuth.dogs !== null && this.usuarioAuth.dogs.length > 0);
   }
 
-  constructor(private http: HttpClient, private router: Router,  private alertService: AlertService) {
+  constructor(private http: HttpClient, private router: Router, private alertService: AlertService) {
     this.usuarioAuth = new Usuario();
   }
 
