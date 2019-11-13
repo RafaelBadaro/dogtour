@@ -20,6 +20,7 @@ import { SettingsProvider } from './settings-provider';
 import { LoadingComponent } from './services/loading/loading.component';
 import { LoadingService } from './services/loading.service';
 import { AlertService } from './services/alert.service';
+import { CadastroHorariosComponent } from './cadastro-horarios/cadastro-horarios.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { AlertService } from './services/alert.service';
     LoginComponent,
     CadastroComponent,
     CadastroCachorroComponent,
+    CadastroHorariosComponent,
     LoadingComponent,
     AvaliacaoDonoComponent
   ],
