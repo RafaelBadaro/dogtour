@@ -31,7 +31,11 @@
               </span>
             </ion-card-title>
             <ion-card-title *ngIf="authService.usuarioPasseador">
-              Passeador - não possui cadastro de cachorros</ion-card-title>
+              Horários cadastrados
+              <span class="card__conta__icon-add">
+                <ion-icon name="add" [routerLink]="['/cadastro-horarios']"></ion-icon>
+              </span>
+            </ion-card-title>
           </ion-card-header>
 
           <div *ngIf="authService.usuarioDono">
