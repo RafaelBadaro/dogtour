@@ -24,17 +24,17 @@
       <div class="container container__meio">
         <ion-card class="card card__conta">
           <ion-card-header>
-            <ion-card-title *ngIf="authService.usuarioAuth.role === 'dono'">
+            <ion-card-title *ngIf="authService.usuarioDono">
               Cachorros cadastrados
               <span class="card__conta__icon-add">
                 <ion-icon name="add" [routerLink]="['/cadastro-cachorro']"></ion-icon>
               </span>
             </ion-card-title>
-            <ion-card-title *ngIf="authService.usuarioAuth.role === 'passeador'">
+            <ion-card-title *ngIf="authService.usuarioPasseador">
               Passeador - não possui cadastro de cachorros</ion-card-title>
           </ion-card-header>
 
-          <div *ngIf="authService.usuarioAuth.role === 'dono'">
+          <div *ngIf="authService.usuarioDono">
             <div class="card__sem-cadastro-cachorros"
               *ngIf="authService.usuarioAuth.dogs === undefined || authService.usuarioAuth.dogs.length === 0">
               <span class="card__sem-cadastro-cachorros__span">Ei cara <a

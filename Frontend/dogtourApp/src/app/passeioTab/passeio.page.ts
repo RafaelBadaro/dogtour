@@ -12,7 +12,7 @@ import { AuthService } from '../services/auth.service';
   templateUrl: 'passeio.page.html',
   styleUrls: ['passeio.page.scss']
 })
-export class PasseioPage  implements OnInit {
+export class PasseioPage implements OnInit {
 
   formAgendamento: FormGroup;
 
@@ -29,7 +29,7 @@ export class PasseioPage  implements OnInit {
   procuraPasseio = false;
 
   constructor(private formBuilder: FormBuilder, private loadingService: LoadingService,
-              private router: Router, public authService: AuthService) {
+    private router: Router, public authService: AuthService, private alertService: AlertService) {
 
     this.formAgendamento = this.formBuilder.group({
       passeador: this.passeador,
@@ -48,6 +48,12 @@ export class PasseioPage  implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.authService.usuarioDono) {
+      if (!this.authService.usuarioTemCachorros) {
+        this.alertService.abrirAlert('Ei cara parece que você não possui cachorros cadastrados :(',
+          'Você pode cadastrar alguns na tela de Conta no canto inferior direito');
+      }
+    }
 
   }
 

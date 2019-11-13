@@ -10,12 +10,12 @@
     <div class="container__header">
       <span
         class="container__header__title"
-        *ngIf="authService.usuarioAuth.role === 'passeador'"
+        *ngIf="authService.usuarioPasseador"
         >Por favor, avalie de 1 a 5 o dono e o cachorro:
       </span>
       <span
         class="container__header__title"
-        *ngIf="authService.usuarioAuth.role === 'dono'"
+        *ngIf="authService.usuarioDono"
         >Por favor, avalie de 1 a 5 o passeador:
       </span>
     </div>
@@ -23,7 +23,7 @@
       <div
         color="secondary"
         class="form__campo"
-        *ngIf="authService.usuarioAuth.role === 'passeador'"
+        *ngIf="authService.usuarioPasseador"
       >
         <div class="form__campo__span__wrapper">
           <span class="form__campo__span">Cachorro: </span>
@@ -111,7 +111,7 @@
       <div
         color="secondary"
         class="form__campo"
-        *ngIf="authService.usuarioAuth.role === 'dono'"
+        *ngIf="authService.usuarioDono"
       >
         <div class="form__campo__span__wrapper">
           <span class="form__campo__span">Passeador: </span>
