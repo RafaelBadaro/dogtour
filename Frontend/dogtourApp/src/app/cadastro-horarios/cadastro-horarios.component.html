@@ -8,7 +8,7 @@
       <span class="container__header__title">Cadastro de Horários</span>
     </div>
     <div class="container__cadastro__horarios">
-     <app-horario *ngFor="let hr of horariosCadastrados" [horario]="hr"></app-horario>
+     <app-horario *ngFor="let hr of horariosCadastrados" [horario]="hr" [listaHorarios]="horariosCadastrados" (listaAtualizada)="atualizarLista($event)"></app-horario>
     </div>
     <div class="form__btn">
       <ion-button (click)="novoHorario()">Novo</ion-button>

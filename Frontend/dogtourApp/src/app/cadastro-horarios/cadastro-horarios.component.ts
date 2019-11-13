@@ -23,6 +23,11 @@ export class CadastroHorariosComponent implements OnInit {
     }
   }
 
+
+  public atualizarLista(event) {
+    this.horariosCadastrados = event;
+  }
+
   public novoHorario() {
     const novoHorario = new Horario();
     novoHorario.id = this.horariosCadastrados.length;

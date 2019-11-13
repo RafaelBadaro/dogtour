@@ -9,10 +9,18 @@ import { Horario } from 'src/app/models/horario.model';
 export class HorarioComponent implements OnInit {
 
   @Input() horario: Horario;
+  @Input() listaHorarios: Horario[];
+  @Output() listaAtualizada = new EventEmitter();
 
   constructor() { }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
+  public removeItemLista() {
+    const horaNaLista = this.listaHorarios.find((h) => h.id === this.horario.id);
+    const index = this.listaHorarios.indexOf(horaNaLista);
+    this.listaHorarios.splice(index, 1);
+    this.listaAtualizada.emit(this.listaHorarios);
+  }
 
 }
