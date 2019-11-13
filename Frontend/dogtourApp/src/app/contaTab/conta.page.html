@@ -61,7 +61,7 @@
             </div>
             <ion-card-content class="card__lista-cachorros">
               <ion-list class="card__lista-cachorros-lista" *ngFor="let horario of authService.usuarioAuth.horarios">
-                <span>Dia da semana: {{horario.diaDaSemana}} </span>
+                <span>Dia da semana: {{horario.diaDaSemana}} | </span>
                 <span> Hora: {{horario.hora | date:'shortTime'}}</span>
               </ion-list>
             </ion-card-content>

@@ -60,7 +60,8 @@ export class AuthService {
     this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/dogs').subscribe(
       (res2: any) => {
         if (res2.dogs !== undefined) {
-          for (let dog in res2.dogs) {
+          // tslint:disable-next-line: forin
+          for (const dog in res2.dogs) {
             const c: Cachorro = res2.dogs[dog];
             c.idDog = dog;
             this.usuarioAuth.dogs.push(c);
