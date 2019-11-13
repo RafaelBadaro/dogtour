@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Horario } from '../models/horario.model';
 import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cadastro-horarios',
@@ -11,7 +12,7 @@ export class CadastroHorariosComponent implements OnInit {
 
   horariosCadastrados: Horario[];
 
-  constructor(public authService: AuthService) { }
+  constructor(private router: Router, public authService: AuthService) { }
 
   ngOnInit() {
     if (this.authService.usuarioAuth.horarios !== undefined) {
@@ -29,11 +30,11 @@ export class CadastroHorariosComponent implements OnInit {
   }
 
   public salvarHorarios() {
-    console.log(this.horariosCadastrados);
     if (this.authService.usuarioAuth.horarios === undefined) {
       this.authService.usuarioAuth.horarios = [];
     }
     this.authService.usuarioAuth.horarios = this.horariosCadastrados;
+    this.router.navigate(['/tabs/contaTab']);
   }
 
 
