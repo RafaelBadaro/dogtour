@@ -1,0 +1,14 @@
+<div (change)="emitListaAtualizada()" class="horario">
+  <ion-label>Dias da semana</ion-label>
+  <ion-select value="{{horario.diaDaSemana}}" [(ngModel)]="horario.diaDaSemana">
+    <ion-select-option value="segunda">Segunda</ion-select-option>
+    <ion-select-option value="terca">Terça</ion-select-option>
+    <ion-select-option value="quarta">Quarta</ion-select-option>
+    <ion-select-option value="quinta">Quinta</ion-select-option>
+    <ion-select-option value="sexta">Sexta</ion-select-option>
+    <ion-select-option value="sabado">Sábado</ion-select-option>
+    <ion-select-option value="domingo">Domingo</ion-select-option>
+  </ion-select>
+  <ion-label>Horário</ion-label>
+  <ion-datetime display-format="h:mm A" picker-format="h:mm A" value="{{horario.hora}}" [(ngModel)]="horario.hora"></ion-datetime>
+</div>
