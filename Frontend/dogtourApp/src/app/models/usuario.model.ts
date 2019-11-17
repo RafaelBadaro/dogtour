@@ -1,4 +1,5 @@
 import { Cachorro } from 'src/app/models/cachorro.model';
+import { Horario } from './horario.model';
 export class Usuario {
 
     idUser: string;
@@ -11,5 +12,5 @@ export class Usuario {
 
     dogs?: Cachorro[];
 
-    horarios?: string[];
+    horarios?: Horario[];
 }

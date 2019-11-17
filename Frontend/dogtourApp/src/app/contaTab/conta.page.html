@@ -24,17 +24,21 @@
       <div class="container container__meio">
         <ion-card class="card card__conta">
           <ion-card-header>
-            <ion-card-title *ngIf="authService.usuarioAuth.role === 'dono'">
+            <ion-card-title *ngIf="authService.usuarioDono">
               Cachorros cadastrados
               <span class="card__conta__icon-add">
                 <ion-icon name="add" [routerLink]="['/cadastro-cachorro']"></ion-icon>
               </span>
             </ion-card-title>
-            <ion-card-title *ngIf="authService.usuarioAuth.role === 'passeador'">
-              Passeador - não possui cadastro de cachorros</ion-card-title>
+            <ion-card-title *ngIf="authService.usuarioPasseador">
+              Horários cadastrados
+              <span class="card__conta__icon-add">
+                <ion-icon name="add" [routerLink]="['/cadastro-horarios']"></ion-icon>
+              </span>
+            </ion-card-title>
           </ion-card-header>
 
-          <div *ngIf="authService.usuarioAuth.role === 'dono'">
+          <div *ngIf="authService.usuarioDono">
             <div class="card__sem-cadastro-cachorros"
               *ngIf="authService.usuarioAuth.dogs === undefined || authService.usuarioAuth.dogs.length === 0">
               <span class="card__sem-cadastro-cachorros__span">Ei cara <a
@@ -48,6 +52,22 @@
             </ion-card-content>
 
           </div>
+
+          <div *ngIf="authService.usuarioPasseador">
+            <div class="card__sem-cadastro-cachorros"
+              *ngIf="authService.usuarioAuth.horarios === undefined || authService.usuarioAuth.horarios.length === 0">
+              <span class="card__sem-cadastro-cachorros__span">Ei cara <a
+                  [routerLink]="['/cadastro-horarios']">cadastre</a> uns horarios</span>
+            </div>
+            <ion-card-content class="card__lista-cachorros">
+              <ion-list class="card__lista-cachorros-lista" *ngFor="let horario of authService.usuarioAuth.horarios">
+                <span>Dia da semana: {{horario.diaDaSemana}} | </span>
+                <span> Hora: {{horario.hora | date:'shortTime'}}</span>
+              </ion-list>
+            </ion-card-content>
+
+          </div>
+
         </ion-card>
       </div>
 

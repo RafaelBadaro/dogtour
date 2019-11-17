@@ -5,6 +5,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { CadastroComponent } from './cadastro/cadastro.component';
 import { CadastroCachorroComponent } from './cadastro-cachorro/cadastro-cachorro.component';
 import { AvaliacaoDonoComponent } from './avaliacao-dono/avaliacao-dono.component';
+import { CadastroHorariosComponent } from './cadastro-horarios/cadastro-horarios.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
     path: 'cadastro-cachorro',
     canActivate: [AuthGuard],
     component: CadastroCachorroComponent
+  },
+  {
+    path: 'cadastro-horarios',
+    canActivate: [AuthGuard],
+    component: CadastroHorariosComponent
   },
   {
     path: '',

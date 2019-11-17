@@ -1,0 +1,20 @@
+<div class="container">
+  <div [routerLink]="['/tabs/passeioTab']" class="container__icon">
+    <ion-icon name="arrow-back"></ion-icon>
+    <span class="container__icon__texto">Voltar para a home</span>
+  </div>
+  <div class="container__cadastro">
+    <div class="container__header">
+      <span class="container__header__title">Cadastro de Horários</span>
+    </div>
+    <div class="container__cadastro__horarios">
+     <app-horario *ngFor="let hr of horariosCadastrados" [horario]="hr" [listaHorarios]="horariosCadastrados" (listaAtualizada)="atualizarLista($event)"></app-horario>
+    </div>
+    <div class="form__btn">
+      <ion-button (click)="novoHorario()">Novo</ion-button>
+      <ion-button color="success" (click)="salvarHorarios()">Salvar</ion-button>
+    </div>
+
+  </div>
+
+</div>
