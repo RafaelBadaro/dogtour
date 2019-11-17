@@ -1,16 +1,17 @@
-import { Component, OnInit } from "@angular/core";
-import { AuthService } from "../services/auth.service";
-
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../services/auth.service';
+import { Usuario } from '../models/usuario.model';
 @Component({
-  selector: "app-avaliacao-dono",
-  templateUrl: "./avaliacao-dono.component.html",
-  styleUrls: ["./avaliacao-dono.component.scss"]
+  selector: 'app-avaliacao-dono',
+  templateUrl: './avaliacao-dono.component.html',
+  styleUrls: ['./avaliacao-dono.component.scss']
 })
 export class AvaliacaoDonoComponent implements OnInit {
   constructor(public authService: AuthService) {}
 
   notaCachorro = 0;
   notaDono = 0;
+  notaPasseador = 0;
 
   zipped1: boolean = true;
   zipped2: boolean = true;
@@ -30,7 +31,11 @@ export class AvaliacaoDonoComponent implements OnInit {
     this.zipped3 = !this.zipped1;
     this.zipped4 = !this.zipped1;
     this.zipped5 = !this.zipped1;
-    this.notaCachorro = 1;
+    if (this.authService.usuarioPasseador) {
+      this.notaCachorro = 1;
+    } else {
+      this.notaPasseador = 1;
+    }
   }
   toggleZipped6(): void {
     if (this.zipped6 == true) {
@@ -50,7 +55,11 @@ export class AvaliacaoDonoComponent implements OnInit {
     this.zipped3 = true;
     this.zipped4 = true;
     this.zipped5 = true;
-    this.notaCachorro = 2;
+    if (this.authService.usuarioPasseador) {
+      this.notaCachorro = 2;
+    } else {
+      this.notaPasseador = 2;
+    }
   }
   toggleZipped7(): void {
     if (this.zipped7 == true) {
@@ -70,7 +79,11 @@ export class AvaliacaoDonoComponent implements OnInit {
     }
     this.zipped4 = true;
     this.zipped5 = true;
-    this.notaCachorro = 3;
+    if (this.authService.usuarioPasseador) {
+      this.notaCachorro = 3;
+    } else {
+      this.notaPasseador = 3;
+    }
   }
   toggleZipped8(): void {
     if (this.zipped8 == true) {
@@ -90,7 +103,11 @@ export class AvaliacaoDonoComponent implements OnInit {
       this.zipped3 = this.zipped4;
     }
     this.zipped5 = true;
-    this.notaCachorro = 4;
+    if (this.authService.usuarioPasseador) {
+      this.notaCachorro = 4;
+    } else {
+      this.notaPasseador = 4;
+    }
   }
   toggleZipped9(): void {
     if (this.zipped9 == true) {
@@ -108,7 +125,11 @@ export class AvaliacaoDonoComponent implements OnInit {
     this.zipped2 = this.zipped5;
     this.zipped3 = this.zipped5;
     this.zipped4 = this.zipped5;
-    this.notaCachorro = 5;
+    if (this.authService.usuarioPasseador) {
+      this.notaCachorro = 5;
+    } else {
+      this.notaPasseador = 5;
+    }
   }
   toggleZipped10(): void {
     this.zipped10 = !this.zipped10;
@@ -119,8 +140,12 @@ export class AvaliacaoDonoComponent implements OnInit {
     this.notaDono = 5;
   }
   teste(): void {
-    console.log("nota do cachorro: " + this.notaCachorro);
-    console.log("nota do dono: " + this.notaDono);
+    if (this.authService.usuarioPasseador) {
+      console.log('nota do cachorro: ' + this.notaCachorro);
+      console.log('nota do dono: ' + this.notaDono);
+    } else {
+      console.log('nota do passeador: ' + this.notaPasseador);
+    }
   }
   ngOnInit() {}
 }
