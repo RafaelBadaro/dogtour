@@ -22,6 +22,7 @@ export class AuthService {
 
 
   isLoggedIn(): boolean {
+    return true;
     const token = sessionStorage.getItem('token');
     if (token !== null && token.length > 0) {
       this.setUsuarioAuth();

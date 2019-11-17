@@ -20,6 +20,7 @@ import { SettingsProvider } from './settings-provider';
 import { LoadingComponent } from './services/loading/loading.component';
 import { LoadingService } from './services/loading.service';
 import { AlertService } from './services/alert.service';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { AlertService } from './services/alert.service';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     AuthService,
     LoadingService,
-    AlertService
+    AlertService,
+    Geolocation
   ],
   bootstrap: [AppComponent]
 })
