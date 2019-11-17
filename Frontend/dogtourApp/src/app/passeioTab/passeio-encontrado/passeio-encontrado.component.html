@@ -5,18 +5,18 @@
   </div>
   <div class="content__info">
     <div class="content__info__card">
-      <div class="content__info__card__header" *ngIf="authService.usuarioAuth.role === 'dono'">
+      <div class="content__info__card__header" *ngIf="authService.usuarioDono">
         Seu passeador está a caminho!
       </div>
-      <div class="content__info__card__header" *ngIf="authService.usuarioAuth.role === 'passeador'">
+      <div class="content__info__card__header" *ngIf="authService.usuarioPasseador">
         Vá até o endereço mostrado!
       </div>
       <div class="content__info__card__dados">
-        <span class="content__info__card__dados__span" *ngIf="authService.usuarioAuth.role === 'dono'">Passeador:
+        <span class="content__info__card__dados__span" *ngIf="authService.usuarioDono">Passeador:
         </span>
-        <span class="content__info__card__dados__span" *ngIf="authService.usuarioAuth.role === 'passeador'">Dono:
+        <span class="content__info__card__dados__span" *ngIf="authService.usuarioPasseador">Dono:
         </span>
-        <span class="content__info__card__dados__span" *ngIf="authService.usuarioAuth.role === 'passeador'">Nome do
+        <span class="content__info__card__dados__span" *ngIf="authService.usuarioPasseador">Nome do
           cachorro: </span>
         <span class="content__info__card__dados__span">Passeios realizados: </span>
         <span class="content__info__card__dados__span--contato">

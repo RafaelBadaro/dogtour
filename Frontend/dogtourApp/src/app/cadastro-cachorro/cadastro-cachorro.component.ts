@@ -2,7 +2,6 @@ import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
-import { VirtualTimeScheduler } from 'rxjs';
 import { LoadingService } from '../services/loading.service';
 import { Router } from '@angular/router';
 import { constantes } from '../constantes';

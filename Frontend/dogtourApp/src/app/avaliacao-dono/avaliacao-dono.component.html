@@ -8,13 +8,26 @@
       <span class="container__header__title">Passeio finalizado!</span>
     </div>
     <div class="container__header">
-      <span class="container__header__title">Por favor, avalie de 1 a 5 o dono e o cachorro: </span>
+      <span
+        class="container__header__title"
+        *ngIf="authService.usuarioPasseador"
+        >Por favor, avalie de 1 a 5 o dono e o cachorro:
+      </span>
+      <span
+        class="container__header__title"
+        *ngIf="authService.usuarioDono"
+        >Por favor, avalie de 1 a 5 o passeador:
+      </span>
     </div>
     <form class="form">
-      <div color="secondary" class="form__campo">
+      <div
+        color="secondary"
+        class="form__campo"
+        *ngIf="authService.usuarioPasseador"
+      >
         <div class="form__campo__span__wrapper">
           <span class="form__campo__span">Cachorro: </span>
-          <button style=" background-color: #445e6b;" (click)="toggleZipped1()">
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped1()">
             <ion-icon
               class="form__campo__star"
               [md]="zipped1 ? 'ios-star-outline' : 'ios-star'"
@@ -22,28 +35,28 @@
             ></ion-icon>
           </button>
 
-          <button style=" background-color: #445e6b;" (click)="toggleZipped2()">
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped2()">
             <ion-icon
               class="form__campo__star"
               [md]="zipped2 ? 'ios-star-outline' : 'ios-star'"
               [name]="zipped2 ? 'ios-star-outline' : 'ios-star'"
             ></ion-icon>
           </button>
-          <button style=" background-color: #445e6b;" (click)="toggleZipped3()">
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped3()">
             <ion-icon
               class="form__campo__star"
               [md]="zipped3 ? 'ios-star-outline' : 'ios-star'"
               [name]="zipped3 ? 'ios-star-outline' : 'ios-star'"
             ></ion-icon>
           </button>
-          <button style=" background-color: #445e6b;" (click)="toggleZipped4()">
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped4()">
             <ion-icon
               class="form__campo__star"
               [md]="zipped4 ? 'ios-star-outline' : 'ios-star'"
               [name]="zipped4 ? 'ios-star-outline' : 'ios-star'"
             ></ion-icon>
           </button>
-          <button style=" background-color: #445e6b;" (click)="toggleZipped5()">
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped5()">
             <ion-icon
               class="form__campo__star"
               [md]="zipped5 ? 'ios-star-outline' : 'ios-star'"
@@ -53,7 +66,7 @@
         </div>
         <div class="form__campo__span__wrapper">
           <span class="form__campo__span2">Dono: </span>
-          <button style=" background-color: #445e6b;" (click)="toggleZipped6()">
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped6()">
             <ion-icon
               class="form__campo__star"
               [md]="zipped6 ? 'ios-star-outline' : 'ios-star'"
@@ -61,28 +74,31 @@
             ></ion-icon>
           </button>
 
-          <button style=" background-color: #445e6b;" (click)="toggleZipped7()">
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped7()">
             <ion-icon
               class="form__campo__star"
               [md]="zipped7 ? 'ios-star-outline' : 'ios-star'"
               [name]="zipped7 ? 'ios-star-outline' : 'ios-star'"
             ></ion-icon>
           </button>
-          <button style=" background-color: #445e6b;" (click)="toggleZipped8()">
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped8()">
             <ion-icon
               class="form__campo__star"
               [md]="zipped8 ? 'ios-star-outline' : 'ios-star'"
               [name]="zipped8 ? 'ios-star-outline' : 'ios-star'"
             ></ion-icon>
           </button>
-          <button style=" background-color: #445e6b;" (click)="toggleZipped9()">
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped9()">
             <ion-icon
               class="form__campo__star"
               [md]="zipped9 ? 'ios-star-outline' : 'ios-star'"
               [name]="zipped9 ? 'ios-star-outline' : 'ios-star'"
             ></ion-icon>
           </button>
-          <button style=" background-color: #445e6b;" (click)="toggleZipped10()">
+          <button
+            style=" background-color: #1c9b9b;"
+            (click)="toggleZipped10()"
+          >
             <ion-icon
               class="form__campo__star"
               [md]="zipped10 ? 'ios-star-outline' : 'ios-star'"
@@ -92,8 +108,54 @@
         </div>
       </div>
 
+      <div
+        color="secondary"
+        class="form__campo"
+        *ngIf="authService.usuarioDono"
+      >
+        <div class="form__campo__span__wrapper">
+          <span class="form__campo__span">Passeador: </span>
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped1()">
+            <ion-icon
+              class="form__campo__star"
+              [md]="zipped1 ? 'ios-star-outline' : 'ios-star'"
+              [name]="zipped1 ? 'ios-star-outline' : 'ios-star'"
+            ></ion-icon>
+          </button>
+
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped2()">
+            <ion-icon
+              class="form__campo__star"
+              [md]="zipped2 ? 'ios-star-outline' : 'ios-star'"
+              [name]="zipped2 ? 'ios-star-outline' : 'ios-star'"
+            ></ion-icon>
+          </button>
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped3()">
+            <ion-icon
+              class="form__campo__star"
+              [md]="zipped3 ? 'ios-star-outline' : 'ios-star'"
+              [name]="zipped3 ? 'ios-star-outline' : 'ios-star'"
+            ></ion-icon>
+          </button>
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped4()">
+            <ion-icon
+              class="form__campo__star"
+              [md]="zipped4 ? 'ios-star-outline' : 'ios-star'"
+              [name]="zipped4 ? 'ios-star-outline' : 'ios-star'"
+            ></ion-icon>
+          </button>
+          <button style=" background-color: #1c9b9b;" (click)="toggleZipped5()">
+            <ion-icon
+              class="form__campo__star"
+              [md]="zipped5 ? 'ios-star-outline' : 'ios-star'"
+              [name]="zipped5 ? 'ios-star-outline' : 'ios-star'"
+            ></ion-icon>
+          </button>
+        </div>
+      </div>
+
       <div class="form__btn">
-        <ion-button expand="full" type="submit"  (click)="teste()"
+        <ion-button expand="full" type="submit" (click)="teste()"
           >Avaliar
         </ion-button>
       </div>

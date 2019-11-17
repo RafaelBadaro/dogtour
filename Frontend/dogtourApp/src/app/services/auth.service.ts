@@ -16,7 +16,19 @@ export class AuthService {
 
   public usuarioAuth: Usuario;
 
-  constructor(private http: HttpClient, private router: Router,  private alertService: AlertService) {
+  public get usuarioDono(): boolean {
+    return this.usuarioAuth.role === 'dono';
+  }
+
+  public get usuarioPasseador(): boolean {
+    return this.usuarioAuth.role === 'passeador';
+  }
+
+  public get usuarioTemCachorros(): boolean {
+    return this.usuarioDono && (this.usuarioAuth.dogs !== null && this.usuarioAuth.dogs.length > 0);
+  }
+
+  constructor(private http: HttpClient, private router: Router, private alertService: AlertService) {
     this.usuarioAuth = new Usuario();
   }
 
@@ -48,7 +60,8 @@ export class AuthService {
     this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/dogs').subscribe(
       (res2: any) => {
         if (res2.dogs !== undefined) {
-          for (let dog in res2.dogs) {
+          // tslint:disable-next-line: forin
+          for (const dog in res2.dogs) {
             const c: Cachorro = res2.dogs[dog];
             c.idDog = dog;
             this.usuarioAuth.dogs.push(c);
