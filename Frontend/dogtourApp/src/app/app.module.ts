@@ -21,6 +21,8 @@ import { LoadingComponent } from './services/loading/loading.component';
 import { LoadingService } from './services/loading.service';
 import { AlertService } from './services/alert.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { CadastroHorariosComponent } from './cadastro-horarios/cadastro-horarios.component';
+import { HorarioComponent } from './cadastro-horarios/horario/horario.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     LoginComponent,
     CadastroComponent,
     CadastroCachorroComponent,
+    CadastroHorariosComponent,
+    HorarioComponent,
     LoadingComponent,
     AvaliacaoDonoComponent
   ],

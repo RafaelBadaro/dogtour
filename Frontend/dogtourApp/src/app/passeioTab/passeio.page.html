@@ -9,7 +9,7 @@
 <div class="content">
 
 
-  <ion-card *ngIf="authService.usuarioAuth.role === 'dono'" class="card">
+  <ion-card *ngIf="authService.usuarioDono" class="card">
     <form *ngIf="!passeioAgendado" class="form--passeio" [formGroup]="formAgendamento" (ngSubmit)="agendar()">
       <ion-card-header>
         <ion-card-title>Agendar passeio</ion-card-title>
@@ -32,7 +32,7 @@
         <ion-item [disabled]="this.passeador.value === '' ">
           <ion-label>Datas e horários</ion-label>
           <ion-select formControlName="horario" interface="popover">
-            <ion-select-option *ngFor="let hr of passeador.value.horarios" [value]="hr">{{hr}}</ion-select-option>
+            <ion-select-option *ngFor="let hr of passeador.value.horarios" [value]="hr">{{hr.diaDaSemana}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-card-content>
@@ -40,7 +40,7 @@
       <ion-card-content class="card__cachorros">
         <ion-item [disabled]="this.passeador.value === '' || this.horario.value === ''">
           <ion-label>Cachorro para passear</ion-label>
-          <ion-select formControlName="cachorro" interface="popover">
+          <ion-select formControlName="cachorroAgendamento" interface="popover">
             <ion-select-option *ngFor="let dog of authService.usuarioAuth.dogs" [value]="dog">{{dog.name}}
             </ion-select-option>
           </ion-select>
@@ -48,7 +48,8 @@
       </ion-card-content>
 
       <ion-card-content class="card__btn">
-        <ion-button (click)="agendar()" class="btn" expand="full" [disabled]="formAgendamento.invalid">Realizar
+        <ion-button (click)="agendar()" class="btn" expand="full"
+          [disabled]="formAgendamento.invalid || !authService.usuarioTemCachorros">Realizar
           Augendamento</ion-button>
       </ion-card-content>
     </form>
@@ -71,7 +72,7 @@
           </span>
           <span class="card__passeio-agendado__conteudo__textos__span">Cachorro:
             <span class="card__passeio-agendado__conteudo__textos__span--bold">
-              {{cachorro.value.name}}
+              {{cachorroAgendamento.value.name}}
             </span>
           </span>
         </div>
@@ -80,7 +81,7 @@
     </div>
   </ion-card>
 
-  <ion-card *ngIf="authService.usuarioAuth.role === 'passeador'" class="card">
+  <ion-card *ngIf="authService.usuarioPasseador" class="card">
     <ion-card-header>
       <ion-card-title>Passeios Agendados</ion-card-title>
     </ion-card-header>
@@ -93,25 +94,34 @@
 
   <ion-card class="card">
     <ion-card-header>
-      <ion-card-title *ngIf="authService.usuarioAuth.role === 'dono'">Pedir Augora</ion-card-title>
-      <ion-card-title *ngIf="authService.usuarioAuth.role === 'passeador'">Passear</ion-card-title>
+      <ion-card-title *ngIf="authService.usuarioDono">Pedir Augora</ion-card-title>
+      <ion-card-title *ngIf="authService.usuarioPasseador">Passear</ion-card-title>
     </ion-card-header>
 
     <ion-card-content class="card__texto">
-      <span *ngIf="authService.usuarioAuth.role === 'dono'">
+      <span *ngIf="authService.usuarioDono">
         Procura um passeador na sua região instantaneamente
       </span>
-      <span *ngIf="authService.usuarioAuth.role === 'passeador'">
+      <span *ngIf="authService.usuarioPasseador">
         Ativa o modo passeio(isso significa que você está apto a receber passeios)
       </span>
     </ion-card-content>
 
-    <ion-card-content class="card__btn" *ngIf="authService.usuarioAuth.role === 'dono'">
-      <ion-button *ngIf="authService.usuarioAuth.role === 'dono'" (click)="pedirAgora()" class="btn" expand="full">Vamo
+    <ion-card-content class="card__btn" *ngIf="authService.usuarioDono">
+      <ion-item class="card__btn__cachorros">
+        <ion-label>Cachorro para passear</ion-label>
+        <ion-select [(ngModel)]="cachorroAgora" interface="popover">
+          <ion-select-option *ngFor="let dog of authService.usuarioAuth.dogs" [value]="dog">{{dog.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <ion-button *ngIf="authService.usuarioDono"
+        [disabled]="!authService.usuarioTemCachorros || cachorroAgora === undefined" (click)="pedirAgora()" class="btn"
+        expand="full">Vamo
         passear!</ion-button>
     </ion-card-content>
-    <ion-card-content class="card__btn--passeador" *ngIf="authService.usuarioAuth.role === 'passeador'">
-      <ion-toggle [(ngModel)]="procuraPasseio" *ngIf="authService.usuarioAuth.role === 'passeador'">
+    <ion-card-content class="card__btn--passeador" *ngIf="authService.usuarioPasseador">
+      <ion-toggle [(ngModel)]="procuraPasseio" *ngIf="authService.usuarioPasseador">
       </ion-toggle>
       <span class="card__btn--passeador__span" *ngIf="!procuraPasseio">Você não esta procurando passeios</span>
       <span class=" card__btn--passeador__span card__btn--passeador__span--procurando" *ngIf="procuraPasseio">Procurando
