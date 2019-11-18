@@ -33,9 +33,13 @@ export class PasseioPage implements OnInit {
 
   cachorroAgora: Cachorro;
 
+  public get horariosEstaoDisponiveis(): boolean {
+    return this.passeador.value.horarios !== undefined && this.passeador.value.horarios.length > 0;
+  }
+
   constructor(private formBuilder: FormBuilder, private loadingService: LoadingService,
-              private router: Router, public authService: AuthService,
-              private alertService: AlertService, private http: HttpClient) {
+    private router: Router, public authService: AuthService,
+    private alertService: AlertService, private http: HttpClient) {
 
     this.formAgendamento = this.formBuilder.group({
       passeador: this.passeador,
@@ -51,12 +55,14 @@ export class PasseioPage implements OnInit {
           'Você pode cadastrar alguns na tela de Conta no canto inferior direito');
       }
     }
+
+
     this.loadingService.mostrarLoading();
     this.http.get(constantes.textos.URL_API + '/api/users/passeador').subscribe(
       (res: any) => {
         // tslint:disable-next-line: forin
         for (const user in res.users) {
-          const u: Usuario =  res.users[user];
+          const u: Usuario = res.users[user];
           this.passeadores.push(u);
         }
         this.loadingService.fecharLoading();
@@ -68,6 +74,12 @@ export class PasseioPage implements OnInit {
 
   }
 
+  //TODO - GET HORARIO DO PASSEADOR ESCOLHIDO
+  public buscarHorarioPasseador() {
+    this.passeador.value.horarios = [];
+    const horarios = this.authService.requestBuscarHorarios(this.passeador.value.user_id);
+    this.passeador.value.horarios = horarios;
+  }
 
   public agendar() {
     this.passeioAgendado = true;

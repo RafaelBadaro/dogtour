@@ -55,16 +55,36 @@ export class AuthService {
         this.usuarioAuth.role = res.user.role;
         this.usuarioAuth.dogs = [];
         this.usuarioAuth.horarios = [];
+
+        if (this.usuarioDono) {
+          this.requestBuscarCachorros(token);
+        }
+
+        if (this.usuarioPasseador) {
+          const horarios = this.requestBuscarHorarios(token);
+          this.usuarioAuth.horarios.push(...horarios);
+        }
+
       },
       () => {
         this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao trazer usuário');
       });
+  }
+
+
+  public logOut() {
+    sessionStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  }
+
+
+  public requestBuscarCachorros(token: string): void {
     this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/dogs').subscribe(
-      (res2: any) => {
-        if (res2.dogs !== undefined) {
+      (res: any) => {
+        if (res.dogs !== undefined) {
           // tslint:disable-next-line: forin
-          for (const dog in res2.dogs) {
-            const c: Cachorro = res2.dogs[dog];
+          for (const dog in res.dogs) {
+            const c: Cachorro = res.dogs[dog];
             c.idDog = dog;
             this.usuarioAuth.dogs.push(c);
           }
@@ -75,37 +95,32 @@ export class AuthService {
         this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao trazer cachorros do usuário');
       }
     );
-
-    this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/availability').subscribe(
-      (res: any) => {
-         if(res.availability !== undefined){
-            // tslint:disable-next-line: forin
-            for (const hr in res.availability){
-                const diaDaSemana = hr;
-                const times = res.availability[hr];
-                const horariosPorDiaSemana: Horario[] = [];
-                for(const time in times){
-                  const horarioFinal = new Horario();
-                  horarioFinal.diaDaSemana = diaDaSemana;
-                  horarioFinal.hora = times[time];
-                  horariosPorDiaSemana.push(horarioFinal);
-                }
-                this.usuarioAuth.horarios.push(...horariosPorDiaSemana);
-            }
-         }
-      },
-      ()=>{
-
-      }
-    )
-
-
   }
 
-
-  public logOut() {
-    sessionStorage.removeItem('token');
-    this.router.navigate(['/login']);
+  public requestBuscarHorarios(token: string): Horario[] {
+    const horarios: Horario[] = [];
+    this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/availability').subscribe(
+      (res: any) => {
+        if (res.availability !== undefined) {
+          // tslint:disable-next-line: forin
+          for (const hr in res.availability) {
+            const diaDaSemana = hr;
+            const times = res.availability[hr];
+            const horariosPorDiaSemana: Horario[] = [];
+            // tslint:disable-next-line: forin
+            for (const time in times) {
+              const horarioFinal = new Horario();
+              horarioFinal.diaDaSemana = diaDaSemana;
+              horarioFinal.hora = times[time];
+              horariosPorDiaSemana.push(horarioFinal);
+            }
+            horarios.push(...horariosPorDiaSemana);
+          }
+        }
+      },
+      () => { }
+    );
+    return horarios;
   }
 
 }
