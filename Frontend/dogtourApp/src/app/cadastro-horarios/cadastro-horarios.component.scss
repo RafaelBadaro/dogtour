@@ -1,7 +1,8 @@
 .container {
     height: 100%;
     background-color: #445e6b;
-  
+    overflow: auto;
+
     .container__icon {
       display: flex;
       padding-top: 30px;

@@ -1,5 +1,5 @@
 import { Usuario } from '../models/usuario.model';
-import { Injectable } from '@angular/core';
+import { Injectable, forwardRef } from '@angular/core';
 import { SettingsProvider } from '../settings-provider';
 import { HttpClient } from '@angular/common/http';
 import { Cachorro } from '../models/cachorro.model';
@@ -7,6 +7,7 @@ import { constantes } from '../constantes';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertService } from './alert.service';
+import { Horario } from '../models/horario.model';
 
 
 @Injectable({
@@ -53,6 +54,7 @@ export class AuthService {
         this.usuarioAuth.name = res.user.name;
         this.usuarioAuth.role = res.user.role;
         this.usuarioAuth.dogs = [];
+        this.usuarioAuth.horarios = [];
       },
       () => {
         this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao trazer usuário');
@@ -73,6 +75,29 @@ export class AuthService {
         this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao trazer cachorros do usuário');
       }
     );
+
+    this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/availability').subscribe(
+      (res: any) => {
+         if(res.availability !== undefined){
+            // tslint:disable-next-line: forin
+            for (const hr in res.availability){
+                const diaDaSemana = hr;
+                const times = res.availability[hr];
+                const horariosPorDiaSemana: Horario[] = [];
+                for(const time in times){
+                  const horarioFinal = new Horario();
+                  horarioFinal.diaDaSemana = diaDaSemana;
+                  horarioFinal.hora = times[time];
+                  horariosPorDiaSemana.push(horarioFinal);
+                }
+                this.usuarioAuth.horarios.push(...horariosPorDiaSemana);
+            }
+         }
+      },
+      ()=>{
+
+      }
+    )
 
 
   }
