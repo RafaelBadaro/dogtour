@@ -58,8 +58,11 @@
     </form>
     <div *ngIf="passeioAgendado" class="card__passeio-agendado">
 
-      <div class="card__passeio-agendado__header">
+      <div *ngIf="passeioConfirmado" class="card__passeio-agendado__header">
         Seu passeio foi Agendado!
+      </div>
+      <div *ngIf="!passeioConfirmado" class="card__passeio-agendado__header">
+        Seu passeio está aguardando confirmacão...
       </div>
       <div class="card__passeio-agendado__conteudo">
         <div class="card__passeio-agendado__conteudo__textos">

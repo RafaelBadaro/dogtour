@@ -45,9 +45,9 @@ export class AuthService {
   }
 
 
-  private setUsuarioAuth(): void {
-    const token = sessionStorage.getItem('token');
-    this.http.get(constantes.textos.URL_API + '/api/user/' + token).subscribe(
+  public async setUsuarioAuth() {
+    const token = this.getToken();
+    await this.http.get(constantes.textos.URL_API + '/api/user/' + token).toPromise().then(
       (res: any) => {
         this.usuarioAuth.idUser = res.user.user_id;
         this.usuarioAuth.email = res.user.email;
@@ -64,13 +64,17 @@ export class AuthService {
           const horarios = this.requestBuscarHorarios(token);
           this.usuarioAuth.horarios.push(...horarios);
         }
-
+        return this.usuarioAuth;
       },
       () => {
         this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao trazer usuário');
       });
   }
 
+  public getToken(): string {
+    const token = sessionStorage.getItem('token');
+    return token;
+  }
 
   public logOut() {
     sessionStorage.removeItem('token');

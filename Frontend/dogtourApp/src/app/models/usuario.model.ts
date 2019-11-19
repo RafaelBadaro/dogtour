@@ -10,6 +10,8 @@ export class Usuario {
 
     role: string;
 
+    rating: string;
+
     dogs?: Cachorro[];
 
     horarios?: Horario[];
