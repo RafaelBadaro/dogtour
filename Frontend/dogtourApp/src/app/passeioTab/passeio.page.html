@@ -92,8 +92,7 @@
       <ion-card-title>Passeios Agendados</ion-card-title>
     </ion-card-header>
     <ion-card-content class="card__texto">
-      <!--PEDIR UMA LISTA DE PASSEIOS CADASTRADOS PARA O CARA E MOSTRAR PELO COMPONENTE-->
-      <app-passeio-agenda></app-passeio-agenda>
+      <app-passeio-agenda *ngFor="let tour of toursAgendados" [tour]="tour"></app-passeio-agenda>
     </ion-card-content>
   </ion-card>
 

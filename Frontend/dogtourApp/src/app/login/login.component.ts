@@ -22,10 +22,16 @@ export class LoginComponent implements OnInit {
   password = new FormControl('', Validators.required);
 
   constructor(private formBuilder: FormBuilder, private router: Router,
-    private http: HttpClient, private loadingService: LoadingService, 
-     private alertService: AlertService) { }
+    private http: HttpClient, private loadingService: LoadingService,
+    private alertService: AlertService,
+    private authService: AuthService) { }
 
   ngOnInit() {
+    if (this.authService.getToken() !== null && this.authService.getToken() !== '') {
+      this.authService.setUsuarioAuth().then(result => {
+        this.router.navigate(['/tabs/passeioTab']);
+      });
+    }
 
     this.formLogin = this.formBuilder.group({
       email: this.email,
@@ -34,7 +40,6 @@ export class LoginComponent implements OnInit {
   }
 
   realizarLogin() {
-    
     this.loadingService.mostrarLoading();
     this.http.post(constantes.textos.URL_API + '/api/login', this.formLogin.value, {
       headers: { 'Content-Type': 'text/plain' }
@@ -44,8 +49,10 @@ export class LoginComponent implements OnInit {
         this.password.setValue(undefined);
 
         sessionStorage.setItem('token', res.user_id);
-        this.loadingService.fecharLoading();
-        this.router.navigate(['/tabs/passeioTab']);
+        this.authService.setUsuarioAuth().then(result => {
+          this.loadingService.fecharLoading();
+          this.router.navigate(['/tabs/passeioTab']);
+        });
       },
       () => {
         this.loadingService.fecharLoading();

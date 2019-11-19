@@ -24,9 +24,9 @@ export class CadastroCachorroComponent implements OnInit {
   sex = new FormControl('', Validators.required);
 
   constructor(private authService: AuthService, private loadingService: LoadingService,
-    private formBuilder: FormBuilder, private http: HttpClient,
-    private router: Router,
-    private alertService: AlertService) { }
+              private formBuilder: FormBuilder, private http: HttpClient,
+              private router: Router,
+              private alertService: AlertService) { }
 
   ngOnInit() {
     this.formCadastroCachorro = this.formBuilder.group({
@@ -46,22 +46,24 @@ export class CadastroCachorroComponent implements OnInit {
       sex: this.sex.value,
       size: this.size.value,
       temper: this.temper.value,
-    }
+    };
 
-    this.http.post(constantes.textos.URL_API + '/api/dog', obj, 
-    { headers: { 'Content-Type': 'text/plain' }}).subscribe(
-      res => {
-        this.loadingService.fecharLoading();
-        this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, constantes.textos.sucesso.CADASTRO);
-        this.router.navigate(['/tabs/passeioTab']);
-      },
-      err => {
-        this.loadingService.fecharLoading();
-        this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, constantes.textos.erros.CADASTRO);
-      },
-      () => {
-        this.loadingService.fecharLoading();
-      }
-    );
+    this.http.post(constantes.textos.URL_API + '/api/dog', obj,
+      { headers: { 'Content-Type': 'text/plain' } }).subscribe(
+        () => {
+          this.authService.setUsuarioAuth().then(val => {
+            this.loadingService.fecharLoading();
+            this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, constantes.textos.sucesso.CADASTRO);
+            this.router.navigate(['/tabs/passeioTab']);
+          });
+        },
+        () => {
+          this.loadingService.fecharLoading();
+          this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, constantes.textos.erros.CADASTRO);
+        },
+        () => {
+          this.loadingService.fecharLoading();
+        }
+      );
   }
 }

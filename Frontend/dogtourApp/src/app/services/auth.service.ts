@@ -35,10 +35,8 @@ export class AuthService {
 
 
   isLoggedIn(): boolean {
-    return true;
     const token = sessionStorage.getItem('token');
     if (token !== null && token.length > 0) {
-      this.setUsuarioAuth();
       return true;
     } else {
       return false;
@@ -49,7 +47,7 @@ export class AuthService {
   public async setUsuarioAuth() {
     const token = this.getToken();
     await this.http.get(constantes.textos.URL_API + '/api/user/' + token).toPromise().then(
-      (res: any) => {
+      async (res: any) => {
         this.usuarioAuth.idUser = res.user.user_id;
         this.usuarioAuth.email = res.user.email;
         this.usuarioAuth.name = res.user.name;
@@ -58,12 +56,13 @@ export class AuthService {
         this.usuarioAuth.horarios = [];
 
         if (this.usuarioDono) {
-          this.requestBuscarCachorros(token);
+           await this.requestBuscarCachorros(token);
         }
 
         if (this.usuarioPasseador) {
-          const horarios = this.requestBuscarHorarios(token);
-          this.usuarioAuth.horarios.push(...horarios);
+          await this.requestBuscarHorarios(token).then(result => {
+            this.usuarioAuth.horarios.push(...result);
+          });
         }
         return this.usuarioAuth;
       },
@@ -83,8 +82,8 @@ export class AuthService {
   }
 
 
-  public requestBuscarCachorros(token: string): void {
-    this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/dogs').subscribe(
+  public async requestBuscarCachorros(token: string) {
+    await this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/dogs').toPromise().then(
       (res: any) => {
         if (res.dogs !== undefined) {
           // tslint:disable-next-line: forin
@@ -102,9 +101,9 @@ export class AuthService {
     );
   }
 
-  public requestBuscarHorarios(token: string): Horario[] {
+  public async requestBuscarHorarios(token: string): Promise<Horario[]> {
     const horarios: Horario[] = [];
-    this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/availability').subscribe(
+    await this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/availability').toPromise().then(
       (res: any) => {
         if (res.availability !== undefined) {
           // tslint:disable-next-line: forin

@@ -1,8 +1,16 @@
 <div class="agendamento">
   <div class="agendamento__data">
-    data bla bla
+    {{tour.day}}
+    {{tour.time | date:'shortTime'}}
   </div>
-  <div class="agendamento__infos">
-    <ion-button class="agendamento__info__btn-cancelar" color="danger"> Cancelar</ion-button>
+  <div *ngIf="!decisaoFeita" class="agendamento__infos">
+    <ion-button class="agendamento__info__btn-confirmar" (click)="confirmarPasseio()"> Confirmar</ion-button>
+    <ion-button class="agendamento__info__btn-cancelar" color="danger" (click)="cancelarPasseio()"> Cancelar
+    </ion-button>
   </div>
+  <div *ngIf="passeioConfirmado || passeioCancelado" class="agendamento__infos">
+    <span *ngIf="passeioConfirmado">O passeio foi confirmado</span>
+    <span *ngIf="passeioCancelado">O passeio foi cancelado</span>
+  </div>
+
 </div>

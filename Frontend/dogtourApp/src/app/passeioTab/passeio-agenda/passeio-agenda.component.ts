@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Tour } from 'src/app/models/tour.model';
 
 @Component({
   selector: 'app-passeio-agenda',
@@ -7,8 +8,26 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PasseioAgendaComponent implements OnInit {
 
+  @Input() tour: Tour;
+
+  passeioConfirmado = false;
+
+  passeioCancelado = false;
+
+  decisaoFeita = false;
+
   constructor() { }
 
   ngOnInit() {}
+
+  confirmarPasseio(){
+    this.decisaoFeita = true;
+    this.passeioConfirmado = true;
+  }
+
+  cancelarPasseio(){
+    this.decisaoFeita = true;
+    this.passeioCancelado = true;
+  }
 
 }
