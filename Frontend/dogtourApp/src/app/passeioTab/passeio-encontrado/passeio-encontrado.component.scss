@@ -1,6 +1,9 @@
 .content--encontrado {
   .content__mapa {
     height: 60%;
+    #map{
+      height: 100%;
+    }
   }
   .content__info {
     height: 40%;
