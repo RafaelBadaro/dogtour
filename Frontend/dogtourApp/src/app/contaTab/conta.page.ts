@@ -21,17 +21,17 @@ export class ContaPage implements OnInit {
               private route: ActivatedRoute, private router: Router) {
 
     route.params.subscribe(val => {
-      if (this.authService.usuarioAuth.idUser !== undefined) {
-        this.formConta = this.formBuilder.group({
-          password: this.password
-        });
-      } else {
+      if (this.authService.usuarioAuth.idUser === undefined) {
         this.router.navigate(['/login']);
       }
+
     });
   }
 
   ngOnInit() {
+    this.formConta = this.formBuilder.group({
+      password: this.password
+    });
   }
 
   public logout() {
