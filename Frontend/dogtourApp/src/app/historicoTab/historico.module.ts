@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HistoricoPage } from './historico.page';
-import { HistoricoPasseioComponent } from './historico-passeio/historico-passeio.component';
 
 @NgModule({
   imports: [
@@ -13,6 +12,6 @@ import { HistoricoPasseioComponent } from './historico-passeio/historico-passeio
     FormsModule,
     RouterModule.forChild([{ path: '', component: HistoricoPage }])
   ],
-  declarations: [HistoricoPage, HistoricoPasseioComponent]
+  declarations: [HistoricoPage]
 })
 export class HistoricoPageModule {}

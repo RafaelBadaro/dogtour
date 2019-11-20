@@ -8,13 +8,13 @@
 
 <div class="content">
 
-  <ion-card class="card">
+  <ion-card class="card" *ngFor="let tour of toursCompletados">
     <ion-card-header>
-      <ion-card-title>Passeio no dia xxxx</ion-card-title>
+      <ion-card-title>Passeio no dia {{tour.day}}-{{tour.time | date:'shortTime'}}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content class="card__texto">
-      <app-historico-passeio></app-historico-passeio>
+      <ion-button (click)="irTelaAvaliacao()" class="btn" expand="full"> Avalie o passeio </ion-button>
     </ion-card-content>
 
 
