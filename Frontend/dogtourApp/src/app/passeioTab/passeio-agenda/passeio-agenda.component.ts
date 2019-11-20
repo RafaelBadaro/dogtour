@@ -21,9 +21,19 @@ export class PasseioAgendaComponent implements OnInit {
   decisaoFeita = false;
 
   constructor(private http: HttpClient,
-    private loadingService: LoadingService, private alertService: AlertService) { }
+              private loadingService: LoadingService, private alertService: AlertService) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    if (this.tour.status === '1') {
+      this.decisaoFeita = true;
+      this.passeioConfirmado = true;
+    }
+    if (this.tour.status === '3') {
+      this.decisaoFeita = true;
+      this.passeioCancelado = true;
+    }
+
+  }
 
   confirmarPasseio() {
     this.loadingService.mostrarLoading();

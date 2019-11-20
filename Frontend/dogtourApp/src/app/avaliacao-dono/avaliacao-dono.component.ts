@@ -164,9 +164,11 @@ export class AvaliacaoDonoComponent implements OnInit {
         { headers: { 'Content-Type': 'text/plain' } }).subscribe(
           () => {
             this.loadingService.fecharLoading();
+            this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, 'Avaliação concluída');
           },
           () => {
             this.loadingService.fecharLoading();
+            this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao avaliar');
           }
         );
     } else {
@@ -179,9 +181,11 @@ export class AvaliacaoDonoComponent implements OnInit {
         { headers: { 'Content-Type': 'text/plain' } }).subscribe(
           () => {
             this.loadingService.fecharLoading();
+            this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, 'Avaliação concluída');
           },
           () => {
             this.loadingService.fecharLoading();
+            this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao avaliar');
           }
         );
     }

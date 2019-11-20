@@ -50,6 +50,7 @@ export class AuthService {
         this.usuarioAuth.idUser = res.user.user_id;
         this.usuarioAuth.email = res.user.email;
         this.usuarioAuth.name = res.user.name;
+        this.usuarioAuth.rating = res.user.rating;
         this.usuarioAuth.role = res.user.role;
         this.usuarioAuth.dogs = [];
         this.usuarioAuth.horarios = [];
