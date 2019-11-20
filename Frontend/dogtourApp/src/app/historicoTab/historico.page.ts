@@ -8,15 +8,6 @@ import { Router } from '@angular/router';
 })
 export class HistoricoPage {
 
-  constructor(private router: Router) {}
-
-  public irTelaAvaliacao(){
-    // if(perfil == dono){
-    //  this.router.navigate(['/avaliacao-passeador']);
-    // }else{
-    //  this.router.navigate(['/avaliacao-dono']);
-    // }
-    this.router.navigate(['/avaliacao-dono']);
-  }
+  constructor() {}
 
 }
