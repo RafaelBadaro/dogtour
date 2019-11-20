@@ -115,41 +115,67 @@ export class PasseioPage implements OnInit {
       }
 
       // Verifica se tem algum Tour agendado aguardando confirmacao
-      this.http.get(constantes.textos.URL_API + '/api/user/' + this.authService.getToken() + '/tours/' + '0').subscribe(
+      this.http.get(constantes.textos.URL_API + '/api/user/' + this.authService.getToken() + '/tours').subscribe(
         (res: any) => {
           if (res.tours !== undefined) {
             this.passeioAgendado = true;
-            let jaPassou = false;
-            // TODO POR FAVOR MUDAR ISSO
-            for (const tour in res.tours) {
-              if (!jaPassou) {
-                this.tourAgendado.day = res.tours[tour].day;
-                this.tourAgendado.dog_id = res.tours[tour].dog_id;
-                this.tourAgendado.latitude = res.tours[tour].latitude;
-                this.tourAgendado.longitude = res.tours[tour].longitude;
-                this.tourAgendado.owner_id = res.tours[tour].owner_id;
-                this.tourAgendado.status = res.tours[tour].status;
-                this.tourAgendado.time = res.tours[tour].time;
-                this.tourAgendado.walker_id = res.tours[tour].walker_id;
-                const jaExiste = this.toursAgendados.find((ta) => {
-                  return ta.day === this.tourAgendado.day && ta.time === this.tourAgendado.time;
-                });
-                if (jaExiste === undefined) {
-                  this.toursAgendados.push(this.tourAgendado);
-                }
 
-                jaPassou = true;
+            if (this.authService.usuarioDono) {
+              let jaPassou = false;
+              // tslint:disable-next-line: forin
+              for (const tour in res.tours) {
+                if (res.tours[tour].status === '0' && res.tours[tour].walker_id !== '') {
+                  this.tourAgendado.day = res.tours[tour].day;
+                  this.tourAgendado.dog_id = res.tours[tour].dog_id;
+                  this.tourAgendado.latitude = res.tours[tour].latitude;
+                  this.tourAgendado.longitude = res.tours[tour].longitude;
+                  this.tourAgendado.owner_id = res.tours[tour].owner_id;
+                  this.tourAgendado.status = res.tours[tour].status;
+                  this.tourAgendado.time = res.tours[tour].time;
+                  this.tourAgendado.walker_id = res.tours[tour].walker_id;
+                  if (!jaPassou) {
+                    const jaExiste = this.toursAgendados.find((ta) => {
+                      return ta.day === this.tourAgendado.day && ta.time === this.tourAgendado.time;
+                    });
+
+                    if (jaExiste === undefined) {
+                      this.toursAgendados.push(this.tourAgendado);
+                    }
+                    jaPassou = true;
+                  }
+                }
               }
+              // Seta controls
+              this.passeador.setValue(this.passeadores.find(p => p.idUser === this.tourAgendado.walker_id));
+              const horario = new Horario();
+              horario.diaDaSemana = this.tourAgendado.day;
+              horario.hora = this.tourAgendado.time;
+              this.horario.setValue(horario);
+              this.cachorroAgendamento.setValue(this.authService.usuarioAuth.dogs.find(d => d.idDog === this.tourAgendado.dog_id));
             }
 
-            this.passeador.setValue(this.passeadores.find(p => p.idUser === this.tourAgendado.walker_id));
-            const horario = new Horario();
-            horario.diaDaSemana = this.tourAgendado.day;
-            horario.hora = this.tourAgendado.time;
-            this.horario.setValue(horario);
+            if (this.authService.usuarioPasseador) {
+              for (const tour in res.tours) {
+                if (res.tours[tour].status === '0' && res.tours[tour].walker_id !== '') {
+                  this.tourAgendado.day = res.tours[tour].day;
+                  this.tourAgendado.dog_id = res.tours[tour].dog_id;
+                  this.tourAgendado.latitude = res.tours[tour].latitude;
+                  this.tourAgendado.longitude = res.tours[tour].longitude;
+                  this.tourAgendado.owner_id = res.tours[tour].owner_id;
+                  this.tourAgendado.status = res.tours[tour].status;
+                  this.tourAgendado.time = res.tours[tour].time;
+                  this.tourAgendado.walker_id = res.tours[tour].walker_id;
+                  const jaExiste = this.toursAgendados.find((ta) => {
+                    return ta.day === this.tourAgendado.day && ta.time === this.tourAgendado.time;
+                  });
 
-            this.cachorroAgendamento.setValue(this.authService.usuarioAuth.dogs.find(d => d.idDog === this.tourAgendado.dog_id));
+                  if (jaExiste === undefined) {
+                    this.toursAgendados.push(this.tourAgendado);
+                  }
 
+                }
+              }
+            }
           }
 
         },
