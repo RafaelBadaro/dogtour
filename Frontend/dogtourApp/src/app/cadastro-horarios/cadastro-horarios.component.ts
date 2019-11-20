@@ -23,7 +23,7 @@ export class CadastroHorariosComponent implements OnInit {
     route.params.subscribe(val => {
       if (this.authService.usuarioAuth.idUser !== undefined) {
         this.ngOnInit();
-      }else{
+      } else {
         this.router.navigate(['/login']);
       }
 
@@ -83,11 +83,11 @@ export class CadastroHorariosComponent implements OnInit {
     }).subscribe(
       () => {
         this.loadingService.fecharLoading();
-        // this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, 'Seus horários foram cadastrados com sucesso!');
+        this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, 'Seus horários foram cadastrados com sucesso!');
       },
       () => {
         this.loadingService.fecharLoading();
-        //  this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Ocorreu um erro ao');
+        this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Ocorreu um erro ao');
       });
 
 

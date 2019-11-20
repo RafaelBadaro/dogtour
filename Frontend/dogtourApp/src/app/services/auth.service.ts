@@ -104,6 +104,18 @@ export class AuthService {
     const horarios: Horario[] = [];
     await this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/availability').toPromise().then(
       (res: any) => {
+// TODO VEM CA LOGO FDP
+               // if (res.availability !== undefined) {
+        //   let listaHorario = [];
+        //   // tslint:disable-next-line: forin
+        //   for (const dayTime in res.availability) {
+        //     const horario: Horario = new Horario();
+        //     horario.diaDaSemana = res.availability[dayTime].split('|')[0];
+        //     horario.hora = res.availability[dayTime].split('|')[1];
+        //     listaHorario.push(horario);
+        //   }
+        // }
+
         if (res.availability !== undefined) {
           // tslint:disable-next-line: forin
           for (const hr in res.availability) {
