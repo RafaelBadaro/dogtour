@@ -154,14 +154,10 @@ export class AvaliacaoDonoComponent implements OnInit {
     console.log("nota do dono: " + this.notaDono);
     console.log("nota do passeador: " + this.notaPasseador);
 
-    /*
-    "user_id":"<string: user_id>",
-    "rating":"<string: rating { 0 =< rating =< 5}>"
-    */
 
     if (this.authService.usuarioDono) {
       const body = {
-        user_id: '399ece4890d64d06b2abb90c0142cd86',//zezinho do gas
+        user_id: this.authService.usuarioAuth.tourCompletado.walker_id,
         rating: this.notaPasseador
       };
       this.http.post(constantes.textos.URL_API + '/api/user/rate', body,
@@ -176,7 +172,7 @@ export class AvaliacaoDonoComponent implements OnInit {
     } else {
       // TODO - COLOCAR PRA AVALIAR O CACHORRO TB
       const body = {
-        user_id: '2',
+        user_id: this.authService.usuarioAuth.tourCompletado.owner_id,
         rating: this.notaDono
       };
       this.http.post(constantes.textos.URL_API + '/api/user/rate', body,

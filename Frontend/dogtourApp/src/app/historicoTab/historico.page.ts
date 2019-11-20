@@ -15,7 +15,7 @@ export class HistoricoPage implements OnInit {
   toursCompletados: Tour[] = [];
 
   constructor(public authService: AuthService,
-              private http: HttpClient, private router: Router) {
+    private http: HttpClient, private router: Router) {
 
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
@@ -33,24 +33,23 @@ export class HistoricoPage implements OnInit {
       this.http.get(constantes.textos.URL_API + '/api/user/' + this.authService.getToken() + '/tours/' + '2').subscribe(
         (res: any) => {
           if (res.tours !== undefined) {
+            // tslint:disable-next-line: forin
             for (const tour in res.tours) {
-              if (res.tours[tour].status === '0' && res.tours[tour].walker_id !== '') {
-                const tourCompletado = new Tour();
-                tourCompletado.day = res.tours[tour].day;
-                tourCompletado.dog_id = res.tours[tour].dog_id;
-                tourCompletado.latitude = res.tours[tour].latitude;
-                tourCompletado.longitude = res.tours[tour].longitude;
-                tourCompletado.owner_id = res.tours[tour].owner_id;
-                tourCompletado.status = res.tours[tour].status;
-                tourCompletado.time = res.tours[tour].time;
-                tourCompletado.walker_id = res.tours[tour].walker_id;
-                const jaExiste = this.toursCompletados.find((ta) => {
-                  return ta.day === tourCompletado.day && ta.time === tourCompletado.time;
-                });
+              const tourCompletado = new Tour();
+              tourCompletado.day = res.tours[tour].day;
+              tourCompletado.dog_id = res.tours[tour].dog_id;
+              tourCompletado.latitude = res.tours[tour].latitude;
+              tourCompletado.longitude = res.tours[tour].longitude;
+              tourCompletado.owner_id = res.tours[tour].owner_id;
+              tourCompletado.status = res.tours[tour].status;
+              tourCompletado.time = res.tours[tour].time;
+              tourCompletado.walker_id = res.tours[tour].walker_id;
+              const jaExiste = this.toursCompletados.find((ta) => {
+                return ta.day === tourCompletado.day && ta.time === tourCompletado.time;
+              });
 
-                if (jaExiste === undefined) {
-                  this.toursCompletados.push(tourCompletado);
-                }
+              if (jaExiste === undefined) {
+                this.toursCompletados.push(tourCompletado);
               }
             }
           }
@@ -66,7 +65,8 @@ export class HistoricoPage implements OnInit {
 
   }
 
-  public irTelaAvaliacao(){
+  public irTelaAvaliacao(tour: Tour) {
+    this.authService.usuarioAuth.tourCompletado = tour;
     this.router.navigate(['/avaliacao-dono']);
   }
 

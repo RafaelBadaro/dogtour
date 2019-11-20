@@ -122,7 +122,6 @@ export class PasseioPage implements OnInit {
       this.http.get(constantes.textos.URL_API + '/api/user/' + this.authService.getToken() + '/tours').subscribe(
         (res: any) => {
           if (res.tours !== undefined) {
-            this.passeioAgendado = true;
 
             if (this.authService.usuarioDono) {
               let jaPassou = false;
@@ -139,6 +138,7 @@ export class PasseioPage implements OnInit {
                   this.tourAguardandoConfirmacao.time = res.tours[tour].time;
                   this.tourAguardandoConfirmacao.walker_id = res.tours[tour].walker_id;
                   if (!jaPassou) {
+                    this.passeioAgendado = true;
                     const jaExiste = this.toursAgendados.find((ta) => {
                       return ta.day === this.tourAguardandoConfirmacao.day && ta.time === this.tourAguardandoConfirmacao.time;
                     });
