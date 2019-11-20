@@ -1,5 +1,6 @@
 export class Tour{
 
+    tour_id: string;
     owner_id: string;
     dog_id: string;
     walker_id: string;
