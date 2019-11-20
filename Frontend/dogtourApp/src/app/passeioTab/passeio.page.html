@@ -22,23 +22,26 @@
       <ion-card-content class="card__passeadores">
         <ion-item>
           <ion-label>Passeadores</ion-label>
-          <ion-select formControlName="passeador" interface="popover">
+          <ion-select (ionChange)="buscarHorarioPasseador()" formControlName="passeador" interface="popover">
             <ion-select-option *ngFor="let ps of passeadores" [value]="ps">{{ps.name}}</ion-select-option>
           </ion-select>
         </ion-item>
       </ion-card-content>
 
       <ion-card-content class="card__horarios">
-        <ion-item [disabled]="this.passeador.value === '' ">
+        <ion-item [disabled]="passeador.value === '' ">
           <ion-label>Datas e horários</ion-label>
-          <ion-select formControlName="horario" interface="popover">
-            <ion-select-option *ngFor="let hr of passeador.value.horarios" [value]="hr">{{hr.diaDaSemana}}</ion-select-option>
+          <ion-select *ngIf="horariosEstaoDisponiveis" formControlName="horario" interface="popover">
+            <ion-select-option *ngFor="let hr of passeador.value.horarios" [value]="hr">
+              {{hr.diaDaSemana}}-{{hr.hora | date:'shortTime'}}</ion-select-option>
           </ion-select>
+          <span *ngIf="passeador.value !== '' && !horariosEstaoDisponiveis">
+            Esse passeador não possui horários disponíveis</span>
         </ion-item>
       </ion-card-content>
 
       <ion-card-content class="card__cachorros">
-        <ion-item [disabled]="this.passeador.value === '' || this.horario.value === ''">
+        <ion-item [disabled]="passeador.value === '' || horario.value === ''">
           <ion-label>Cachorro para passear</ion-label>
           <ion-select formControlName="cachorroAgendamento" interface="popover">
             <ion-select-option *ngFor="let dog of authService.usuarioAuth.dogs" [value]="dog">{{dog.name}}
@@ -55,8 +58,11 @@
     </form>
     <div *ngIf="passeioAgendado" class="card__passeio-agendado">
 
-      <div class="card__passeio-agendado__header">
+      <div *ngIf="passeioConfirmado" class="card__passeio-agendado__header">
         Seu passeio foi Agendado!
+      </div>
+      <div *ngIf="!passeioConfirmado" class="card__passeio-agendado__header">
+        Seu passeio está aguardando confirmacão...
       </div>
       <div class="card__passeio-agendado__conteudo">
         <div class="card__passeio-agendado__conteudo__textos">
@@ -67,7 +73,7 @@
           </span>
           <span class="card__passeio-agendado__conteudo__textos__span">Horário:
             <span class="card__passeio-agendado__conteudo__textos__span--bold">
-              {{horario.value}}
+              {{horario.value.diaDaSemana}} - {{horario.value.hora | date:'shortTime'}}
             </span>
           </span>
           <span class="card__passeio-agendado__conteudo__textos__span">Cachorro:
@@ -86,8 +92,7 @@
       <ion-card-title>Passeios Agendados</ion-card-title>
     </ion-card-header>
     <ion-card-content class="card__texto">
-      <!--PEDIR UMA LISTA DE PASSEIOS CADASTRADOS PARA O CARA E MOSTRAR PELO COMPONENTE-->
-      <app-passeio-agenda></app-passeio-agenda>
+      <app-passeio-agenda *ngFor="let tour of toursAgendados" [tour]="tour"></app-passeio-agenda>
     </ion-card-content>
   </ion-card>
 
