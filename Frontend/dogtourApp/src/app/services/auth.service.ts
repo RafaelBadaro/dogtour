@@ -15,7 +15,7 @@ import { Horario } from '../models/horario.model';
 })
 export class AuthService {
 
-  public usuarioAuth: Usuario;
+  public usuarioAuth: Usuario = new Usuario();
 
   public get usuarioDono(): boolean {
     return this.usuarioAuth.role === 'dono';
@@ -30,7 +30,6 @@ export class AuthService {
   }
 
   constructor(private http: HttpClient, private router: Router, private alertService: AlertService) {
-    this.usuarioAuth = new Usuario();
   }
 
 
