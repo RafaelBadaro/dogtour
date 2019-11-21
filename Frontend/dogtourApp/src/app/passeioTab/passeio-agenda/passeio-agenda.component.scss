@@ -11,6 +11,10 @@
   .agendamento__infos {
     width: 50%;
     text-align: right;
+    .agendamento__info__btn-confirmar {
+      padding: 7px 0;
+      margin: 0;
+    }
     .agendamento__info__btn-cancelar {
       padding: 7px 0;
       margin: 0;

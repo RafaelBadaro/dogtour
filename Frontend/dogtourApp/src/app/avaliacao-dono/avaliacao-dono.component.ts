@@ -1,5 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { AuthService } from "../services/auth.service";
+import { HttpClient } from '@angular/common/http';
+import { constantes } from '../constantes';
+import { LoadingService } from '../services/loading.service';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: "app-avaliacao-dono",
@@ -7,10 +11,14 @@ import { AuthService } from "../services/auth.service";
   styleUrls: ["./avaliacao-dono.component.scss"]
 })
 export class AvaliacaoDonoComponent implements OnInit {
-  constructor(public authService: AuthService) {}
+  constructor(public authService: AuthService,
+    private http: HttpClient,
+    private loadingService: LoadingService,
+    private alertService: AlertService) { }
 
   notaCachorro = 0;
   notaDono = 0;
+  notaPasseador = 0;
 
   zipped1: boolean = true;
   zipped2: boolean = true;
@@ -30,7 +38,11 @@ export class AvaliacaoDonoComponent implements OnInit {
     this.zipped3 = !this.zipped1;
     this.zipped4 = !this.zipped1;
     this.zipped5 = !this.zipped1;
-    this.notaCachorro = 1;
+    if (this.authService.usuarioDono) {
+      this.notaPasseador = 1;
+    } else {
+      this.notaCachorro = 1;
+    }
   }
   toggleZipped6(): void {
     if (this.zipped6 == true) {
@@ -50,7 +62,11 @@ export class AvaliacaoDonoComponent implements OnInit {
     this.zipped3 = true;
     this.zipped4 = true;
     this.zipped5 = true;
-    this.notaCachorro = 2;
+    if (this.authService.usuarioDono) {
+      this.notaPasseador = 2;
+    } else {
+      this.notaCachorro = 2;
+    }
   }
   toggleZipped7(): void {
     if (this.zipped7 == true) {
@@ -70,7 +86,11 @@ export class AvaliacaoDonoComponent implements OnInit {
     }
     this.zipped4 = true;
     this.zipped5 = true;
-    this.notaCachorro = 3;
+    if (this.authService.usuarioDono) {
+      this.notaPasseador = 3;
+    } else {
+      this.notaCachorro = 3;
+    }
   }
   toggleZipped8(): void {
     if (this.zipped8 == true) {
@@ -90,7 +110,11 @@ export class AvaliacaoDonoComponent implements OnInit {
       this.zipped3 = this.zipped4;
     }
     this.zipped5 = true;
-    this.notaCachorro = 4;
+    if (this.authService.usuarioDono) {
+      this.notaPasseador = 4;
+    } else {
+      this.notaCachorro = 4;
+    }
   }
   toggleZipped9(): void {
     if (this.zipped9 == true) {
@@ -108,7 +132,12 @@ export class AvaliacaoDonoComponent implements OnInit {
     this.zipped2 = this.zipped5;
     this.zipped3 = this.zipped5;
     this.zipped4 = this.zipped5;
-    this.notaCachorro = 5;
+    if (this.authService.usuarioDono) {
+      this.notaPasseador = 5;
+    } else {
+      this.notaCachorro = 5;
+    }
+
   }
   toggleZipped10(): void {
     this.zipped10 = !this.zipped10;
@@ -119,8 +148,48 @@ export class AvaliacaoDonoComponent implements OnInit {
     this.notaDono = 5;
   }
   teste(): void {
+    this.loadingService.mostrarLoading();
+
     console.log("nota do cachorro: " + this.notaCachorro);
     console.log("nota do dono: " + this.notaDono);
+    console.log("nota do passeador: " + this.notaPasseador);
+
+
+    if (this.authService.usuarioDono) {
+      const body = {
+        user_id: this.authService.usuarioAuth.tourCompletado.walker_id,
+        rating: this.notaPasseador
+      };
+      this.http.post(constantes.textos.URL_API + '/api/user/rate', body,
+        { headers: { 'Content-Type': 'text/plain' } }).subscribe(
+          () => {
+            this.loadingService.fecharLoading();
+            this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, 'Avaliação concluída');
+          },
+          () => {
+            this.loadingService.fecharLoading();
+            this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao avaliar');
+          }
+        );
+    } else {
+      // TODO - COLOCAR PRA AVALIAR O CACHORRO TB
+      const body = {
+        user_id: this.authService.usuarioAuth.tourCompletado.owner_id,
+        rating: this.notaDono
+      };
+      this.http.post(constantes.textos.URL_API + '/api/user/rate', body,
+        { headers: { 'Content-Type': 'text/plain' } }).subscribe(
+          () => {
+            this.loadingService.fecharLoading();
+            this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, 'Avaliação concluída');
+          },
+          () => {
+            this.loadingService.fecharLoading();
+            this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao avaliar');
+          }
+        );
+    }
+
   }
-  ngOnInit() {}
+  ngOnInit() { }
 }

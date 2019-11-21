@@ -1,6 +1,9 @@
 .content--encontrado {
   .content__mapa {
     height: 60%;
+    #map{
+      height: 100%;
+    }
   }
   .content__info {
     height: 40%;
@@ -10,6 +13,7 @@
       background-color: white;
       opacity: 0.9;
       color: lightslategrey;
+      overflow: auto;
 
       &__header {
         font-size: 18px;
