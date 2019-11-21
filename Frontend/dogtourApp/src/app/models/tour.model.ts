@@ -1,5 +1,6 @@
 export class Tour{
 
+    tour_id: string;
     owner_id: string;
     dog_id: string;
     walker_id: string;
@@ -9,5 +10,12 @@ export class Tour{
     longitude: string;
     status: string;
 
+}
+
+export enum StatusTour{
+    Aguardando_Confirmacao = '0',
+    Confirmado = '1',
+    Em_Andamento = '2',
+    Cancelado = '3',
 }
 

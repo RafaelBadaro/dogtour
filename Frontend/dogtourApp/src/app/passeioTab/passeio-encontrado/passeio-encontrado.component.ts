@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { HttpClient } from '@angular/common/http';
 
 declare var google;
 
@@ -19,7 +20,8 @@ export class PasseioEncontradoComponent implements OnInit {
   map: any;
 
 
-  constructor(public authService: AuthService, private geolocation: Geolocation) { }
+  constructor(public authService: AuthService, private geolocation: Geolocation, 
+    private http: HttpClient) { }
 
   ngOnInit() {
    // this.initializeMap();

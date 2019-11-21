@@ -50,12 +50,13 @@ export class AuthService {
         this.usuarioAuth.idUser = res.user.user_id;
         this.usuarioAuth.email = res.user.email;
         this.usuarioAuth.name = res.user.name;
+        this.usuarioAuth.rating = res.user.rating;
         this.usuarioAuth.role = res.user.role;
         this.usuarioAuth.dogs = [];
         this.usuarioAuth.horarios = [];
 
         if (this.usuarioDono) {
-           await this.requestBuscarCachorros(token);
+          await this.requestBuscarCachorros(token);
         }
 
         if (this.usuarioPasseador) {
@@ -101,29 +102,23 @@ export class AuthService {
   }
 
   public async requestBuscarHorarios(token: string): Promise<Horario[]> {
-    const horarios: Horario[] = [];
+    const horariosPorDiaSemana: Horario[]  = [];
     await this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/availability').toPromise().then(
       (res: any) => {
         if (res.availability !== undefined) {
+ 
           // tslint:disable-next-line: forin
-          for (const hr in res.availability) {
-            const diaDaSemana = hr;
-            const times = res.availability[hr];
-            const horariosPorDiaSemana: Horario[] = [];
-            // tslint:disable-next-line: forin
-            for (const time in times) {
-              const horarioFinal = new Horario();
-              horarioFinal.diaDaSemana = diaDaSemana;
-              horarioFinal.hora = times[time];
-              horariosPorDiaSemana.push(horarioFinal);
-            }
-            horarios.push(...horariosPorDiaSemana);
+          for (const dayTime in res.availability) {
+            const horario: Horario = new Horario();
+            horario.diaDaSemana = res.availability[dayTime].split('|')[0];
+            horario.hora = res.availability[dayTime].split('|')[1];
+            horariosPorDiaSemana.push(horario);
           }
         }
       },
       () => { }
     );
-    return horarios;
+    return horariosPorDiaSemana;
   }
 
 }
