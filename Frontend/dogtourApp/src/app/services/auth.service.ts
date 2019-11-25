@@ -17,6 +17,8 @@ export class AuthService {
 
   public usuarioAuth: Usuario = new Usuario();
 
+  public usuarioMatch: Usuario = new Usuario();
+
   public get usuarioDono(): boolean {
     return this.usuarioAuth.role === 'dono';
   }

@@ -11,6 +11,7 @@ import { Cachorro } from '../models/cachorro.model';
 import { HttpClient } from '@angular/common/http';
 import { Tour, StatusTour } from '../models/tour.model';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-passeio',
@@ -44,6 +45,9 @@ export class PasseioPage implements OnInit {
   todosTours: Tour[] = [];
 
   toursAgendados: Tour[] = [];
+
+  toursRequested: Tour[] = [];
+
   latitude: string;
 
   longitude: string;
@@ -283,43 +287,69 @@ export class PasseioPage implements OnInit {
 
   public pedirAgora() {
     this.loadingService.mostrarLoading();
-    // const body = {
-    //   owner_id: this.authService.usuarioAuth.idUser,
-    //   dog_id: this.cachorroAgora.idDog,
-    //   walker_id: '',
-    //   day: this.pegarDiaDaSemana(),
-    //   time: new Date().toISOString(),
-    //   latitude: this.latitude,
-    //   longitude: this.longitude
-    // };
-
-    // this.http.post(constantes.textos.URL_API + '/api/tour/schedule', body,
-    //   { headers: { 'Content-Type': 'text/plain' } }).subscribe(
-    //     (res) => {
-    //       this.loadingService.fecharLoading();
-    //       this.router.navigate(['/tabs/passeioTab/passeio-encontrado']);
-    //     },
-    //     () => {
-    //       this.loadingService.fecharLoading();
-    //       this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao pedir agora');
-    //     },
-    //     () => {
-    //       this.loadingService.fecharLoading();
-    //     }
-    //   );
-
     const body = {
-      tour_id: this.tourAgendado.tour_id,
-      status: '2'
+      owner_id: this.authService.usuarioAuth.idUser,
+      dog_id: this.cachorroAgora.idDog,
+      latitude: this.latitude,
+      longitude: this.longitude
     };
 
-    this.http.post(constantes.textos.URL_API + '/api/tour/update', body,
+    this.http.post(constantes.textos.URL_API + '/api/request/tour', body,
       { headers: { 'Content-Type': 'text/plain' } }).subscribe(
-        () => {
+        (res) => {
+          //TODO PEGAR ESSA RESPOSTA
+          //  // this.authService.usuarioMatch.idUser 
+          //   this.authService.usuarioMatch.latitude
+          //   this.authService.usuarioMatch.longitude
           this.loadingService.fecharLoading();
+          this.router.navigate(['/tabs/passeioTab/passeio-encontrado']);
         },
         () => {
           this.loadingService.fecharLoading();
+          this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao pedir agora');
+        },
+        () => {
+          this.loadingService.fecharLoading();
+        }
+      );
+
+  }
+
+  togglePasseador() {
+    if (!this.procuraPasseio) {
+      this.procuraPasseio = true;
+      // todos os donos que querem passeador
+      this.http.get(constantes.textos.URL_API + '/api/tours/requested').subscribe(
+        (res: any) => {
+          //TODO montar a lista de tours requested
+          // toursRequested = res;
+        },
+        () => {
+
+        },
+      );
+    } else {
+      this.procuraPasseio = false;
+    }
+  }
+
+  confirmaPasseio(tourEscolhido: Tour) {
+    this.authService.usuarioMatch.latitude = tourEscolhido.latitude;
+    this.authService.usuarioMatch.longitude = tourEscolhido.longitude;
+
+    const body = {
+      tour_id: tourEscolhido.tour_id,
+      user_id: this.authService.usuarioAuth.idUser
+    };
+
+    this.http.post(constantes.textos.URL_API + '/api/request/tour', body,
+      { headers: { 'Content-Type': 'text/plain' } }).subscribe(
+        (res: any) => {
+
+          this.router.navigate(['/tabs/passeioTab/passeio-encontrado']);
+        },
+        () => {
+
         }
       );
 

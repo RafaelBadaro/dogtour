@@ -18,4 +18,7 @@ export class Usuario {
     horarios?: Horario[];
 
     tourCompletado: Tour;
+
+    latitude: string;
+    longitude: string;
 }
