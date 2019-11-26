@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AlertService } from './alert.service';
 import { Horario } from '../models/horario.model';
+import { Tour } from '../models/tour.model';
 
 
 @Injectable({
@@ -17,7 +18,7 @@ export class AuthService {
 
   public usuarioAuth: Usuario = new Usuario();
 
-  public usuarioMatch: Usuario = new Usuario();
+  public tourMatch: Tour = new Tour();
 
   public get usuarioDono(): boolean {
     return this.usuarioAuth.role === 'dono';

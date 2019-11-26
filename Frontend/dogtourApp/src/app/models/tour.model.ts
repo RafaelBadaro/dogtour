@@ -10,6 +10,13 @@ export class Tour{
     longitude: string;
     status: string;
 
+
+    ownerName: string;
+
+    walkerName: string;
+
+    dogName: string;
+
 }
 
 export enum StatusTour{
