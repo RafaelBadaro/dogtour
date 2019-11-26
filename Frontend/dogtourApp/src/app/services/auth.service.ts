@@ -84,7 +84,7 @@ export class AuthService {
   public async requestBuscarCachorros(token: string) {
     await this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/dogs').toPromise().then(
       (res: any) => {
-        if (res.dogs !== undefined) {
+        if (res.dogs !== undefined && res.dogs.length > 0) {
           // tslint:disable-next-line: forin
           for (const dog in res.dogs) {
             const c: Cachorro = res.dogs[dog];
@@ -104,7 +104,7 @@ export class AuthService {
     const horarios: Horario[] = [];
     await this.http.get(constantes.textos.URL_API + '/api/user/' + token + '/availability').toPromise().then(
       (res: any) => {
-        if (res.availability !== undefined) {
+        if (res.availability !== undefined && res.availability.length > 0) {
           // tslint:disable-next-line: forin
           for (const hr in res.availability) {
             const diaDaSemana = hr;

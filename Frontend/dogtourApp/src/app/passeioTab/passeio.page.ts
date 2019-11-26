@@ -117,7 +117,7 @@ export class PasseioPage implements OnInit {
       // Verifica se tem algum Tour agendado aguardando confirmacao
       this.http.get(constantes.textos.URL_API + '/api/user/' + this.authService.getToken() + '/tours/' + '0').subscribe(
         (res: any) => {
-          if (res.tours !== undefined) {
+          if (res.tours !== undefined && res.tours.length > 0) {
             this.passeioAgendado = true;
             let jaPassou = false;
             // TODO POR FAVOR MUDAR ISSO
