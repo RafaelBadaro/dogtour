@@ -91,8 +91,9 @@
     <ion-card-header>
       <ion-card-title>Passeios Agendados</ion-card-title>
     </ion-card-header>
+    <span *ngIf="todosTours.length === 0">Sem solicitações de passeio</span>
     <ion-card-content class="card__texto">
-      <app-passeio-agenda *ngFor="let tour of toursAgendados" [tour]="tour"></app-passeio-agenda>
+      <app-passeio-agenda *ngFor="let tour of todosTours" [tour]="tour"></app-passeio-agenda>
     </ion-card-content>
   </ion-card>
 
@@ -126,12 +127,17 @@
         passear!</ion-button>
     </ion-card-content>
     <ion-card-content class="card__btn--passeador" *ngIf="authService.usuarioPasseador">
-      <ion-toggle [(ngModel)]="procuraPasseio" *ngIf="authService.usuarioPasseador">
+      <ion-toggle *ngIf="authService.usuarioPasseador" (click)="togglePasseador()">
       </ion-toggle>
       <span class="card__btn--passeador__span" *ngIf="!procuraPasseio">Você não esta procurando passeios</span>
-      <span class=" card__btn--passeador__span card__btn--passeador__span--procurando" *ngIf="procuraPasseio">Procurando
+      <span class="card__btn--passeador__span card__btn--passeador__span--procurando" *ngIf="procuraPasseio">Procurando
         passeios
         <ion-spinner class="card__btn--passeador__span--procurando__spinner" name="circles"></ion-spinner></span>
+      <div *ngFor="let tourRequested of toursRequested">
+        <div>Encontrado:
+          <ion-button (click)="confirmaPasseio(tourRequested)">Aceitar!</ion-button>
+        </div>
+      </div>
     </ion-card-content>
 
   </ion-card>

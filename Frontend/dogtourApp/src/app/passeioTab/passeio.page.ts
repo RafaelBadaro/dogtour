@@ -9,8 +9,9 @@ import { AuthService } from '../services/auth.service';
 import { Horario } from '../models/horario.model';
 import { Cachorro } from '../models/cachorro.model';
 import { HttpClient } from '@angular/common/http';
-import { Tour } from '../models/tour.model';
+import { Tour, StatusTour } from '../models/tour.model';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-passeio',
@@ -39,7 +40,14 @@ export class PasseioPage implements OnInit {
 
   tourAgendado: Tour = new Tour();
 
+  tourAguardandoConfirmacao: Tour = new Tour();
+
+  todosTours: Tour[] = [];
+
   toursAgendados: Tour[] = [];
+
+  toursRequested: Tour[] = [];
+
   latitude: string;
 
   longitude: string;
@@ -115,7 +123,7 @@ export class PasseioPage implements OnInit {
       }
 
       // Verifica se tem algum Tour agendado aguardando confirmacao
-      this.http.get(constantes.textos.URL_API + '/api/user/' + this.authService.getToken() + '/tours/' + '0').subscribe(
+      this.http.get(constantes.textos.URL_API + '/api/user/' + this.authService.getToken() + '/tours').subscribe(
         (res: any) => {
           if (res.tours !== undefined && res.tours.length > 0) {
             this.passeioAgendado = true;
@@ -148,8 +156,13 @@ export class PasseioPage implements OnInit {
             horario.hora = this.tourAgendado.time;
             this.horario.setValue(horario);
 
-            this.cachorroAgendamento.setValue(this.authService.usuarioAuth.dogs.find(d => d.idDog === this.tourAgendado.dog_id));
+            if (this.authService.usuarioDono) {
+              this.montarToursDono(res);
+            }
 
+            if (this.authService.usuarioPasseador) {
+              this.montarToursPasseador(res);
+            }
           }
 
         },
@@ -164,13 +177,109 @@ export class PasseioPage implements OnInit {
     }
   }
 
+  private montarToursDono(res: any) {
+
+    const toursDono: Tour[] = [];
+    // tslint:disable-next-line: forin
+    for (const tour in res.tours) {
+      toursDono.push(this.montarObjTour(tour, res.tours));
+    }
+    const tourAguardando = toursDono.find(tourDono => tourDono.walker_id !== ''
+      && tourDono.status === StatusTour.Aguardando_Confirmacao);
+
+    const tourConfirmado = toursDono.find(tourDono => tourDono.walker_id !== '' &&
+      tourDono.status === StatusTour.Confirmado);
+
+    const tourCancelado = toursDono.find(tourDono => tourDono.walker_id !== '' &&
+      tourDono.status === StatusTour.Cancelado);
+
+    if (tourAguardando !== undefined) {
+      this.tourAguardandoConfirmacao = tourAguardando;
+      this.passeioAgendado = true;
+
+      this.passeador.setValue(this.passeadores.find(p => p.idUser === this.tourAguardandoConfirmacao.walker_id));
+
+      const horario = new Horario();
+      horario.diaDaSemana = this.tourAguardandoConfirmacao.day;
+      horario.hora = this.tourAguardandoConfirmacao.time;
+      this.horario.setValue(horario);
+
+      this.cachorroAgendamento
+        .setValue(this.authService.usuarioAuth.dogs
+          .find(d => d.idDog === this.tourAguardandoConfirmacao.dog_id));
+
+    } else if (tourConfirmado !== undefined) {
+      this.tourAgendado = tourConfirmado;
+      this.passeioConfirmado = true;
+      this.passeioAgendado = true;
+
+      this.passeador.setValue(this.passeadores.find(p => p.idUser === this.tourAgendado.walker_id));
+
+      const horario = new Horario();
+      horario.diaDaSemana = this.tourAgendado.day;
+      horario.hora = this.tourAgendado.time;
+      this.horario.setValue(horario);
+
+      this.cachorroAgendamento
+        .setValue(this.authService.usuarioAuth.dogs
+          .find(d => d.idDog === this.tourAgendado.dog_id));
+
+    } else if (tourCancelado !== undefined) {
+      this.passeioConfirmado = false;
+      this.passeioAgendado = false;
+      this.passeador.setValue('');
+      this.horario.setValue('');
+      this.cachorroAgendamento.setValue('');
+    }
+
+  }
+
+  private montarToursPasseador(res: any) {
+    this.todosTours = [];
+    // tslint:disable-next-line: forin
+    for (const tour in res.tours) {
+      if (res.tours[tour].walker_id !== '' && (res.tours[tour].status === '0' || res.tours[tour].status === '1')) {
+        const tourNovo: Tour = this.montarObjTour(tour, res.tours);
+
+        // const jaExiste = this.todosTours.find((ta) => {
+        //   return ta.tour_id === tourNovo.tour_id;
+        // });
+
+        // if (jaExiste !== undefined) {
+        //   const index = this.todosTours.indexOf(jaExiste);
+        //   this.todosTours.splice(index, 1);
+        // }
+
+        this.todosTours.push(tourNovo);
+      }
+    }
+  }
+
+  private montarObjTour(item: any, itens: any): Tour {
+    const tour: Tour = new Tour();
+    tour.tour_id = item;
+    tour.day = itens[item].day;
+    tour.dog_id = itens[item].dog_id;
+    tour.latitude = itens[item].latitude;
+    tour.longitude = itens[item].longitude;
+    tour.owner_id = itens[item].owner_id;
+    tour.status = itens[item].status;
+    tour.time = itens[item].time;
+    tour.walker_id = itens[item].walker_id;
+
+    return tour;
+  }
+
   public async buscarHorarioPasseador() {
     this.loadingService.mostrarLoading();
-    this.passeador.value.horarios = [];
-    await this.authService.requestBuscarHorarios(this.passeador.value.idUser).then(resp => {
-      this.passeador.value.horarios = resp;
-      this.loadingService.fecharLoading();
-    });
+    if (this.passeador.value !== '') {
+      this.passeador.value.horarios = [];
+      await this.authService.requestBuscarHorarios(this.passeador.value.idUser).then(resp => {
+        this.passeador.value.horarios = resp;
+        this.loadingService.fecharLoading();
+      });
+    }
+
   }
 
   public agendar() {
@@ -210,16 +319,17 @@ export class PasseioPage implements OnInit {
     const body = {
       owner_id: this.authService.usuarioAuth.idUser,
       dog_id: this.cachorroAgora.idDog,
-      walker_id: '',
-      day: this.pegarDiaDaSemana(),
-      time: new Date().toISOString(),
       latitude: this.latitude,
       longitude: this.longitude
     };
 
-    this.http.post(constantes.textos.URL_API + '/api/tour/schedule', body,
+    this.http.post(constantes.textos.URL_API + '/api/request/tour', body,
       { headers: { 'Content-Type': 'text/plain' } }).subscribe(
         (res) => {
+          //TODO PEGAR ESSA RESPOSTA
+          //  // this.authService.usuarioMatch.idUser 
+          //   this.authService.usuarioMatch.latitude
+          //   this.authService.usuarioMatch.longitude
           this.loadingService.fecharLoading();
           this.router.navigate(['/tabs/passeioTab/passeio-encontrado']);
         },
@@ -234,11 +344,70 @@ export class PasseioPage implements OnInit {
 
   }
 
+  togglePasseador() {
+    if (!this.procuraPasseio) {
+      this.procuraPasseio = true;
+      // todos os donos que querem passeador
+      this.http.get(constantes.textos.URL_API + '/api/tours/requested').subscribe(
+        (res: any) => {
+          //TODO montar a lista de tours requested
+          // toursRequested = res;
+        },
+        () => {
+
+        },
+      );
+    } else {
+      this.procuraPasseio = false;
+    }
+  }
+
+  confirmaPasseio(tourEscolhido: Tour) {
+    this.authService.usuarioMatch.latitude = tourEscolhido.latitude;
+    this.authService.usuarioMatch.longitude = tourEscolhido.longitude;
+
+    const body = {
+      tour_id: tourEscolhido.tour_id,
+      user_id: this.authService.usuarioAuth.idUser
+    };
+
+    this.http.post(constantes.textos.URL_API + '/api/request/tour', body,
+      { headers: { 'Content-Type': 'text/plain' } }).subscribe(
+        (res: any) => {
+
+          this.router.navigate(['/tabs/passeioTab/passeio-encontrado']);
+        },
+        () => {
+
+        }
+      );
+
+  }
+
   public cancelar() {
+    this.loadingService.mostrarLoading();
     this.passeioAgendado = false;
+    this.passeioConfirmado = false;
     this.passeador.setValue('');
     this.horario.setValue('');
     this.cachorroAgendamento.setValue('');
+
+    const body = {
+      tour_id: this.tourAgendado.tour_id,
+      status: '3'
+    };
+
+    this.http.post(constantes.textos.URL_API + '/api/tour/update', body,
+      { headers: { 'Content-Type': 'text/plain' } }).subscribe(
+        () => {
+          this.loadingService.fecharLoading();
+          this.alertService.abrirAlert(constantes.textos.sucesso.TXT_SUCESSO, 'Passeio cancelado!');
+        },
+        () => {
+          this.loadingService.fecharLoading();
+          this.alertService.abrirAlert(constantes.textos.erros.TXT_ERRO, 'Erro ao cancelar passeio');
+        }
+      );
   }
 
   private pegarDiaDaSemana(): string {

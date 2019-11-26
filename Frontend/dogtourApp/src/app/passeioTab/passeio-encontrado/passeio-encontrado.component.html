@@ -13,12 +13,13 @@
       </div>
       <div class="content__info__card__dados">
         <span class="content__info__card__dados__span" *ngIf="authService.usuarioDono">Passeador:
+          {{authService.usuarioMatch.name}}
         </span>
         <span class="content__info__card__dados__span" *ngIf="authService.usuarioPasseador">Dono:
+          {{authService.usuarioMatch.name}}
         </span>
         <span class="content__info__card__dados__span" *ngIf="authService.usuarioPasseador">Nome do
-          cachorro: </span>
-        <span class="content__info__card__dados__span">Passeios realizados: </span>
+          cachorro:</span>
         <span class="content__info__card__dados__span--contato">
           <ion-icon name="call"></ion-icon>
           Entre em contato

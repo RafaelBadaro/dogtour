@@ -1,5 +1,6 @@
 import { Cachorro } from 'src/app/models/cachorro.model';
 import { Horario } from './horario.model';
+import { Tour } from './tour.model';
 export class Usuario {
 
     idUser: string;
@@ -15,4 +16,9 @@ export class Usuario {
     dogs?: Cachorro[];
 
     horarios?: Horario[];
+
+    tourCompletado: Tour;
+
+    latitude: string;
+    longitude: string;
 }
