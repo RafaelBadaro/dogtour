@@ -399,7 +399,7 @@ export class PasseioPage implements OnInit {
       user_id: this.authService.usuarioAuth.idUser
     };
 
-    this.http.post(constantes.textos.URL_API + '/api/request/tour', body,
+    this.http.post(constantes.textos.URL_API + '/api/tour/confirm', body,
       { headers: { 'Content-Type': 'text/plain' } }).subscribe(
         (res: any) => {
 
