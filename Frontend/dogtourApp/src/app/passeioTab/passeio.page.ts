@@ -125,7 +125,7 @@ export class PasseioPage implements OnInit {
       // Verifica se tem algum Tour agendado aguardando confirmacao
       this.http.get(constantes.textos.URL_API + '/api/user/' + this.authService.getToken() + '/tours').subscribe(
         (res: any) => {
-          if (res.tours !== undefined && res.tours.length > 0) {
+          if (res.tours !== undefined && Object.entries(res.tours).length > 0 && !this.tourPedidoNaHora(res)) {
             this.passeioAgendado = true;
             let jaPassou = false;
             // TODO POR FAVOR MUDAR ISSO
@@ -175,6 +175,16 @@ export class PasseioPage implements OnInit {
     } else {
       this.router.navigate(['/login']);
     }
+  }
+
+  private tourPedidoNaHora(res: any): boolean {
+    const tours: Tour[] = [];
+    // tslint:disable-next-line: forin
+    for (const tour in res.tours) {
+      tours.push(this.montarObjTour(tour, res.tours));
+    }
+
+    return tours.find(t => t.walker_id !== undefined) !== undefined;
   }
 
   private montarToursDono(res: any) {
@@ -255,19 +265,19 @@ export class PasseioPage implements OnInit {
     }
   }
 
-  private montarObjTour(item: any, itens: any): Tour {
-    const tour: Tour = new Tour();
-    tour.tour_id = item;
-    tour.day = itens[item].day;
-    tour.dog_id = itens[item].dog_id;
-    tour.latitude = itens[item].latitude;
-    tour.longitude = itens[item].longitude;
-    tour.owner_id = itens[item].owner_id;
-    tour.status = itens[item].status;
-    tour.time = itens[item].time;
-    tour.walker_id = itens[item].walker_id;
+  private montarObjTour(tour: any, resTours: any): Tour {
+    const tourMontado: Tour = new Tour();
+    tourMontado.tour_id = tour;
+    tourMontado.day = resTours.tours[tour].day;
+    tourMontado.dog_id = resTours.tours[tour].dog_id;
+    tourMontado.latitude = resTours.tours[tour].latitude;
+    tourMontado.longitude = resTours.tours[tour].longitude;
+    tourMontado.owner_id = resTours.tours[tour].owner_id;
+    tourMontado.status = resTours.tours[tour].status;
+    tourMontado.time = resTours.tours[tour].time;
+    tourMontado.walker_id = resTours.tours[tour].walker_id !== undefined ? resTours.tours[tour].walker_id : '';
 
-    return tour;
+    return tourMontado;
   }
 
   public async buscarHorarioPasseador() {
@@ -350,8 +360,12 @@ export class PasseioPage implements OnInit {
       // todos os donos que querem passeador
       this.http.get(constantes.textos.URL_API + '/api/tours/requested').subscribe(
         (res: any) => {
-          //TODO montar a lista de tours requested
-          // toursRequested = res;
+          if (res.tours !== undefined && Object.entries(res.tours).length > 0) {
+            for (const tour in res.tours) {
+              const tourAoVivo = this.montarObjTourAoVivo(tour, res.tours);
+              this.toursRequested.push(tourAoVivo);
+            }
+          }
         },
         () => {
 
@@ -359,10 +373,24 @@ export class PasseioPage implements OnInit {
       );
     } else {
       this.procuraPasseio = false;
+      this.toursRequested = [];
     }
   }
 
-  confirmaPasseio(tourEscolhido: Tour) {
+  private montarObjTourAoVivo(tour: any, resTours: any){
+    const tourMontado: Tour = new Tour();
+    tourMontado.tour_id = tour;
+    tourMontado.dog_id = resTours[tour].dog_id;
+    tourMontado.latitude = resTours[tour].latitude;
+    tourMontado.longitude = resTours[tour].longitude;
+    tourMontado.owner_id = resTours[tour].owner_id;
+    tourMontado.status = resTours[tour].status;
+
+
+    return tourMontado;
+  }
+
+  confirmaPasseio(tourEscolhido) {
     this.authService.usuarioMatch.latitude = tourEscolhido.latitude;
     this.authService.usuarioMatch.longitude = tourEscolhido.longitude;
 

@@ -133,6 +133,8 @@
       <span class="card__btn--passeador__span card__btn--passeador__span--procurando" *ngIf="procuraPasseio">Procurando
         passeios
         <ion-spinner class="card__btn--passeador__span--procurando__spinner" name="circles"></ion-spinner></span>
+    </ion-card-content>
+    <ion-card-content class="card__btn--passeador--passeios-encontrados" *ngIf="authService.usuarioPasseador">
       <div *ngFor="let tourRequested of toursRequested">
         <div>Encontrado:
           <ion-button (click)="confirmaPasseio(tourRequested)">Aceitar!</ion-button>
