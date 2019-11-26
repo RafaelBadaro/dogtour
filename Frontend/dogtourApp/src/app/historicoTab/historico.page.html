@@ -7,10 +7,10 @@
 </ion-header>
 
 <div class="content">
-  <span *ngIf="toursCompletados.length === 0">Opa, parece que você não tem passeios recentes...</span>
+  <span class="content__span__sem-passeios" *ngIf="toursCompletados.length === 0">Opa, parece que você não tem passeios recentes...</span>
   <ion-card class="card" *ngFor="let tour of toursCompletados">
     <ion-card-header>
-      <ion-card-title>Passeio no dia {{tour.day}}-{{tour.time | date:'shortTime'}}</ion-card-title>
+      <ion-card-title>Passeio</ion-card-title> <!--{{tour.day}}-{{tour.time | date:'shortTime'}}-->
     </ion-card-header>
 
     <ion-card-content class="card__texto">

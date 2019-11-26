@@ -272,7 +272,29 @@ export class PasseioPage implements OnInit {
 
     if (resTours[tour].walker !== '') {
       tourMontado.walkerName = resTours[tour].walker.name;
-      tourMontado.walker_id = resTours[tour].owner.user_id;
+      tourMontado.walker_id = resTours[tour].walker.user_id;
+    }
+
+
+    return tourMontado;
+  }
+
+  private montarObjTourAgora(resTours: any): Tour {
+    const tourMontado: Tour = new Tour();
+
+    tourMontado.status = resTours.status;
+    tourMontado.latitude = resTours.w_latitude;
+    tourMontado.longitude = resTours.w_longitude;
+
+    if (resTours.owner !== '') {
+      tourMontado.dogName = resTours.dog.name;
+      tourMontado.ownerName = resTours.owner.name;
+      tourMontado.owner_id = resTours.owner.user_id;
+    }
+
+    if (resTours.walker !== '') {
+      tourMontado.walkerName = resTours.walker.name;
+      tourMontado.walker_id = resTours.walker.user_id;
     }
 
 
@@ -336,13 +358,11 @@ export class PasseioPage implements OnInit {
       { headers: { 'Content-Type': 'text/plain' } }).subscribe(
         (res: any) => {
           let tourAoVivo: Tour = new Tour();
-          // tslint:disable-next-line: forin
-          for (const tour in res.tour) {
-            tourAoVivo = this.montarObjTour(tour, res.tours);
-          }
+          tourAoVivo = this.montarObjTourAgora(res.tour);
           this.authService.tourMatch.latitude = tourAoVivo.latitude;
           this.authService.tourMatch.longitude = tourAoVivo.longitude;
           this.authService.tourMatch.walkerName = tourAoVivo.walkerName;
+          this.authService.tourMatch.walker_id = tourAoVivo.walker_id;
           this.loadingService.fecharLoading();
           this.router.navigate(['/tabs/passeioTab/passeio-encontrado']);
         },

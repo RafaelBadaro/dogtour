@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 declare var google;
 
@@ -24,10 +25,9 @@ export class PasseioEncontradoComponent implements OnInit {
 
 
   constructor(public authService: AuthService, private geolocation: Geolocation,
-    private http: HttpClient) { }
+              private http: HttpClient,   private router: Router) { }
 
   ngOnInit() {
-    this.initializeMap();
     this.geolocation.getCurrentPosition()
       .then((resp) => {
         const position = new google.maps.LatLng(resp.coords.latitude, resp.coords.longitude);
@@ -37,20 +37,14 @@ export class PasseioEncontradoComponent implements OnInit {
         const mapOptions = {
           zoom: 18,
           center: position
-        }
+        };
 
         this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-        //  const marker = new google.maps.Marker({
-        //    position: position,
-        //    map: this.map
-        //  });
-
-
-
+        this.initializeMap();
       }).catch((error) => {
         console.log('Erro ao recuperar sua posição', error);
       });
+
   }
 
   initializeMap() {
@@ -60,7 +54,7 @@ export class PasseioEncontradoComponent implements OnInit {
       zoom: 18,
       center: this.startPosition,
       disableDefaultUI: true
-    }
+    };
 
     this.map = new google.maps.Map(document.getElementById('map'), mapOptions);
     this.directionsDisplay.setMap(this.map);
@@ -71,7 +65,7 @@ export class PasseioEncontradoComponent implements OnInit {
     });
 
     const markerOther = new google.maps.Marker({
-      position: new google.maps.LatLng(this.authService.tourMatch.latitude, this.authService.tourMatch.longitude),
+      position: new google.maps.LatLng(+this.authService.tourMatch.latitude, +this.authService.tourMatch.longitude),
       map: this.map
     });
 
@@ -87,7 +81,7 @@ export class PasseioEncontradoComponent implements OnInit {
         // Pode ser uma coordenada (LatLng), uma string ou um lugar
         origin: this.originPosition,
         destination: this.destinationPosition,
-        travelMode: 'DRIVING'
+        travelMode: 'WALKING'
       };
 
       this.traceRoute(this.directionsService, this.directionsDisplay, request);
@@ -95,7 +89,7 @@ export class PasseioEncontradoComponent implements OnInit {
   }
 
   traceRoute(service: any, display: any, request: any) {
-    service.route(request, function (result, status) {
+    service.route(request, function(result, status) {
       if (status == 'OK') {
         display.setDirections(result);
       }
@@ -105,7 +99,7 @@ export class PasseioEncontradoComponent implements OnInit {
 
 
   public cancelar() {
-
+    this.router.navigate(['/tabs/passeioTab']);
   }
 
 }
