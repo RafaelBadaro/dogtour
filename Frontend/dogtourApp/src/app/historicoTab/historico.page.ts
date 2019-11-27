@@ -36,14 +36,17 @@ export class HistoricoPage implements OnInit {
             // tslint:disable-next-line: forin
             for (const tour in res.tours) {
               const tourCompletado = new Tour();
+              tourCompletado.tour_id = tour;
               tourCompletado.day = res.tours[tour].day;
-              tourCompletado.dog_id = res.tours[tour].dog_id;
               tourCompletado.latitude = res.tours[tour].latitude;
               tourCompletado.longitude = res.tours[tour].longitude;
-              tourCompletado.owner_id = res.tours[tour].owner_id;
+              tourCompletado.owner_id = res.tours[tour].owner.user_id;
+              tourCompletado.ownerName = res.tours[tour].owner.name;
+              tourCompletado.dogName = res.tours[tour].dog.name;
               tourCompletado.status = res.tours[tour].status;
               tourCompletado.time = res.tours[tour].time;
-              tourCompletado.walker_id = res.tours[tour].walker_id;
+              tourCompletado.walker_id = res.tours[tour].walker.user_id;
+              tourCompletado.walkerName = res.tours[tour].walker.name;
               const jaExiste = this.toursCompletados.find((ta) => {
                 return ta.day === tourCompletado.day && ta.time === tourCompletado.time;
               });

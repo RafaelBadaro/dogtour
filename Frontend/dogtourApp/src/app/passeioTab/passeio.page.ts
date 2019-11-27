@@ -125,36 +125,7 @@ export class PasseioPage implements OnInit {
       // Verifica se tem algum Tour agendado aguardando confirmacao
       this.http.get(constantes.textos.URL_API + '/api/user/' + this.authService.getToken() + '/tours').subscribe(
         (res: any) => {
-          if (res.tours !== undefined && Object.entries(res.tours).length > 0 && !this.tourPedidoNaHora(res)) {
-            this.passeioAgendado = true;
-            let jaPassou = false;
-            // TODO POR FAVOR MUDAR ISSO
-            for (const tour in res.tours) {
-              if (!jaPassou) {
-                this.tourAgendado.day = res.tours[tour].day;
-                this.tourAgendado.dog_id = res.tours[tour].dog_id;
-                this.tourAgendado.latitude = res.tours[tour].latitude;
-                this.tourAgendado.longitude = res.tours[tour].longitude;
-                this.tourAgendado.owner_id = res.tours[tour].owner_id;
-                this.tourAgendado.status = res.tours[tour].status;
-                this.tourAgendado.time = res.tours[tour].time;
-                this.tourAgendado.walker_id = res.tours[tour].walker_id;
-                const jaExiste = this.toursAgendados.find((ta) => {
-                  return ta.day === this.tourAgendado.day && ta.time === this.tourAgendado.time;
-                });
-                if (jaExiste === undefined) {
-                  this.toursAgendados.push(this.tourAgendado);
-                }
-
-                jaPassou = true;
-              }
-            }
-
-            this.passeador.setValue(this.passeadores.find(p => p.idUser === this.tourAgendado.walker_id));
-            const horario = new Horario();
-            horario.diaDaSemana = this.tourAgendado.day;
-            horario.hora = this.tourAgendado.time;
-            this.horario.setValue(horario);
+          if (res.tours !== undefined && Object.entries(res.tours).length > 0) {
 
             if (this.authService.usuarioDono) {
               this.montarToursDono(res);
@@ -177,15 +148,6 @@ export class PasseioPage implements OnInit {
     }
   }
 
-  private tourPedidoNaHora(res: any): boolean {
-    const tours: Tour[] = [];
-    // tslint:disable-next-line: forin
-    for (const tour in res.tours) {
-      tours.push(this.montarObjTour(tour, res.tours));
-    }
-
-    return tours.find(t => t.walker_id !== undefined) !== undefined;
-  }
 
   private montarToursDono(res: any) {
 
@@ -194,31 +156,14 @@ export class PasseioPage implements OnInit {
     for (const tour in res.tours) {
       toursDono.push(this.montarObjTour(tour, res.tours));
     }
-    const tourAguardando = toursDono.find(tourDono => tourDono.walker_id !== ''
-      && tourDono.status === StatusTour.Aguardando_Confirmacao);
+    const tourAguardando = toursDono.find(tourDono => tourDono.status === StatusTour.Aguardando_Confirmacao);
 
-    const tourConfirmado = toursDono.find(tourDono => tourDono.walker_id !== '' &&
-      tourDono.status === StatusTour.Confirmado);
+    const tourConfirmado = toursDono.find(tourDono => tourDono.status === StatusTour.Confirmado);
 
-    const tourCancelado = toursDono.find(tourDono => tourDono.walker_id !== '' &&
-      tourDono.status === StatusTour.Cancelado);
+    const tourCancelado = toursDono.find(tourDono => tourDono.status === StatusTour.Cancelado);
 
-    if (tourAguardando !== undefined) {
-      this.tourAguardandoConfirmacao = tourAguardando;
-      this.passeioAgendado = true;
 
-      this.passeador.setValue(this.passeadores.find(p => p.idUser === this.tourAguardandoConfirmacao.walker_id));
-
-      const horario = new Horario();
-      horario.diaDaSemana = this.tourAguardandoConfirmacao.day;
-      horario.hora = this.tourAguardandoConfirmacao.time;
-      this.horario.setValue(horario);
-
-      this.cachorroAgendamento
-        .setValue(this.authService.usuarioAuth.dogs
-          .find(d => d.idDog === this.tourAguardandoConfirmacao.dog_id));
-
-    } else if (tourConfirmado !== undefined) {
+    if (tourConfirmado !== undefined) {
       this.tourAgendado = tourConfirmado;
       this.passeioConfirmado = true;
       this.passeioAgendado = true;
@@ -232,7 +177,22 @@ export class PasseioPage implements OnInit {
 
       this.cachorroAgendamento
         .setValue(this.authService.usuarioAuth.dogs
-          .find(d => d.idDog === this.tourAgendado.dog_id));
+          .find(d => d.name === this.tourAgendado.dogName));
+
+    } else if (tourAguardando !== undefined) {
+      this.tourAguardandoConfirmacao = tourAguardando;
+      this.passeioAgendado = true;
+
+      this.passeador.setValue(this.passeadores.find(p => p.idUser === this.tourAguardandoConfirmacao.walker_id));
+
+      const horario = new Horario();
+      horario.diaDaSemana = this.tourAguardandoConfirmacao.day;
+      horario.hora = this.tourAguardandoConfirmacao.time;
+      this.horario.setValue(horario);
+
+      this.cachorroAgendamento
+        .setValue(this.authService.usuarioAuth.dogs
+          .find(d => d.name === this.tourAguardandoConfirmacao.dogName));
 
     } else if (tourCancelado !== undefined) {
       this.passeioConfirmado = false;
