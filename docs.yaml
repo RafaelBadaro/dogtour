@@ -1,0 +1,104 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Omnilogic TTS API
+  description: Generates audio in the target voice corresponding to the input text 
+servers:
+  - url: http://192.168.1.198:5000
+tags:
+  - name: TTS Endpoints
+paths:
+  /generate:
+    post:
+      tags:
+        - TTS Endpoints
+      description: Synthesises audio in target voice given input text
+      operationId: generate
+      requestBody:
+        description: All properties are optional. If none are provided, defaults will be used.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleTTS'
+      responses:
+        '200':
+          description: audio file
+          content:
+            audio/x-wav:
+              schema:
+                $ref: ''
+  /generate-multi-tts:
+    post:
+      tags:
+        - TTS Endpoints
+      description: Synthesises multiple audio files given target voice and input text. Uses all available Tacotron weights.
+      operationId: generate-multi-tts
+      requestBody:
+        description: All properties are optional. If none are provided, defaults will be used.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MultiTTS'
+      responses:
+        '200':
+          description: zip file
+          content:
+            application/zip:
+              schema:
+                $ref: ''
+components:
+  schemas:
+    SingleTTS:
+      type: object  
+      properties:
+        input_text:
+          type: string
+          example: Eu sou uma rede neural.
+        voc_batched:
+          type: number
+          example: 0 (False), 1 (True)
+        target_voice:
+          type: string
+          example: EMMA, DLUIZA
+        voc_overlap:
+          type: number
+          example: 1_000
+        pitch_shift:
+          type: number
+          example: -0.2
+        time_stretch:
+          type: number
+          example: 0.8
+          minimum: 0
+        voc_target:
+          type: number
+          example: 1_000     
+
+    MultiTTS:
+      type: object  
+      properties:
+        input_text:
+          title: input text to be synthesized
+          type: string
+          example: Eu sou uma rede neural.
+        voc_batched:
+          type: integer
+          example: 0 (False), 1 (True)
+        target_voice:
+          type: string
+          example: EMMA, DLUIZA
+        voc_overlap:
+          type: integer
+          example: 1_000
+        pitch_shift:
+          type: number
+          example: -0.2
+        time_stretch:
+          type: number
+          example: 0.8
+          minimum: 0
+        voc_target:
+          type: integer
+          example: 1_000
